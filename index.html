@@ -1,188 +1,866 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Website Design</title>
-    
-    <!-- Boxicons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tefo — Power Platform Consultant & Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #181818;
+    --border: #222222;
+    --accent: #f0c040;
+    --accent2: #ff6b35;
+    --text: #e8e8e8;
+    --muted: #666;
+    --green: #39d353;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+  }
+
+  /* SCANLINES */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  /* GRID BACKGROUND */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(240,192,64,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,192,64,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px 80px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+
+  .hero-tag::before {
+    content: '▶ ';
+    opacity: 0.6;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 8vw, 110px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+
+  h1 .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--accent);
+  }
+
+  .hero-desc {
+    max-width: 520px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+  }
+
+  .btn-primary {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .btn-ghost {
+    border-color: var(--border);
+    color: var(--muted);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.8s forwards;
+  }
+
+  .stat {
+    flex: 1;
+    padding: 32px 0;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .section-num {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1;
+  }
+
+  /* SKILLS */
+  #skills {
+    padding: 100px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .skill-card {
+    background: var(--surface);
+    padding: 32px;
+    transition: background 0.2s;
+  }
+
+  .skill-card:hover { background: var(--surface2); }
+
+  .skill-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .skill-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .skill-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .tag-accent {
+    border-color: rgba(240,192,64,0.4);
+    color: var(--accent);
+  }
+
+  /* CERTS */
+  .certs-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 40px;
+  }
+
+  .cert-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid rgba(240,192,64,0.25);
+    background: rgba(240,192,64,0.04);
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  .cert-badge::before {
+    content: '✦';
+    font-size: 10px;
+    opacity: 0.6;
+  }
+
+  /* PROJECTS */
+  #projects {
+    padding: 100px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .project-card:hover::before { opacity: 1; }
+
+  .project-num {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .project-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+
+  .project-link {
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid rgba(240,192,64,0.3);
+    padding-bottom: 2px;
+    transition: gap 0.2s;
+  }
+
+  .project-link:hover { gap: 10px; }
+
+  /* TRADING */
+  #trading {
+    padding: 100px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trading-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .trading-card {
+    background: var(--surface);
+    padding: 40px;
+  }
+
+  .trading-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .trading-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .trading-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .indicators {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .indicator {
+    font-size: 10px;
+    padding: 4px 10px;
+    background: rgba(57,211,83,0.08);
+    border: 1px solid rgba(57,211,83,0.25);
+    color: var(--green);
+    letter-spacing: 0.05em;
+  }
+
+  /* CONTACT */
+  #contact {
+    padding: 100px 48px;
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-big {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .contact-big span {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent);
+  }
+
+  .contact-sub {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    padding-left: 28px;
+  }
+
+  .contact-link-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+
+  /* STATUS DOT */
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--green);
+    margin-bottom: 32px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(57,211,83,0.4); }
+    50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(57,211,83,0); }
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero, #skills, #projects, #trading, #contact { padding: 80px 24px; }
+    .stats-bar { flex-direction: column; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .trading-grid { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
 </head>
-
 <body>
-    <!-- Header Design -->
-    <header class="header">
-        <a href="#" class="logo">Portfolio</a>
-        <i class='bx bx-menu' id="menu-icon"></i>
-        <nav class="navbar">
-            <a href="#home" class="active">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">My Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
 
-    <!-- Home Section Design -->
-    <section class="home" id="home">
-        <div class="home-content">
-            <h3>Hello, It's Me</h3>
-            <h1>Tefo Given Radebe</h1>
-            <h3>IT | Blockchain Tech | Power Platform Developer | Power Platform Functional Consultant | Dynamics 365 Sales | Software Development</h3>
-            <p>As an IT professional with a solid foundation in IT and ICT, I am self-motivated and continuously eager to learn new skills and technologies. My technical expertise, combined with strong interpersonal skills, makes me a versatile candidate for various roles in IT-oriented industries. Passionate about technology, I am driven to excel and contribute effectively in any professional setting.</p>
-            <div class="social-media">
-                <a href="https://github.com/GeeRadebe" target="_blank"><i class='bx bxl-github'></i></a>
-                <a href="https://www.linkedin.com/in/geeradebe" target="_blank"><i class='bx bxl-linkedin'></i></a>
-                <a href="#"><i class='bx bxl-facebook'></i></a>
-                <a href="#"><i class='bx bxl-twitter'></i></a>
-                <a href="#"><i class='bx bxl-instagram-alt'></i></a>
-            </div>
-            <a href="#" class="btn">Download CV</a>
-        </div>
-        <div class="home-img">
-            <img src="images/home.jpg" alt="">
-        </div>
-    </section>
+<div class="grid-bg"></div>
 
-    <!-- About Section Design -->
-    <section class="about" id="about">
-        <div class="about-image">
-            <img src="images/about.jpg" alt="">
-        </div>
-        <div class="about-content">
-            <h2 class="heading">About <span>Me</span></h2>
-            <h3>Licenses & Certifications</h3>
-            <ul>
-                <li>Auditing Generative AI: Strategy, Analysis & Risk Mitigation - ISACA (Issued Nov 2024)</li>
-                <li>Business Analysis Fundamentals - Microsoft</li>
-                <li>Advanced Diploma in Cloud Computing for Amazon Web Services - Alison</li>
-                <li>Create and manage automated processes by using Power Automate - Microsoft</li>
-                <li>Create and manage canvas apps with Power Apps - Microsoft</li>
-                <li>Diploma in DevOps Engineering - Kubernetes, Docker and Google Cloud - Alison</li>
-                <li>Diploma in Kubernetes Administration - Alison</li>
-                <li>Introduction to Kali Linux Basics - Simplilearn</li>
-                <li>Microsoft Certified: Power Platform Developer Associate - Microsoft</li>
-                <li>Thinking Like an Analyst - Maven Analytics</li>
-                <li>Introduction to MATLAB - Simplilearn</li>
-                <li>Create and manage model-driven apps with Power Apps and Dataverse - Microsoft</li>
-                <li>DevOps Fundamentals - Alison</li>
-                <li>Introduction to Google Cloud Platform - Simplilearn</li>
-                <li>Microsoft Azure Administrator - Alison</li>
-                <li>Microsoft Certified: Power Platform Functional Consultant Associate - Microsoft</li>
-                <li>Project Management: The Basics - Alison</li>
-                <li>Python Certification Course - Simplilearn</li>
-                <li>Python Foundations for Data Analysis - Maven Analytics</li>
-                <li>Blockchain as a Service Using AWS - Alison</li>
-                <li>Creating an Ethereum Blockchain using Solidity - Alison</li>
-                <li>Cardano Blockchain Certified Associate - Academia</li>
-                <li>Cryptocurrency - Alison</li>
-                <li>CS120: Bitcoin for Developers I - Saylor Academy</li>
-            </ul>
-            <a href="#" class="btn">Read More</a>
-        </div>
-    </section>
+<nav>
+  <div class="nav-logo">T.M</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#trading">Trading</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-    <!-- Services Design -->
-    <section class="services" id="My services">
-        <h2 class="heading">My <span>Services</span></h2>
-        <div class="services-container">
-            <div class="services-box">
-                <i class='bx bx-code-alt'></i>
-                <h3>Power Platform Functional Consultant (Pl-200)</h3>
-                <p>Details about the service.</p>
-                <a href="#" class="btn">Read More</a>
-            </div>
-            <div class="services-box">
-                <i class='bx bxs-paint'></i>
-                <h3>Power Platform Developer (Pl-400)</h3>
-                <p>Details about the service.</p>
-                <a href="#" class="btn">Read More</a>
-            </div>
-            <div class="services-box">
-                <i class='bx bx-bar-chart-alt'></i>
-                <h3>Dynamics 365 Sales Functional Consultant</h3>
-                <p>Details about the service.</p>
-                <a href="#" class="btn">Read More</a>
-            </div>
-            <div class="services-box">
-                <i class='bx bx-bar-chart-alt'></i>
-                <h3>Microsoft Power Platform Developer</h3>
-                <p>Details about the service.</p>
-                <a href="#" class="btn">Read More</a>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-tag">Power Platform Consultant & Builder — Johannesburg, ZA</p>
+  <h1>
+    FUNCTIONAL<br>
+    <span class="line2">CONSULTANT</span><br>
+    WHO BUILDS.
+  </h1>
+  <p class="hero-desc">
+    PL-600 · PL-200 · MB-210 certified. I bridge the gap between business process and technical execution — Canvas & Model-Driven Apps, Power Automate, JavaScript. Currently open to internships and learnerships.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn btn-primary">View Projects →</a>
+    <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+  </div>
 
-    <!-- Portfolio Section Design -->
-    <section class="portfolio" id="portfolio">
-        <h2 class="heading">Latest <span>Projects</span></h2>
-        <div class="portfolio-container">
-            <div class="portfolio-box">
-                <img src="images/project1.jpg" alt="">
-                <div class="portfolio-layer">
-                    <h4>Blockchains Dapps</h4>
-                    <p>Details about the project.</p>
-                    <a href="#"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/project2.png" alt="">
-                <div class="portfolio-layer">
-                    <h4>Website Design</h4>
-                    <p>Details about the project.</p>
-                    <a href="#"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/project3.png" alt="">
-                <div class="portfolio-layer">
-                    <h4>Digital Marketing</h4>
-                    <p>Details about the project.</p>
-                    <a href="#"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/project4.jpg" alt="">
-                <div class="portfolio-layer">
-                    <h4>Digital Marketing</h4>
-                    <p>Details about the project.</p>
-                    <a href="#"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/project5.png" alt="">
-                <div class="portfolio-layer">
-                    <h4>Digital Marketing</h4>
-                    <p>Details about the project.</p>
-                    <a href="#"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="images/project6.png" alt="">
-                <div class="portfolio-layer">
-                    <h4>Digital Marketing</h4>
-                    <p>Details about the project.</p>
-                    <a href="#"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">MS Certifications</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">2</span>
+      <span class="stat-label">Active Projects</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">BSc</span>
+      <span class="stat-label">IT · Richfield</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Always Building</span>
+    </div>
+  </div>
+</section>
 
-    <!-- Contact Section Design -->
-    <section class="contact" id="contact">
-        <h2 class="heading">Contact <span>Me!</span></h2>
-        <form action="#">
-            <div class="input-box">
-                <input type="text" placeholder="Full name">
-                <input type="email" placeholder="Email Address">
-            </div>
-            <div class="input-box">
-                <input type="number" placeholder="Mobile Number">
-                <input type="text" placeholder="Email Subject">
-            </div>
-            <textarea name="" id="" cols="30" rows
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-num">01 /</span>
+    <h2>SKILLS &amp; CERTS</h2>
+  </div>
+
+  <div class="skills-grid reveal">
+    <div class="skill-card">
+      <span class="skill-icon">⚡</span>
+      <div class="skill-title">Power Platform</div>
+      <div class="skill-desc">Canvas Apps, Model-Driven Apps, Power Automate flows, Dataverse schema design, and component libraries.</div>
+      <div class="skill-tags">
+        <span class="tag tag-accent">Canvas Apps</span>
+        <span class="tag tag-accent">Model-Driven</span>
+        <span class="tag tag-accent">Power Automate</span>
+        <span class="tag">Dataverse</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🖥</span>
+      <div class="skill-title">JavaScript & Frontend</div>
+      <div class="skill-desc">Vanilla JS, React, Electron.js for desktop apps, SQLite persistence, IPC architecture, and contextBridge security.</div>
+      <div class="skill-tags">
+        <span class="tag tag-accent">React</span>
+        <span class="tag tag-accent">Electron.js</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">Node.js</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🔗</span>
+      <div class="skill-title">CRM & Sales</div>
+      <div class="skill-desc">Dynamics 365 Sales configuration, lead pipeline automation, MB-210 certified functional consultant.</div>
+      <div class="skill-tags">
+        <span class="tag tag-accent">Dynamics 365</span>
+        <span class="tag">MB-210</span>
+        <span class="tag">CRM</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🛡</span>
+      <div class="skill-title">Cybersecurity (In Progress)</div>
+      <div class="skill-desc">Pursuing SASSETA-funded Honours in Cybersecurity. Interest in application security and credential management.</div>
+      <div class="skill-tags">
+        <span class="tag">Honours — In Progress</span>
+        <span class="tag">AppSec</span>
+        <span class="tag">Encryption</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="certs-row reveal">
+    <div class="cert-badge">PL-600 — Power Platform Solution Architect</div>
+    <div class="cert-badge">PL-200 — Power Platform Functional Consultant</div>
+    <div class="cert-badge">MB-210 — Dynamics 365 Sales</div>
+    <div class="cert-badge">BSc IT — Richfield</div>
+    <div class="cert-badge">End User Computing — Maluti TVET</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">02 /</span>
+    <h2>PROJECTS</h2>
+  </div>
+
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT 001</div>
+      <div class="project-title">LinkedOut</div>
+      <div class="project-desc">
+        Local-first Electron.js desktop app for job market navigation. Multi-source job aggregation (Remotive, Adzuna ZA), ATS tracking, auto-apply, and encrypted credential management with machine-derived keys.
+      </div>
+      <div class="project-stack">
+        <span class="tag tag-accent">Electron.js</span>
+        <span class="tag tag-accent">SQLite</span>
+        <span class="tag">React</span>
+        <span class="tag">contextBridge</span>
+        <span class="tag">electron-store</span>
+        <span class="tag">Promise.allSettled</span>
+      </div>
+      <a href="https://github.com/tefo-m" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT 002</div>
+      <div class="project-title">SatStockvel</div>
+      <div class="project-desc">
+        Bitcoin-denominated rotating payout stokvel — an African savings model built for the crypto era. React dashboard with per-member BTC accumulation curves, payout rotation, live BTC price ticker, and ROI tracking.
+      </div>
+      <div class="project-stack">
+        <span class="tag tag-accent">React</span>
+        <span class="tag tag-accent">Recharts</span>
+        <span class="tag">Bitcoin</span>
+        <span class="tag">Stokvel Model</span>
+        <span class="tag">Dark UI</span>
+      </div>
+      <a href="https://github.com/tefo-m" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRADING -->
+<section id="trading">
+  <div class="section-header reveal">
+    <span class="section-num">03 /</span>
+    <h2>MARKETS</h2>
+  </div>
+
+  <div class="trading-grid reveal">
+    <div class="trading-card">
+      <div class="trading-label">Active Trading</div>
+      <div class="trading-title">Forex &amp; Crypto</div>
+      <div class="trading-desc">
+        Technical analysis driven. Price action with SMC framework, confirmed by momentum and trend indicators. Disciplined risk management on every position.
+      </div>
+      <div class="indicators">
+        <span class="indicator">RSI</span>
+        <span class="indicator">MACD</span>
+        <span class="indicator">SMC</span>
+        <span class="indicator">Price Action</span>
+        <span class="indicator">BTC/USD</span>
+      </div>
+    </div>
+    <div class="trading-card">
+      <div class="trading-label">Long-Term Investing</div>
+      <div class="trading-title">Dividend &amp; ETF Strategy</div>
+      <div class="trading-desc">
+        Satrix DIVI for consistent dividend yield. ETF allocation inspired by the stokvel model — collective, systematic, compounding. Building generational wealth, ZAR-denominated.
+      </div>
+      <div class="indicators">
+        <span class="indicator">Satrix DIVI</span>
+        <span class="indicator">ETF</span>
+        <span class="indicator">Stokvel Model</span>
+        <span class="indicator">Dividends</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="status">
+        <span class="dot"></span>
+        Available for opportunities
+      </div>
+      <div class="contact-big">LET'S<br><span>CONNECT</span></div>
+      <p class="contact-sub">
+        Internships, learnerships, freelance Power Platform work — I'm building in public and open to the right opportunity. Drop a message.
+      </p>
+    </div>
+    <div class="contact-links reveal">
+      <a href="https://linkedin.com/in/tefo-m" target="_blank" class="contact-link">
+        <span>LinkedIn</span>
+        <span class="contact-link-label">Professional ↗</span>
+      </a>
+      <a href="https://github.com/tefo-m" target="_blank" class="contact-link">
+        <span>GitHub</span>
+        <span class="contact-link-label">Code ↗</span>
+      </a>
+      <a href="https://x.com/tefo_m" target="_blank" class="contact-link">
+        <span>X / Twitter</span>
+        <span class="contact-link-label">Social ↗</span>
+      </a>
+      <a href="mailto:tefo@email.com" class="contact-link">
+        <span>Email</span>
+        <span class="contact-link-label">Direct ↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Tefo M. — Power Platform Consultant &amp; Builder</span>
+  <span>Johannesburg, ZA · Built with intention.</span>
+</footer>
+
+<script>
+  // Intersection Observer for reveal animations
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
