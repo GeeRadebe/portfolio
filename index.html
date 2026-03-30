@@ -31,7 +31,6 @@
     overflow-x: hidden;
   }
 
-  /* NOISE OVERLAY */
   body::before {
     content: '';
     position: fixed;
@@ -42,7 +41,6 @@
     opacity: 0.35;
   }
 
-  /* SCANLINES */
   body::after {
     content: '';
     position: fixed;
@@ -52,7 +50,6 @@
     z-index: 9998;
   }
 
-  /* GRID BACKGROUND */
   .grid-bg {
     position: fixed;
     inset: 0;
@@ -64,7 +61,6 @@
     z-index: 0;
   }
 
-  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -103,13 +99,11 @@
 
   .nav-links a:hover { color: var(--accent); }
 
-  /* SECTIONS */
   section {
     position: relative;
     z-index: 1;
   }
 
-  /* HERO */
   #hero {
     min-height: 100vh;
     display: flex;
@@ -203,7 +197,6 @@
     color: var(--text);
   }
 
-  /* STATS BAR */
   .stats-bar {
     display: flex;
     gap: 0;
@@ -238,7 +231,6 @@
     text-transform: uppercase;
   }
 
-  /* SECTION HEADERS */
   .section-header {
     display: flex;
     align-items: baseline;
@@ -260,7 +252,6 @@
     line-height: 1;
   }
 
-  /* SKILLS */
   #skills {
     padding: 100px 48px;
     border-bottom: 1px solid var(--border);
@@ -322,7 +313,6 @@
     color: var(--accent);
   }
 
-  /* CERTS */
   .certs-row {
     display: flex;
     flex-wrap: wrap;
@@ -347,7 +337,6 @@
     opacity: 0.6;
   }
 
-  /* PROJECTS */
   #projects {
     padding: 100px 48px;
     border-bottom: 1px solid var(--border);
@@ -431,7 +420,6 @@
 
   .project-link:hover { gap: 10px; }
 
-  /* TRADING */
   #trading {
     padding: 100px 48px;
     border-bottom: 1px solid var(--border);
@@ -487,7 +475,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* CONTACT */
   #contact {
     padding: 100px 48px;
   }
@@ -551,7 +538,6 @@
     color: var(--muted);
   }
 
-  /* STATUS DOT */
   .status {
     display: flex;
     align-items: center;
@@ -574,7 +560,6 @@
     50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(57,211,83,0); }
   }
 
-  /* FOOTER */
   footer {
     border-top: 1px solid var(--border);
     padding: 24px 48px;
@@ -588,7 +573,6 @@
     z-index: 1;
   }
 
-  /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -605,7 +589,6 @@
     transform: translateY(0);
   }
 
-  /* MOBILE */
   @media (max-width: 768px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
@@ -623,7 +606,7 @@
 <div class="grid-bg"></div>
 
 <nav>
-  <div class="nav-logo">T.M</div>
+  <div class="nav-logo">T.R</div>
   <ul class="nav-links">
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
@@ -641,7 +624,7 @@
     WHO BUILDS.
   </h1>
   <p class="hero-desc">
-    PL-600 · PL-200 · MB-210 certified. I bridge the gap between business process and technical execution — Canvas & Model-Driven Apps, Power Automate, JavaScript. Currently open to internships and learnerships.
+    PL-400 · PL-200 · MB-210 certified. I bridge the gap between business process and technical execution — Canvas & Model-Driven Apps, Power Automate, JavaScript. Currently open to internships and learnerships.
   </p>
   <div class="hero-actions">
     <a href="#projects" class="btn btn-primary">View Projects →</a>
@@ -654,7 +637,7 @@
       <span class="stat-label">MS Certifications</span>
     </div>
     <div class="stat">
-      <span class="stat-num">2</span>
+      <span class="stat-num">3</span>
       <span class="stat-label">Active Projects</span>
     </div>
     <div class="stat">
@@ -721,7 +704,7 @@
   </div>
 
   <div class="certs-row reveal">
-    <div class="cert-badge">PL-600 — Power Platform Solution Architect</div>
+    <div class="cert-badge">PL-400 — Power Platform Developer</div>
     <div class="cert-badge">PL-200 — Power Platform Functional Consultant</div>
     <div class="cert-badge">MB-210 — Dynamics 365 Sales</div>
     <div class="cert-badge">BSc IT — Richfield</div>
@@ -739,6 +722,21 @@
   <div class="projects-grid">
     <div class="project-card reveal">
       <div class="project-num">PROJECT 001</div>
+      <div class="project-title">T⁴Tech Solutions</div>
+      <div class="project-desc">
+        My own tech company. Power Platform consulting, custom app development, and digital transformation for businesses. Building the bridge between African enterprise needs and modern low-code/pro-code solutions.
+      </div>
+      <div class="project-stack">
+        <span class="tag tag-accent">Power Platform</span>
+        <span class="tag tag-accent">Consulting</span>
+        <span class="tag">Dynamics 365</span>
+        <span class="tag">Custom Dev</span>
+      </div>
+      <a href="https://github.com/GeeRadebe" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT 002</div>
       <div class="project-title">LinkedOut</div>
       <div class="project-desc">
         Local-first Electron.js desktop app for job market navigation. Multi-source job aggregation (Remotive, Adzuna ZA), ATS tracking, auto-apply, and encrypted credential management with machine-derived keys.
@@ -749,13 +747,12 @@
         <span class="tag">React</span>
         <span class="tag">contextBridge</span>
         <span class="tag">electron-store</span>
-        <span class="tag">Promise.allSettled</span>
       </div>
-      <a href="https://github.com/tefo-m" target="_blank" class="project-link">View on GitHub →</a>
+      <a href="https://github.com/GeeRadebe" target="_blank" class="project-link">View on GitHub →</a>
     </div>
 
     <div class="project-card reveal">
-      <div class="project-num">PROJECT 002</div>
+      <div class="project-num">PROJECT 003</div>
       <div class="project-title">SatStockvel</div>
       <div class="project-desc">
         Bitcoin-denominated rotating payout stokvel — an African savings model built for the crypto era. React dashboard with per-member BTC accumulation curves, payout rotation, live BTC price ticker, and ROI tracking.
@@ -765,9 +762,8 @@
         <span class="tag tag-accent">Recharts</span>
         <span class="tag">Bitcoin</span>
         <span class="tag">Stokvel Model</span>
-        <span class="tag">Dark UI</span>
       </div>
-      <a href="https://github.com/tefo-m" target="_blank" class="project-link">View on GitHub →</a>
+      <a href="https://github.com/GeeRadebe" target="_blank" class="project-link">View on GitHub →</a>
     </div>
   </div>
 </section>
@@ -824,11 +820,11 @@
       </p>
     </div>
     <div class="contact-links reveal">
-      <a href="https://linkedin.com/in/tefo-m" target="_blank" class="contact-link">
+      <a href="https://linkedin.com/in/tefo-radebe" target="_blank" class="contact-link">
         <span>LinkedIn</span>
         <span class="contact-link-label">Professional ↗</span>
       </a>
-      <a href="https://github.com/tefo-m" target="_blank" class="contact-link">
+      <a href="https://github.com/GeeRadebe" target="_blank" class="contact-link">
         <span>GitHub</span>
         <span class="contact-link-label">Code ↗</span>
       </a>
@@ -845,12 +841,11 @@
 </section>
 
 <footer>
-  <span>© 2025 Tefo M. — Power Platform Consultant &amp; Builder</span>
+  <span>© 2025 Tefo Radebe Given — Power Platform Consultant &amp; Builder</span>
   <span>Johannesburg, ZA · Built with intention.</span>
 </footer>
 
 <script>
-  // Intersection Observer for reveal animations
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
