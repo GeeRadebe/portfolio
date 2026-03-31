@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T⁴Tech | Pricing Engine v1.5</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --ink: #0D0D0D; --paper: #F5F2ED; --red: #D63030; --gold: #C9A84C;
+    --rule: #D0CAC0; --surface: #EDEAE3; --mono: 'DM Mono', monospace; --sans: 'Syne', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); min-height: 100vh; overflow-x: hidden; }
+  header { background: var(--ink); padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--red); }
+  .logo { font-weight: 800; font-size: 1.1rem; color: #fff; }
+  .logo sup { color: var(--red); font-size: .65em; }
+  .ver { font-family: var(--mono); font-size: .6rem; color: #555; letter-spacing: .1em; text-transform: uppercase; }
+  main { max-width: 980px; margin: 0 auto; padding: 36px 20px 80px; }
+  h1 { font-size: clamp(1.8rem,5vw,3rem); font-weight: 800; line-height: 1.05; letter-spacing: -.02em; margin-bottom: 4px; }
+  h1 span { color: var(--red); }
+  .sub { font-family: var(--mono); font-size: .7rem; color: #888; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 32px; }
+  .formula-bar { background: var(--ink); border-radius: 6px; padding: 14px 20px; margin-bottom: 28px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .fl { font-family: var(--mono); font-size: .6rem; color: #555; text-transform: uppercase; letter-spacing: .1em; }
+  .fe { font-family: var(--mono); font-size: .85rem; color: var(--gold); }
+  .fe .v { color: var(--red); } .fe .o { color: #555; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+  @media(max-width:580px){ .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--surface); border: 1.5px solid var(--rule); border-radius: 6px; padding: 18px; transition: border-color .2s; animation: fadeUp .4s ease both; }
+  .card:focus-within { border-color: var(--red); }
+  .card:nth-child(1){animation-delay:.05s} .card:nth-child(2){animation-delay:.1s} .card:nth-child(3){animation-delay:.15s} .card:nth-child(4){animation-delay:.2s} .card:nth-child(5){animation-delay:.25s}
+  .clabel { font-family: var(--mono); font-size: .58rem; text-transform: uppercase; letter-spacing: .12em; color: #888; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .vbadge { background: var(--red); color: #fff; font-size: .52rem; font-weight: 700; padding: 1px 5px; border-radius: 2px; }
+  .ctitle { font-size: .95rem; font-weight: 700; margin-bottom: 12px; }
+  .niw { display: flex; align-items: center; background: #fff; border: 1.5px solid var(--rule); border-radius: 4px; overflow: hidden; }
+  .npfx { padding: 9px 11px; font-family: var(--mono); font-size: .75rem; color: #888; background: var(--surface); border-right: 1px solid var(--rule); }
+  .niw input[type=number] { border: none; outline: none; padding: 9px 11px; font-family: var(--mono); font-size: .95rem; font-weight: 500; color: var(--ink); background: #fff; width: 100%; -moz-appearance: textfield; }
+  input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+  input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; background: var(--rule); border-radius: 2px; outline: none; margin: 10px 0 6px; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 17px; height: 17px; background: var(--red); border-radius: 50%; cursor: pointer; transition: transform .15s; }
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  .rlabels { display: flex; justify-content: space-between; font-family: var(--mono); font-size: .58rem; color: #aaa; }
+  .rval { font-family: var(--mono); font-size: 1.05rem; font-weight: 500; color: var(--ink); margin-top: 4px; }
+  .cxgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 4px; }
+  .cxopt { cursor: pointer; border: 1.5px solid var(--rule); border-radius: 4px; padding: 9px 4px; text-align: center; transition: all .15s; background: #fff; }
+  .cxopt:hover { border-color: var(--red); }
+  .cxopt.active { border-color: var(--red); background: var(--red); }
+  .cxopt.active .cxl, .cxopt.active .cxm { color: #fff; }
+  .cxl { font-size: .68rem; font-weight: 700; color: var(--ink); display: block; margin-bottom: 3px; }
+  .cxm { font-family: var(--mono); font-size: .72rem; color: #888; display: block; }
+  .trow { display: flex; align-items: center; gap: 9px; margin-bottom: 11px; }
+  .tog { position: relative; width: 38px; height: 21px; cursor: pointer; flex-shrink: 0; }
+  .tog input { opacity: 0; width: 0; height: 0; }
+  .ttrack { position: absolute; inset: 0; background: var(--rule); border-radius: 10px; transition: background .2s; }
+  .tog input:checked ~ .ttrack { background: var(--red); }
+  .tthumb { position: absolute; top: 2.5px; left: 2.5px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform .2s; }
+  .tog input:checked ~ .ttrack .tthumb { transform: translateX(17px); }
+  .ttext { font-size: .75rem; color: #666; }
+  .card-full { grid-column: 1 / -1; }
+  .fgrid { display: grid; grid-template-columns: repeat(auto-fill,minmax(190px,1fr)); gap: 7px; margin-top: 8px; }
+  .fi { display: flex; align-items: center; gap: 7px; cursor: pointer; padding: 7px 9px; border: 1.5px solid var(--rule); border-radius: 4px; background: #fff; transition: all .15s; user-select: none; }
+  .fi:hover { border-color: #bbb; }
+  .fi.on { border-color: var(--red); background: #fff5f5; }
+  .fcb { width: 15px; height: 15px; border: 1.5px solid var(--rule); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .65rem; color: transparent; transition: all .15s; }
+  .fi.on .fcb { background: var(--red); border-color: var(--red); color: #fff; }
+  .ftxt { font-size: .75rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .fdays { font-family: var(--mono); font-size: .58rem; color: #aaa; margin-left: auto; white-space: nowrap; }
+  .result-panel { background: var(--ink); border-radius: 8px; padding: 26px 26px 22px; margin-top: 6px; position: relative; overflow: hidden; animation: fadeUp .5s ease .3s both; }
+  .result-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--red), var(--gold)); }
+  .tier-badge { display: inline-block; padding: 4px 14px; border-radius: 12px; font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 16px; transition: all .3s; }
+  .tier-starter { background: #444; color: #fff; }
+  .tier-pro { background: var(--gold); color: var(--ink); }
+  .tier-ent { background: var(--red); color: #fff; }
+  .rgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+  @media(max-width:560px){ .rgrid { grid-template-columns: 1fr 1fr; } }
+  .rlabel { font-family: var(--mono); font-size: .58rem; color: #555; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 5px; }
+  .rvalue { font-family: var(--mono); font-size: 1.45rem; font-weight: 500; color: #fff; line-height: 1; transition: all .3s cubic-bezier(.34,1.56,.64,1); }
+  .rvalue.gold { color: var(--gold); }
+  .rvalue.red { color: #ff6b6b; }
+  hr.rdiv { border: none; border-top: 1px solid #2a2a2a; margin: 0 0 16px; }
+  .rformula { font-family: var(--mono); font-size: .68rem; color: #444; letter-spacing: .03em; margin-bottom: 10px; }
+  .rformula .val { color: var(--gold); }
+  .contract-val { font-family: var(--mono); font-size: .78rem; color: #777; margin-bottom: 18px; }
+  .contract-val span { color: var(--gold); }
+  .arow { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .btn { font-family: var(--sans); font-size: .75rem; font-weight: 700; padding: 10px 18px; border-radius: 4px; cursor: pointer; border: none; letter-spacing: .03em; transition: all .15s; text-transform: uppercase; }
+  .btn-wa { background: #25D366; color: #fff; }
+  .btn-wa:hover { background: #1db855; }
+  .btn-pdf { background: var(--gold); color: var(--ink); }
+  .btn-pdf:hover { background: #b8932a; }
+  .btn-rst { background: transparent; color: #666; border: 1.5px solid #333; }
+  .btn-rst:hover { border-color: #666; color: #aaa; }
+  .rpitch { border-top: 1px solid #222; padding-top: 16px; }
+  .rplabel { font-family: var(--mono); font-size: .58rem; color: #444; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+  .rpgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  @media(max-width:560px){ .rpgrid { grid-template-columns: 1fr; } }
+  .rpi { background: #181818; border-radius: 4px; padding: 11px; }
+  .rpit { font-size: .72rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+  .rpid { font-family: var(--mono); font-size: .62rem; color: #555; line-height: 1.5; }
+  .toast { position: fixed; bottom: 20px; right: 20px; background: var(--ink); color: #fff; font-family: var(--mono); font-size: .72rem; padding: 10px 16px; border-radius: 4px; border-left: 3px solid var(--red); opacity: 0; transform: translateY(8px); transition: all .25s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">T<sup>4</sup>Tech Solutions</div>
+  <div class="ver">Dynamic Pricing Engine · v1.5</div>
+</header>
+<main>
+  <h1>Quote<br><span>Engine</span></h1>
+  <p class="sub">Power Platform · Spares & Logistics · SME Automation</p>
+  <div class="formula-bar">
+    <span class="fl">Formula:</span>
+    <span class="fe">S <span class="o">=</span> (<span class="v">B</span> <span class="o">×</span> <span class="v">D</span> <span class="o">×</span> <span class="v">C</span>) <span class="o">+</span> <span class="v">A</span><span class="o"> — </span><span class="v">B</span>=Day Rate &nbsp;<span class="v">D</span>=Days &nbsp;<span class="v">C</span>=Complexity &nbsp;<span class="v">A</span>=Asset Cost</span>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="clabel"><span class="vbadge">B</span> Base Day Rate</div>
+      <div class="ctitle">Your Daily Rate (ZAR)</div>
+      <div class="niw"><span class="npfx">R</span><input type="number" id="dayRate" value="2500" min="500" max="15000" step="250" oninput="calc()"></div>
+    </div>
+    <div class="card">
+      <div class="clabel"><span class="vbadge">D</span> Build Time</div>
+      <div class="ctitle">Estimated Days</div>
+      <input type="range" id="days" min="1" max="30" value="5" oninput="syncDays(this.value)">
+      <div class="rlabels"><span>1 day</span><span>30 days</span></div>
+      <div class="rval" id="daysDisplay">5 days</div>
+    </div>
+    <div class="card">
+      <div class="clabel"><span class="vbadge">C</span> Complexity Factor</div>
+      <div class="ctitle">Project Complexity</div>
+      <div class="cxgrid">
+        <div class="cxopt active" data-val="1.0" onclick="setCx(this)"><span class="cxl">Simple</span><span class="cxm">×1.0</span></div>
+        <div class="cxopt" data-val="1.3" onclick="setCx(this)"><span class="cxl">Moderate</span><span class="cxm">×1.3</span></div>
+        <div class="cxopt" data-val="1.5" onclick="setCx(this)"><span class="cxl">API / Int.</span><span class="cxm">×1.5</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="clabel"><span class="vbadge">A</span> Fixed Asset Cost</div>
+      <div class="ctitle">Third-Party / Connector Costs</div>
+      <div class="trow">
+        <label class="tog"><input type="checkbox" id="assetToggle" onchange="toggleAsset()"><span class="ttrack"><span class="tthumb"></span></span></label>
+        <span class="ttext">Include external costs</span>
+      </div>
+      <div id="assetWrap" style="display:none"><div class="niw"><span class="npfx">R</span><input type="number" id="assetCost" value="0" min="0" step="100" oninput="calc()"></div></div>
+    </div>
+    <div class="card card-full">
+      <div class="clabel">Feature Add-ons — Spares & Logistics</div>
+      <div class="ctitle">Select features to include in scope</div>
+      <div class="fgrid" id="featGrid"></div>
+    </div>
+  </div>
+  <div class="result-panel">
+    <div id="tierBadge" class="tier-badge tier-starter">Starter MVP</div>
+    <div class="rgrid">
+      <div><div class="rlabel">Setup Investment</div><div class="rvalue gold" id="setupFee">R 12,500</div></div>
+      <div><div class="rlabel">Monthly Retainer</div><div class="rvalue red" id="retainerFee">R 1,875/mo</div></div>
+      <div><div class="rlabel">Build Days</div><div class="rvalue" id="totalDays">5.0d</div></div>
+      <div><div class="rlabel">Complexity</div><div class="rvalue" id="cxDisplay">×1.0</div></div>
+      <div><div class="rlabel">Asset Cost</div><div class="rvalue" id="assetDisplay">R 0</div></div>
+      <div><div class="rlabel">Day Rate</div><div class="rvalue" id="rateDisplay">R 2,500</div></div>
+    </div>
+    <hr class="rdiv">
+    <div class="rformula" id="formulaLine">S = (R2,500 × 5.0d × 1.0) + R0 = <span class="val">R12,500</span></div>
+    <div class="contract-val">12-Month Total Value: <span id="annualVal">R 37,500</span></div>
+    <div class="arow">
+      <button class="btn btn-wa" onclick="copyWA()">📲 Copy for WhatsApp</button>
+      <button class="btn btn-pdf" onclick="exportPDF()">⬇ Save as PDF</button>
+      <button class="btn btn-rst" onclick="resetAll()">Reset</button>
+    </div>
+    <div class="rpitch">
+      <div class="rplabel">When client asks "why the retainer?" — use this</div>
+      <div class="rpgrid">
+        <div class="rpi"><div class="rpit">Version Control</div><div class="rpid">I handle all Microsoft platform updates so your app never breaks after a Teams or SharePoint release.</div></div>
+        <div class="rpi"><div class="rpit">Data Optimisation</div><div class="rpid">Monthly cleaning of your SharePoint/Dataverse records keeps the app fast and reports accurate.</div></div>
+        <div class="rpi"><div class="rpit">On-Call Support</div><div class="rpid">Technical troubleshooting within 4 hours. Your business does not wait for a dev to become available.</div></div>
+      </div>
+    </div>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const FEATURES = [
+  { label: "Barcode Scanning", days: 1.5 },
+  { label: "Low-Stock SMS Alert", days: 0.5 },
+  { label: "Supplier PO Generator", days: 1.0 },
+  { label: "Driver Trip Logging", days: 1.5 },
+  { label: "Delivery Confirmation", days: 1.0 },
+  { label: "Multi-Branch View", days: 2.0 },
+  { label: "Power BI Dashboard", days: 2.0 },
+  { label: "WhatsApp Notifications", days: 1.0 },
+  { label: "Role-Based Access", days: 1.0 },
+  { label: "PayFast / Ozow Link", days: 2.0 },
+  { label: "Stock Aging Report", days: 1.0 },
+  { label: "Customer CRM Basic", days: 2.0 },
+];
+let cx = 1.0, checked = new Set();
+
+const fg = document.getElementById('featGrid');
+FEATURES.forEach((f, i) => {
+  const el = document.createElement('div');
+  el.className = 'fi';
+  el.innerHTML = `<div class="fcb">✓</div><span class="ftxt">${f.label}</span><span class="fdays">+${f.days}d</span>`;
+  el.onclick = () => { checked.has(i) ? checked.delete(i) : checked.add(i); el.classList.toggle('on', checked.has(i)); calc(); };
+  fg.appendChild(el);
+});
+
+function syncDays(v) { document.getElementById('daysDisplay').textContent = v + ' day' + (v==1?'':'s'); calc(); }
+function setCx(el) { document.querySelectorAll('.cxopt').forEach(e => e.classList.remove('active')); el.classList.add('active'); cx = parseFloat(el.dataset.val); calc(); }
+function toggleAsset() { document.getElementById('assetWrap').style.display = document.getElementById('assetToggle').checked ? 'block' : 'none'; calc(); }
+function fmt(n) { return 'R ' + Math.round(n).toLocaleString('en-ZA'); }
+function getTier(s) {
+  if (s < 8000)  return { name: 'Starter MVP',         cls: 'tier-starter' };
+  if (s < 20000) return { name: 'Professional Growth', cls: 'tier-pro' };
+  return           { name: 'Enterprise Scale',          cls: 'tier-ent' };
+}
+// FIXED: retainer = 15% of setup rounded to nearest R100
+function getRetainer(s) { return Math.round((s * 0.15) / 100) * 100; }
+
+function calc() {
+  const B = parseFloat(document.getElementById('dayRate').value) || 2500;
+  const baseDays = parseFloat(document.getElementById('days').value) || 5;
+  const A = document.getElementById('assetToggle').checked ? (parseFloat(document.getElementById('assetCost').value) || 0) : 0;
+  let fd = 0; checked.forEach(i => fd += FEATURES[i].days);
+  const D = baseDays + fd;
+  const S = (B * D * cx) + A;
+  const retainer = getRetainer(S);
+  const annual = S + retainer * 12;
+  const tier = getTier(S);
+
+  document.getElementById('setupFee').textContent    = fmt(S);
+  document.getElementById('retainerFee').textContent = fmt(retainer) + '/mo';
+  document.getElementById('totalDays').textContent   = D.toFixed(1) + 'd';
+  document.getElementById('cxDisplay').textContent   = '×' + cx.toFixed(1);
+  document.getElementById('assetDisplay').textContent= fmt(A);
+  document.getElementById('rateDisplay').textContent = fmt(B);
+  document.getElementById('annualVal').textContent   = fmt(annual);
+
+  const badge = document.getElementById('tierBadge');
+  badge.textContent = tier.name; badge.className = 'tier-badge ' + tier.cls;
+  document.getElementById('formulaLine').innerHTML = `S = (${fmt(B)} × ${D.toFixed(1)}d × ${cx.toFixed(1)}) + ${fmt(A)} = <span class="val">${fmt(S)}</span>`;
+  window._q = { B, D, cx, A, S, retainer, annual, tier: tier.name };
+}
+
+function copyWA() {
+  const q = window._q;
+  const feats = [...checked].map(i => '  • ' + FEATURES[i].label).join('\n') || '  • Standard configuration';
+  const text =
+`*T4Tech Solutions — Project Quote*
+──────────────────────────────
+*Solution Tier:* ${q.tier}
+*Setup Investment:* ${fmt(q.S)}
+*Monthly Retainer:* ${fmt(q.retainer)}/mo
+*12-Month Value:* ${fmt(q.annual)}
+*Est. Build Time:* ${q.D.toFixed(1)} days
+
+*Features Included:*
+${feats}
+
+*Includes:* Version Control, Data Optimisation & On-Call Support (4hr response).
+_Quote valid for 14 days._
+
+T4Tech Solutions
+tefo@t4tech.co.za | @GeeRadebe`;
+  navigator.clipboard.writeText(text).then(() => toast('Copied — ready to paste into WhatsApp or email'));
+}
+
+function exportPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const q = window._q;
+  const W = 210, M = 18, CW = W - M * 2;
+  let y = 0;
+
+  doc.setFillColor(13, 13, 13); doc.rect(0, 0, W, 22, 'F');
+  doc.setFillColor(214, 48, 48); doc.rect(0, 22, W, 1.5, 'F');
+  doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(13);
+  doc.text('T4Tech Solutions', M, 14);
+  doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(140,140,140);
+  doc.text('Dynamic Pricing Engine v1.5  |  Power Platform · Spares & Logistics', M, 19);
+  doc.text(new Date().toLocaleDateString('en-ZA',{day:'2-digit',month:'short',year:'numeric'}), W-M, 19, {align:'right'});
+  y = 34;
+
+  const tierColors = { 'Starter MVP':[68,68,68], 'Professional Growth':[201,168,76], 'Enterprise Scale':[214,48,48] };
+  const tc = tierColors[q.tier] || [68,68,68];
+  doc.setFillColor(...tc); doc.roundedRect(M, y, 50, 7, 2, 2, 'F');
+  const txtColor = q.tier === 'Professional Growth' ? [13,13,13] : [255,255,255];
+  doc.setTextColor(...txtColor); doc.setFont('helvetica','bold'); doc.setFontSize(7);
+  doc.text(q.tier.toUpperCase(), M+4, y+4.8);
+  y += 13;
+
+  doc.setTextColor(100,100,100); doc.setFont('courier','normal'); doc.setFontSize(8);
+  doc.text(`S = (${fmt(q.B)} x ${q.D.toFixed(1)}d x ${q.cx.toFixed(1)}) + ${fmt(q.A)} = ${fmt(q.S)}`, M, y);
+  y += 10;
+
+  doc.setDrawColor(214,48,48); doc.setLineWidth(0.6); doc.line(M, y, W-M, y); y += 8;
+
+  const cols = [
+    { label:'SETUP INVESTMENT', value: fmt(q.S), color:[201,168,76] },
+    { label:'MONTHLY RETAINER', value: fmt(q.retainer)+'/mo', color:[220,80,80] },
+    { label:'12-MONTH VALUE',   value: fmt(q.annual), color:[255,255,255] },
+  ];
+  const cw3 = CW/3;
+  cols.forEach((c,i) => {
+    const x = M + i*cw3;
+    doc.setFillColor(20,20,20); doc.rect(x, y, cw3-3, 22, 'F');
+    doc.setFont('helvetica','normal'); doc.setFontSize(6.5); doc.setTextColor(120,120,120);
+    doc.text(c.label, x+4, y+7);
+    doc.setFont('courier','bold'); doc.setFontSize(11); doc.setTextColor(...c.color);
+    doc.text(c.value, x+4, y+17);
+  });
+  y += 28;
+
+  const stats = [
+    { label:'BUILD DAYS', value: q.D.toFixed(1)+'d' },
+    { label:'COMPLEXITY', value: '×'+q.cx.toFixed(1) },
+    { label:'ASSET COST', value: fmt(q.A) },
+    { label:'DAY RATE',   value: fmt(q.B) },
+  ];
+  const cw4 = CW/4;
+  stats.forEach((s,i) => {
+    const x = M + i*cw4;
+    doc.setFillColor(235,232,226); doc.rect(x, y, cw4-3, 14, 'F');
+    doc.setFont('helvetica','normal'); doc.setFontSize(6); doc.setTextColor(120,120,120);
+    doc.text(s.label, x+3, y+5);
+    doc.setFont('courier','bold'); doc.setFontSize(9); doc.setTextColor(13,13,13);
+    doc.text(s.value, x+3, y+11.5);
+  });
+  y += 22;
+
+  if (checked.size > 0) {
+    doc.setFillColor(13,13,13); doc.rect(M, y, CW, 7, 'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(201,168,76);
+    doc.text('FEATURES IN SCOPE', M+4, y+4.8); y += 10;
+    const fa = [...checked].map(i => FEATURES[i].label);
+    const half = Math.ceil(fa.length/2);
+    const colf = CW/2;
+    fa.slice(0,half).forEach((f,i) => {
+      const bg = i%2===0 ? [245,242,237] : [237,234,228];
+      doc.setFillColor(...bg); doc.rect(M, y, colf-3, 6, 'F');
+      if (fa[half+i]) { doc.setFillColor(...bg); doc.rect(M+colf, y, colf, 6, 'F'); }
+      doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(13,13,13);
+      doc.text('• '+f, M+3, y+4.2);
+      if (fa[half+i]) doc.text('• '+fa[half+i], M+colf+3, y+4.2);
+      y += 7;
+    });
+    y += 4;
+  }
+
+  doc.setFillColor(13,13,13); doc.rect(M, y, CW, 7, 'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(201,168,76);
+  doc.text('RETAINER INCLUDES', M+4, y+4.8); y += 9;
+  const pitch = [
+    ['Version Control','Microsoft platform updates handled so your app never breaks after a Teams or SharePoint release.'],
+    ['Data Optimisation','Monthly Dataverse/SharePoint record cleaning keeps the app fast and reports accurate.'],
+    ['On-Call Support','Technical troubleshooting within 4 hours. Your business does not wait for a developer.'],
+  ];
+  const pw = CW/3;
+  pitch.forEach((p,i) => {
+    const x = M+i*pw;
+    doc.setFillColor(25,25,25); doc.rect(x, y, pw-3, 20, 'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(201,168,76);
+    doc.text(p[0], x+3, y+6);
+    doc.setFont('helvetica','normal'); doc.setFontSize(6.5); doc.setTextColor(140,140,140);
+    doc.text(doc.splitTextToSize(p[1], pw-9), x+3, y+12);
+  });
+  y += 26;
+
+  doc.setDrawColor(50,50,50); doc.setLineWidth(0.3); doc.line(M, y, W-M, y); y += 5;
+  doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(120,120,120);
+  doc.text('tefo@t4tech.co.za  |  @GeeRadebe  |  linkedin.com/in/geeradebe', M, y);
+  doc.text('Valid for 14 days from date of issue.', W-M, y, {align:'right'});
+
+  doc.save(`T4Tech_Quote_${q.tier.replace(/ /g,'_')}_${new Date().toISOString().slice(0,10)}.pdf`);
+  toast('PDF downloaded');
+}
+
+function resetAll() {
+  document.getElementById('dayRate').value = 2500;
+  document.getElementById('days').value = 5;
+  document.getElementById('daysDisplay').textContent = '5 days';
+  document.querySelectorAll('.cxopt').forEach((e,i) => e.classList.toggle('active', i===0));
+  cx = 1.0; checked.clear();
+  document.querySelectorAll('.fi').forEach(e => e.classList.remove('on'));
+  document.getElementById('assetToggle').checked = false;
+  document.getElementById('assetWrap').style.display = 'none';
+  calc();
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+calc();
+</script>
+</body>
+</html>
