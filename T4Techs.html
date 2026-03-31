@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T⁴Tech — Operations Suite</title>
+
+  <!-- PWA Meta -->
+  <meta name="theme-color" content="#080c14">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="T⁴Tech Ops">
+  <meta name="description" content="T⁴Tech Solutions — Field Operations Suite">
+
+  <!-- Inline Manifest via data URI -->
+  <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22T%E2%81%B4Tech%20Operations%20Suite%22%2C%22short_name%22%3A%22T%E2%81%B4Tech%20Ops%22%2C%22description%22%3A%22T%E2%81%B4Tech%20Solutions%20Field%20Operations%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23080c14%22%2C%22theme_color%22%3A%22%2300ff88%22%2C%22orientation%22%3A%22portrait-primary%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D%2527http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%2527%2520viewBox%3D%270%200%20512%20512%2527%253E%253Crect%2520width%3D%2527512%2527%2520height%3D%2527512%2527%2520fill%3D%2527%2523080c14%2527%2520rx%3D%252780%2527%2F%253E%253Ctext%2520x%3D%2527256%2527%2520y%3D%2527340%2527%2520font-size%3D%2527260%2527%2520text-anchor%3D%2527middle%2527%2520fill%3D%2527%252300ff88%2527%2520font-family%3D%2527sans-serif%2527%2520font-weight%3D%2527900%2527%253ET%25E2%2581%25B4%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+
+  <!-- Apple Touch Icon (inline SVG as data URI) -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%23080c14' rx='80'/><text x='256' y='340' font-size='260' text-anchor='middle' fill='%2300ff88' font-family='sans-serif' font-weight='900'>T⁴</text></svg>">
+
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080c14;
+      --surface: #0d1424;
+      --surface2: #111b2e;
+      --border: #1e2f4a;
+      --green: #00ff88;
+      --cyan: #00d4ff;
+      --amber: #ffb300;
+      --red: #ff4444;
+      --text: #c8d8e8;
+      --muted: #5a7a9a;
+      --mono: 'Share Tech Mono', monospace;
+      --sans: 'Barlow', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo-block { display: flex; flex-direction: column; gap: 4px; }
+
+    .logo {
+      font-family: var(--sans);
+      font-weight: 900;
+      font-size: 2.4em;
+      letter-spacing: -1px;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .logo sup {
+      font-size: 0.55em;
+      vertical-align: super;
+      color: var(--cyan);
+    }
+
+    .tagline {
+      font-family: var(--mono);
+      font-size: 0.72em;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.75em;
+      color: var(--muted);
+    }
+
+    .pulse {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+      background: var(--surface);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .tab {
+      flex: 1;
+      padding: 10px 8px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.78em;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 7px;
+      transition: all .2s;
+    }
+
+    .tab.active {
+      background: var(--green);
+      color: var(--bg);
+      font-weight: 700;
+      box-shadow: 0 0 16px rgba(0,255,136,.3);
+    }
+
+    .tab:hover:not(.active) { color: var(--green); background: rgba(0,255,136,.06); }
+
+    /* ── PANELS ── */
+    .panel { display: none; animation: fadeIn .25s ease; }
+    .panel.active { display: block; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), transparent);
+    }
+
+    .card h2 {
+      font-size: 0.85em;
+      font-family: var(--mono);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── FORM ELEMENTS ── */
+    label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.72em;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+
+    label:first-of-type { margin-top: 0; }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.95em;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(0,255,136,.1);
+    }
+
+    select option { background: var(--surface2); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 7px;
+      font-family: var(--mono);
+      font-size: 0.8em;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all .2s;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: var(--bg);
+      box-shadow: 0 4px 20px rgba(0,255,136,.2);
+    }
+
+    .btn-primary:hover { box-shadow: 0 4px 28px rgba(0,255,136,.45); transform: translateY(-1px); }
+
+    .btn-export {
+      background: var(--cyan);
+      color: var(--bg);
+      box-shadow: 0 4px 20px rgba(0,212,255,.2);
+    }
+
+    .btn-export:hover { box-shadow: 0 4px 28px rgba(0,212,255,.4); transform: translateY(-1px); }
+
+    .btn-danger {
+      background: transparent;
+      border: 1px solid var(--red);
+      color: var(--red);
+    }
+
+    .btn-danger:hover { background: rgba(255,68,68,.1); }
+
+    .btn-amber {
+      background: transparent;
+      border: 1px solid var(--amber);
+      color: var(--amber);
+    }
+
+    .btn-amber:hover { background: rgba(255,179,0,.1); }
+
+    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      height: 6px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      border-radius: 4px;
+      transition: width .4s ease;
+      box-shadow: 0 0 8px rgba(0,255,136,.5);
+    }
+
+    /* ── LOG ITEMS ── */
+    .log-grid { display: flex; flex-direction: column; gap: 10px; }
+
+    .log-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: start;
+      animation: slideIn .2s ease;
+    }
+
+    @keyframes slideIn { from{opacity:0;transform:translateX(-8px)} to{opacity:1;transform:none} }
+
+    .log-meta { font-family: var(--mono); font-size: 0.72em; color: var(--muted); margin-top: 4px; }
+
+    .log-name { font-weight: 700; color: var(--text); font-size: 0.95em; }
+
+    .log-site { color: var(--cyan); font-size: 0.85em; }
+
+    .log-scope-tag {
+      display: inline-block;
+      background: rgba(0,255,136,.1);
+      border: 1px solid rgba(0,255,136,.25);
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 0.65em;
+      padding: 2px 8px;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      margin-top: 6px;
+    }
+
+    .log-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+    .icon-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 5px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8em;
+      transition: all .15s;
+    }
+
+    .icon-btn:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── STAFF LIST ── */
+    .staff-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+
+    .staff-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 10px 14px;
+    }
+
+    .staff-name { font-weight: 600; font-size: 0.9em; }
+    .staff-role { font-family: var(--mono); font-size: 0.72em; color: var(--cyan); }
+
+    /* ── STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 24px; }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--mono);
+      font-size: 1.8em;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.7em;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-family: var(--mono);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.82em;
+      letter-spacing: 1px;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 20px;
+      background: var(--green);
+      color: var(--bg);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 0.82em;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all .3s;
+      z-index: 999;
+      pointer-events: none;
+      max-width: 280px;
+    }
+
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.error { background: var(--red); color: white; }
+    #toast.info { background: var(--cyan); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 24px 0 0;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+      font-family: var(--mono);
+      font-size: 0.72em;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    footer a { color: var(--cyan); text-decoration: none; }
+    footer a:hover { color: var(--green); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      .form-row { grid-template-columns: 1fr; }
+      .btn-row { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(3,1fr); }
+      .stat-value { font-size: 1.3em; }
+      .logo { font-size: 1.8em; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <header>
+    <div class="logo-block">
+      <div class="logo">T<sup>4</sup>Tech</div>
+      <div class="tagline">Operations Suite v2.0</div>
+    </div>
+    <div class="status-bar">
+      <div class="pulse"></div>
+      <span id="clockDisplay">—</span>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value" id="statReports">0</div>
+      <div class="stat-label">Reports</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="statHours">0</div>
+      <div class="stat-label">Hours Logged</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="statStaff">0</div>
+      <div class="stat-label">Personnel</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('reports')">Site Reports</button>
+    <button class="tab" onclick="switchTab('personnel')">Personnel</button>
+    <button class="tab" onclick="switchTab('logs')">Log History</button>
+  </div>
+
+  <!-- PANEL: REPORTS -->
+  <div class="panel active" id="panel-reports">
+    <div class="card">
+      <h2>Submit Site Report</h2>
+
+      <label>Assigned Technician</label>
+      <select id="techSelect"></select>
+
+      <label>Scope of Work</label>
+      <select id="taskScope">
+        <option>Structured Cabling</option>
+        <option>L1 / L2 Support</option>
+        <option>IoT & Blockchain</option>
+        <option>Network Infrastructure</option>
+        <option>Security Systems</option>
+        <option>Power Platform Development</option>
+        <option>Software Deployment</option>
+        <option>Client Consultation</option>
+      </select>
+
+      <label>Site Location</label>
+      <input type="text" id="siteName" placeholder="e.g. Sandton CBD, Block C">
+
+      <label>Notes / Summary</label>
+      <textarea id="reportNotes" rows="3" placeholder="Brief summary of work done..."></textarea>
+
+      <div class="form-row">
+        <div>
+          <label>Hours Worked</label>
+          <input type="number" id="workHours" placeholder="e.g. 8" min="0" step="0.5">
+        </div>
+        <div>
+          <label>Progress %</label>
+          <input type="number" id="workProgress" placeholder="0 – 100" min="0" max="100">
+        </div>
+      </div>
+
+      <div id="progressPreview" style="margin-top:12px; display:none;">
+        <div class="progress-wrap">
+          <div class="progress-bar" id="progressBar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="saveReport()" style="margin-top:18px">
+        ▶ Submit Report
+      </button>
+    </div>
+  </div>
+
+  <!-- PANEL: PERSONNEL -->
+  <div class="panel" id="panel-personnel">
+    <div class="card">
+      <h2>Register Personnel</h2>
+      <div class="form-row">
+        <div>
+          <label>Full Name</label>
+          <input type="text" id="newMemberName" placeholder="e.g. Thabo Nkosi">
+        </div>
+        <div>
+          <label>Role / Title</label>
+          <input type="text" id="newMemberRole" placeholder="e.g. Field Technician">
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="addStaff()" style="margin-top:14px">
+        + Register Personnel
+      </button>
+    </div>
+
+    <div class="card">
+      <h2>Active Personnel</h2>
+      <div class="staff-list" id="staffList">
+        <div class="empty">No personnel registered yet.</div>
+      </div>
+      <button class="btn btn-danger" onclick="clearAllStaff()" style="margin-top:16px">
+        ✕ Clear All Personnel
+      </button>
+    </div>
+  </div>
+
+  <!-- PANEL: LOGS -->
+  <div class="panel" id="panel-logs">
+    <div class="card">
+      <h2>Report History</h2>
+      <div class="log-grid" id="displayLogs">
+        <div class="empty">No reports submitted yet.</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-export" onclick="exportDoc()">
+        ↓ Download Official Report (.doc)
+      </button>
+      <button class="btn btn-danger" onclick="clearAllLogs()">
+        ✕ Clear All Logs
+      </button>
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<footer>
+  <p>System Architect: <strong style="color:var(--text)">Tefo Given Radebe</strong> — T⁴Tech Solutions</p>
+  <p><a href="https://linkedin.com/in/geeradebe" target="_blank">linkedin.com/in/geeradebe</a> &nbsp;|&nbsp; <a href="https://geeradebe.github.io/portfolio/" target="_blank">Portfolio</a></p>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+  // ── CLOCK ──
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clockDisplay').textContent =
+      now.toLocaleDateString('en-ZA') + ' · ' +
+      now.toLocaleTimeString('en-ZA', {hour:'2-digit',minute:'2-digit'});
+  }
+  updateClock(); setInterval(updateClock, 30000);
+
+  // ── TOAST ──
+  function toast(msg, type='') {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'show ' + type;
+    setTimeout(() => el.className = '', 2800);
+  }
+
+  // ── DEFAULT STAFF ──
+  const DEFAULT_STAFF = [
+    {name: "Tefo Given Radebe", role: "Lead Architect"},
+    {name: "Morne Venter", role: "Site Manager"},
+    {name: "Bernard Sibanda", role: "CEO"}
+  ];
+
+  function getStaff() {
+    const stored = localStorage.getItem('t4_staff');
+    return stored ? JSON.parse(stored) : DEFAULT_STAFF;
+  }
+
+  function saveStaffList(arr) {
+    localStorage.setItem('t4_staff', JSON.stringify(arr));
+  }
+
+  function getLogs() {
+    const stored = localStorage.getItem('t4_logs');
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  function saveLogsData(arr) {
+    localStorage.setItem('t4_logs', JSON.stringify(arr));
+  }
+
+  // ── TABS ──
+  function switchTab(tab) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    event.target.classList.add('active');
+    if(tab === 'logs') renderLogs();
+    if(tab === 'personnel') renderStaffList();
+  }
+
+  // ── LOAD ──
+  window.onload = function() {
+    loadStaffDropdown();
+    updateStats();
+    renderLogs();
+
+    // Progress preview on input
+    document.getElementById('workProgress').addEventListener('input', function() {
+      const val = Math.min(100, Math.max(0, parseInt(this.value)||0));
+      const preview = document.getElementById('progressPreview');
+      const bar = document.getElementById('progressBar');
+      preview.style.display = 'block';
+      bar.style.width = val + '%';
+    });
+  };
+
+  // ── STAFF DROPDOWN ──
+  function loadStaffDropdown() {
+    const staff = getStaff();
+    const select = document.getElementById('techSelect');
+    select.innerHTML = '';
+    staff.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.name;
+      opt.text = s.name + ' (' + s.role + ')';
+      select.appendChild(opt);
+    });
+  }
+
+  // ── STAFF LIST ──
+  function renderStaffList() {
+    const staff = getStaff();
+    const container = document.getElementById('staffList');
+    if(!staff.length) {
+      container.innerHTML = '<div class="empty">No personnel registered.</div>';
+      return;
+    }
+    container.innerHTML = staff.map((s, i) => `
+      <div class="staff-item">
+        <div>
+          <div class="staff-name">${s.name}</div>
+          <div class="staff-role">${s.role}</div>
+        </div>
+        <button class="icon-btn" onclick="removeStaff(${i})" title="Remove">✕</button>
+      </div>
+    `).join('');
+  }
+
+  function addStaff() {
+    const name = document.getElementById('newMemberName').value.trim();
+    const role = document.getElementById('newMemberRole').value.trim();
+    if(!name || !role) { toast('Fill both fields.', 'error'); return; }
+    const staff = getStaff();
+    if(staff.some(s => s.name.toLowerCase() === name.toLowerCase())) {
+      toast('Personnel already exists.', 'error'); return;
+    }
+    staff.push({name, role});
+    saveStaffList(staff);
+    loadStaffDropdown();
+    renderStaffList();
+    updateStats();
+    document.getElementById('newMemberName').value = '';
+    document.getElementById('newMemberRole').value = '';
+    toast(name + ' registered.');
+  }
+
+  function removeStaff(index) {
+    const staff = getStaff();
+    const name = staff[index].name;
+    staff.splice(index, 1);
+    saveStaffList(staff);
+    loadStaffDropdown();
+    renderStaffList();
+    updateStats();
+    toast(name + ' removed.', 'info');
+  }
+
+  function clearAllStaff() {
+    if(!confirm('Clear all personnel? This cannot be undone.')) return;
+    localStorage.removeItem('t4_staff');
+    loadStaffDropdown();
+    renderStaffList();
+    updateStats();
+    toast('All personnel cleared.', 'error');
+  }
+
+  // ── REPORTS ──
+  function saveReport() {
+    const tech = document.getElementById('techSelect').value;
+    const scope = document.getElementById('taskScope').value;
+    const site = document.getElementById('siteName').value.trim();
+    const notes = document.getElementById('reportNotes').value.trim();
+    const hours = document.getElementById('workHours').value;
+    const progress = document.getElementById('workProgress').value;
+
+    if(!site) { toast('Site location required.', 'error'); return; }
+    if(!hours || isNaN(hours)) { toast('Hours required.', 'error'); return; }
+    if(!progress || isNaN(progress)) { toast('Progress % required.', 'error'); return; }
+
+    const logs = getLogs();
+    logs.push({
+      id: Date.now(),
+      tech, scope, site, notes,
+      hours: parseFloat(hours),
+      progress: parseInt(progress),
+      date: new Date().toLocaleString('en-ZA')
+    });
+    saveLogsData(logs);
+    updateStats();
+
+    // Reset form
+    document.getElementById('siteName').value = '';
+    document.getElementById('reportNotes').value = '';
+    document.getElementById('workHours').value = '';
+    document.getElementById('workProgress').value = '';
+    document.getElementById('progressPreview').style.display = 'none';
+
+    toast('Report submitted successfully!');
+  }
+
+  // ── RENDER LOGS ──
+  function renderLogs() {
+    const logs = getLogs();
+    const container = document.getElementById('displayLogs');
+    if(!logs.length) {
+      container.innerHTML = '<div class="empty">No reports submitted yet.</div>';
+      return;
+    }
+    container.innerHTML = [...logs].reverse().map(l => `
+      <div class="log-item">
+        <div>
+          <div class="log-name">${l.tech}</div>
+          <div class="log-site">📍 ${l.site}</div>
+          <div class="log-meta">${l.date} · ${l.hours}h logged</div>
+          ${l.notes ? `<div style="font-size:.83em;color:var(--text);margin-top:5px;opacity:.8">${l.notes}</div>` : ''}
+          <div class="log-scope-tag">${l.scope}</div>
+          <div class="progress-wrap" style="margin-top:10px">
+            <div class="progress-bar" style="width:${l.progress}%"></div>
+          </div>
+          <div style="font-family:var(--mono);font-size:.68em;color:var(--muted);margin-top:4px">${l.progress}% complete</div>
+        </div>
+        <div class="log-actions">
+          <button class="icon-btn" onclick="deleteLog(${l.id})" title="Delete">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function deleteLog(id) {
+    let logs = getLogs().filter(l => l.id !== id);
+    saveLogsData(logs);
+    renderLogs();
+    updateStats();
+    toast('Report deleted.', 'info');
+  }
+
+  function clearAllLogs() {
+    if(!confirm('Clear ALL reports? This cannot be undone.')) return;
+    localStorage.removeItem('t4_logs');
+    renderLogs();
+    updateStats();
+    toast('All logs cleared.', 'error');
+  }
+
+  // ── STATS ──
+  function updateStats() {
+    const logs = getLogs();
+    const staff = getStaff();
+    const totalHours = logs.reduce((sum, l) => sum + (l.hours || 0), 0);
+    document.getElementById('statReports').textContent = logs.length;
+    document.getElementById('statHours').textContent = totalHours % 1 === 0 ? totalHours : totalHours.toFixed(1);
+    document.getElementById('statStaff').textContent = staff.length;
+  }
+
+  // ── EXPORT .DOC (properly formatted HTML-in-doc) ──
+  function exportDoc() {
+    const logs = getLogs();
+    if(!logs.length) { toast('No reports to export.', 'error'); return; }
+
+    const now = new Date().toLocaleString('en-ZA');
+    const totalHours = logs.reduce((sum, l) => sum + (l.hours || 0), 0);
+    const avgProgress = Math.round(logs.reduce((sum, l) => sum + (l.progress || 0), 0) / logs.length);
+
+    const rows = [...logs].reverse().map(l => `
+      <tr>
+        <td>${l.date}</td>
+        <td>${l.tech}</td>
+        <td>${l.site}</td>
+        <td>${l.scope}</td>
+        <td>${l.hours}h</td>
+        <td>${l.progress}%</td>
+        <td>${l.notes || '—'}</td>
+      </tr>
+    `).join('');
+
+    const docContent = `
+<html xmlns:o='urn:schemas-microsoft-com:office:office'
+      xmlns:w='urn:schemas-microsoft-com:office:word'
+      xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+  <meta charset='UTF-8'>
+  <title>T4Tech Official Report</title>
+  <!--[if gte mso 9]>
+  <xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml>
+  <![endif]-->
+  <style>
+    body { font-family: Calibri, sans-serif; font-size: 11pt; color: #111; margin: 2cm; }
+    h1 { font-size: 22pt; color: #003366; border-bottom: 2px solid #003366; padding-bottom: 6px; }
+    h2 { font-size: 13pt; color: #005599; margin-top: 20px; }
+    .meta { font-size: 9pt; color: #666; margin-bottom: 20px; }
+    .summary-box { background: #f0f5ff; border: 1px solid #ccd5e8; padding: 12px 16px; margin: 16px 0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 12px; font-size: 9.5pt; }
+    th { background: #003366; color: white; padding: 8px 10px; text-align: left; font-weight: bold; }
+    td { padding: 7px 10px; border-bottom: 1px solid #dde3ee; vertical-align: top; }
+    tr:nth-child(even) td { background: #f7f9fc; }
+    .footer-note { font-size: 8.5pt; color: #888; margin-top: 30px; border-top: 1px solid #ccc; padding-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>T⁴Tech Solutions — Official Site Report</h1>
+  <div class="meta">Generated: ${now} &nbsp;|&nbsp; System Architect: Tefo Given Radebe</div>
+
+  <div class="summary-box">
+    <h2>Report Summary</h2>
+    <p><strong>Total Reports:</strong> ${logs.length}</p>
+    <p><strong>Total Hours Logged:</strong> ${totalHours}h</p>
+    <p><strong>Average Progress:</strong> ${avgProgress}%</p>
+  </div>
+
+  <h2>Detailed Report Log</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th><th>Technician</th><th>Site</th><th>Scope</th>
+        <th>Hours</th><th>Progress</th><th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>
+
+  <div class="footer-note">
+    T⁴Tech Solutions &nbsp;|&nbsp; Tefo Given Radebe &nbsp;|&nbsp;
+    linkedin.com/in/geeradebe &nbsp;|&nbsp; geeradebe.github.io/portfolio/
+  </div>
+</body>
+</html>`;
+
+    const blob = new Blob([docContent], {type: 'application/msword;charset=utf-8'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    const d = new Date();
+    link.download = `T4Tech_Report_${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}.doc`;
+    link.click();
+    toast('Report downloaded!');
+  }
+
+  // ── PWA: SERVICE WORKER (inline via Blob) ──
+  if ('serviceWorker' in navigator) {
+    const swCode = `
+      const CACHE = 'T4Tech-v1';
+      self.addEventListener('install', e => { self.skipWaiting(); });
+      self.addEventListener('activate', e => { self.clients.claim(); });
+      self.addEventListener('fetch', e => {
+        e.respondWith(
+          caches.open('T4Tech-v1').then(cache =>
+            cache.match(e.request).then(r => {
+              return r || fetch(e.request).then(res => {
+                cache.put(e.request, res.clone());
+                return res;
+              }).catch(() => r);
+            })
+          )
+        );
+      });
+    `;
+    const blob = new Blob([swCode], {type: 'application/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+  }
+
+  // ── PWA: INSTALL PROMPT ──
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const banner = document.getElementById('installBanner');
+    if (banner) banner.style.display = 'flex';
+  });
+
+  function installPWA() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => {
+      deferredPrompt = null;
+      document.getElementById('installBanner').style.display = 'none';
+    });
+  }
+
+  window.addEventListener('appinstalled', () => {
+    document.getElementById('installBanner').style.display = 'none';
+    toast('App installed!');
+  });
+
+</script>
+
+<!-- PWA Install Banner -->
+<div id="installBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#0d1424;border-top:1px solid #1e2f4a;padding:14px 20px;align-items:center;justify-content:space-between;gap:12px;z-index:998;font-family:'Share Tech Mono',monospace;font-size:0.78em;">
+  <span style="color:#c8d8e8;">📲 Install T⁴Tech Ops on your device</span>
+  <div style="display:flex;gap:8px;flex-shrink:0;">
+    <button onclick="installPWA()" style="background:#00ff88;color:#080c14;border:none;padding:8px 16px;border-radius:6px;font-family:inherit;font-weight:700;cursor:pointer;letter-spacing:1px;">INSTALL</button>
+    <button onclick="document.getElementById('installBanner').style.display='none'" style="background:none;border:1px solid #1e2f4a;color:#5a7a9a;padding:8px 12px;border-radius:6px;font-family:inherit;cursor:pointer;">✕</button>
+  </div>
+</div>
+
+</body>
+</html>
