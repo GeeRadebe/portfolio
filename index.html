@@ -1,860 +1,495 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Tefo Radebe — Power Platform Developer & Functional Consultant. PL-400 · PL-200 · MB-210. Founder of T⁴Tech Solutions, Johannesburg.">
-<meta name="keywords" content="Power Platform Developer, Functional Consultant, PL-400, Canvas Apps, Power Automate, Johannesburg, South Africa, T4Tech Solutions">
-<meta property="og:title" content="Tefo Radebe — T⁴Tech Solutions">
-<meta property="og:description" content="Power Platform Developer & Functional Consultant. PL-400 · PL-200 · MB-210. Building automation solutions for SMEs in Gauteng.">
-<meta property="og:type" content="website">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tefo Radebe — T⁴Tech Solutions</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="description" content="Power Platform Developer & Functional Consultant. Founder of T⁴Tech Solutions. Johannesburg, South Africa."/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --ink: #0D0D0D;
-  --paper: #F5F2ED;
-  --red: #D63030;
-  --gold: #C9A84C;
-  --rule: #D0CAC0;
-  --surface: #EDEAE3;
-  --mono: 'DM Mono', monospace;
-  --sans: 'Syne', sans-serif;
-  --muted: #888;
+@font-face{font-family:'OpenDyslexic';src:url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.otf') format('opentype');}
+
+/* ── RESET ── */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ── THEME VARS ── */
+:root{
+  --bg:#000000;--surface:#0f0f0f;--surface2:#161616;--border:#2f2f2f;
+  --accent:#1d9bf0;--accent2:#1a8cd8;--text:#e7e9ea;--muted:#71767b;
+  --display:'Bebas Neue',sans-serif;--body:'IBM Plex Mono',monospace;--hero:'Syne',sans-serif;
+  --radius:4px;--lh:1.65;
 }
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:var(--lh);overflow-x:hidden}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--border)}
 
-html { scroll-behavior: smooth; }
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes popIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes scanline{0%{top:-10%}100%{top:110%}}
 
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans);
-  overflow-x: hidden;
-  cursor: default;
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.show{opacity:1;transform:none}
+
+/* ── SCANLINE EFFECT (X theme only) ── */
+body.theme-x .scanline{
+  position:fixed;inset:0;pointer-events:none;z-index:998;overflow:hidden;
+}
+body.theme-x .scanline::after{
+  content:'';position:absolute;left:0;right:0;height:2px;
+  background:rgba(29,155,240,0.06);
+  animation:scanline 4s linear infinite;
 }
 
 /* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: var(--ink);
-  border-bottom: 2px solid var(--red);
-  padding: 14px 28px;
-  display: flex; align-items: center; justify-content: space-between;
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:52px;
 }
+.nav-logo{font-family:var(--display);font-size:22px;letter-spacing:.04em;color:var(--text)}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:24px}
+.nav-links a{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
 
-.nav-logo {
-  font-weight: 800; font-size: 1rem; color: #fff; letter-spacing: .02em;
+/* ── THEME TOGGLE ── */
+.theme-fab{
+  position:fixed;bottom:24px;right:24px;z-index:200;
+  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
 }
-.nav-logo sup { color: var(--red); font-size: .65em; }
-
-.nav-links { display: flex; gap: 24px; align-items: center; }
-.nav-links a {
-  font-family: var(--mono); font-size: .65rem; color: #888;
-  text-decoration: none; text-transform: uppercase; letter-spacing: .1em;
-  transition: color .2s;
+.theme-btn{
+  width:46px;height:46px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--border);
+  color:#fff;font-size:16px;cursor:pointer;
+  box-shadow:0 4px 20px rgba(0,0,0,0.5);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s;font-family:var(--body);
 }
-.nav-links a:hover { color: var(--gold); }
-
-.nav-badge {
-  font-family: var(--mono); font-size: .55rem; color: var(--red);
-  border: 1px solid var(--red); padding: 2px 8px; border-radius: 2px;
-  letter-spacing: .08em; text-transform: uppercase;
+.theme-btn:hover{transform:scale(1.1)}
+.theme-panel{
+  background:var(--surface);border:1px solid var(--border);
+  padding:8px;display:flex;flex-direction:column;gap:4px;
+  animation:popIn .18s ease;box-shadow:0 8px 32px rgba(0,0,0,.5);
+  min-width:170px;
 }
+.theme-opt{
+  display:flex;align-items:center;gap:10px;padding:9px 14px;
+  background:transparent;border:1px solid transparent;
+  color:var(--muted);font-family:var(--body);font-size:11px;
+  letter-spacing:.1em;cursor:pointer;text-align:left;
+  transition:all .15s;text-transform:uppercase;
+}
+.theme-opt:hover,.theme-opt.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.theme-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 
 /* ── HERO ── */
-.hero {
-  min-height: 100vh; padding: 120px 28px 80px;
-  max-width: 980px; margin: 0 auto;
-  display: flex; flex-direction: column; justify-content: center;
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;padding:100px 24px 60px;
+  max-width:900px;margin:0 auto;position:relative;
 }
-
-.hero-eyebrow {
-  font-family: var(--mono); font-size: .68rem; color: var(--muted);
-  text-transform: uppercase; letter-spacing: .12em; margin-bottom: 20px;
+.hero-eyebrow{
+  font-size:10px;letter-spacing:.25em;color:var(--accent);
+  text-transform:uppercase;margin-bottom:24px;
+  animation:fadeUp .6s .1s both;font-family:var(--body);
 }
-
-.hero-eyebrow span { color: var(--red); }
-
-.hero-name {
-  font-size: clamp(3rem, 10vw, 6.5rem);
-  font-weight: 800; line-height: .95;
-  letter-spacing: -.03em; margin-bottom: 16px;
+.hero-name{
+  font-family:var(--hero);font-size:clamp(52px,11vw,110px);
+  font-weight:800;line-height:.9;margin-bottom:8px;
+  color:var(--text);animation:fadeUp .6s .2s both;
 }
-
-.hero-name .accent { color: var(--red); }
-
-.hero-title {
-  font-family: var(--mono); font-size: clamp(.85rem, 2vw, 1.1rem);
-  color: var(--muted); margin-bottom: 28px; letter-spacing: .02em;
+.hero-name .last{color:var(--accent)}
+.hero-title{
+  font-family:var(--display);font-size:clamp(22px,4vw,42px);
+  letter-spacing:.04em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:32px;animation:fadeUp .6s .3s both;
 }
-
-.hero-desc {
-  font-size: clamp(.95rem, 2vw, 1.15rem);
-  max-width: 620px; line-height: 1.7; color: #444;
-  margin-bottom: 36px;
+.hero-bio{
+  font-size:14px;color:var(--muted);max-width:520px;
+  line-height:1.8;margin-bottom:40px;animation:fadeUp .6s .4s both;
 }
-
-.hero-desc strong { color: var(--ink); }
-
-.cert-strip {
-  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px;
+.hero-bio strong{color:var(--text)}
+.hero-tags{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;
+  animation:fadeUp .6s .5s both;
 }
-
-.cert-pill {
-  font-family: var(--mono); font-size: .62rem; font-weight: 500;
-  padding: 5px 12px; border-radius: 2px; letter-spacing: .06em;
-  text-transform: uppercase;
+.tag{
+  font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  padding:4px 12px;border:1px solid var(--border);color:var(--muted);
 }
-
-.cert-pill.ms { background: var(--ink); color: var(--gold); border: 1px solid var(--gold); }
-.cert-pill.bc { background: transparent; color: var(--red); border: 1px solid var(--red); }
-.cert-pill.cl { background: var(--surface); color: var(--ink); border: 1px solid var(--rule); }
-
-.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-
-.btn {
-  font-family: var(--sans); font-size: .78rem; font-weight: 700;
-  padding: 12px 22px; border-radius: 3px; cursor: pointer;
-  text-decoration: none; letter-spacing: .03em; text-transform: uppercase;
-  transition: all .15s; display: inline-block;
+.tag.hot{border-color:var(--accent);color:var(--accent)}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .6s .6s both}
+.btn{
+  font-family:var(--body);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;padding:12px 28px;text-decoration:none;
+  transition:all .2s;cursor:pointer;border:none;
 }
-.btn-primary { background: var(--red); color: #fff; border: none; }
-.btn-primary:hover { background: #b82828; }
-.btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
-.btn-ghost:hover { background: var(--ink); color: #fff; }
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent2)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── CIPC BADGE ── */
+.cipc-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  padding:6px 14px;border:1px solid var(--accent);color:var(--accent);
+  margin-bottom:24px;animation:fadeUp .5s .15s both;
+}
+.cipc-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
 
 /* ── SECTION ── */
-section { max-width: 980px; margin: 0 auto; padding: 80px 28px; }
-
-.section-label {
-  font-family: var(--mono); font-size: .62rem; color: var(--muted);
-  text-transform: uppercase; letter-spacing: .14em; margin-bottom: 8px;
-}
-
-.section-title {
-  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
-  letter-spacing: -.02em; margin-bottom: 40px; line-height: 1.05;
-}
-
-.section-title span { color: var(--red); }
-
-.rule {
-  border: none; border-top: 1px solid var(--rule); margin: 0 28px;
+section{max-width:900px;margin:0 auto;padding:80px 24px}
+.section-label{
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:40px;padding-left:14px;
+  border-left:3px solid var(--accent);font-family:var(--body);
 }
 
 /* ── PROJECTS ── */
-.projects-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 18px;
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:2px}
+@media(max-width:600px){.projects-grid{grid-template-columns:1fr}}
+
+.project-card{
+  background:var(--surface);border:1px solid var(--border);
+  padding:28px;transition:border-color .2s,transform .2s;
+  position:relative;overflow:hidden;text-decoration:none;color:var(--text);
+  display:block;
 }
-
-.project-card {
-  background: var(--ink); border-radius: 6px; padding: 24px;
-  position: relative; overflow: hidden; text-decoration: none;
-  display: flex; flex-direction: column;
-  transition: transform .2s;
-  border: 1px solid #1a1a1a;
+.project-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s;
 }
+.project-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.project-card:hover::before{transform:scaleX(1)}
+.project-card:hover .project-arrow{transform:translateX(4px)}
 
-.project-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--red), var(--gold));
+.project-status{
+  font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:6px;
+  font-family:var(--body);
 }
-
-.project-card:hover { transform: translateY(-3px); }
-
-.project-status {
-  font-family: var(--mono); font-size: .55rem; color: #3a3;
-  text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px;
-  display: flex; align-items: center; gap: 6px;
+.project-status .live-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+.project-name{
+  font-family:var(--display);font-size:32px;letter-spacing:.03em;
+  text-transform:uppercase;margin-bottom:8px;color:var(--text);
 }
-
-.project-status::before {
-  content: ''; width: 6px; height: 6px; background: #3a3; border-radius: 50%;
-  animation: pulse 2s infinite;
+.project-desc{font-size:12px;color:var(--muted);line-height:1.75;margin-bottom:16px}
+.project-stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.stack-tag{
+  font-size:8px;letter-spacing:.12em;padding:2px 8px;
+  border:1px solid var(--border);color:var(--muted);text-transform:uppercase;
 }
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; } 50% { opacity: .4; }
-}
-
-.project-name {
-  font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 10px;
-}
-
-.project-desc {
-  font-family: var(--mono); font-size: .68rem; color: #888;
-  line-height: 1.6; margin-bottom: 18px; flex: 1;
-}
-
-.project-tags {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
-}
-
-.tag {
-  font-family: var(--mono); font-size: .55rem; padding: 3px 8px;
-  border-radius: 2px; letter-spacing: .06em;
-  background: #1a1a1a; color: #666; border: 1px solid #2a2a2a;
-}
-
-.tag.hot { color: var(--gold); border-color: #3a3000; background: #1a1500; }
-
-.project-footer {
-  display: flex; align-items: center; justify-content: space-between;
-}
-
-.project-cat {
-  font-family: var(--mono); font-size: .58rem; color: #444;
-  text-transform: uppercase; letter-spacing: .08em;
-}
-
-.project-arrow { color: var(--red); font-size: 1.1rem; }
+.project-footer{display:flex;align-items:center;justify-content:space-between}
+.project-type{font-size:9px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+.project-arrow{font-size:14px;color:var(--accent);transition:transform .2s}
 
 /* ── SKILLS ── */
-.skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-@media(max-width:640px){ .skills-layout { grid-template-columns: 1fr; } }
-
-.skills-group-title {
-  font-family: var(--mono); font-size: .6rem; color: var(--red);
-  text-transform: uppercase; letter-spacing: .12em; margin-bottom: 14px;
-  padding-bottom: 6px; border-bottom: 1px solid var(--rule);
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:2px}
+.skill-item{
+  background:var(--surface);border:1px solid var(--border);
+  padding:20px;
 }
-
-.skill-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
-
-.skill-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 8px 12px; background: var(--surface);
-  border: 1px solid var(--rule); border-radius: 3px;
-  transition: border-color .15s;
-}
-
-.skill-row:hover { border-color: var(--red); }
-
-.skill-name {
-  font-size: .82rem; font-weight: 600; color: var(--ink);
-}
-
-.skill-badge {
-  font-family: var(--mono); font-size: .55rem; padding: 2px 7px;
-  border-radius: 2px; text-transform: uppercase; letter-spacing: .06em;
-}
-
-.badge-cert { background: var(--gold); color: var(--ink); }
-.badge-platform { background: var(--ink); color: var(--gold); }
-.badge-lang { background: var(--surface); color: var(--muted); border: 1px solid var(--rule); }
-.badge-cloud { background: #1a2a3a; color: #6af; border: 1px solid #2a3a4a; }
-.badge-bc { background: #1a0a00; color: var(--red); border: 1px solid #3a1000; }
-.badge-sec { background: #0a1a0a; color: #4a4; border: 1px solid #1a2a1a; }
-.badge-data { background: #1a1a2a; color: #a8f; border: 1px solid #2a2a4a; }
-
-/* ── CERT WALL ── */
-.cert-wall {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 10px; margin-top: 32px;
-}
-
-.cert-item {
-  padding: 12px 14px; border: 1px solid var(--rule);
-  border-radius: 4px; background: #fff;
-  transition: border-color .15s, transform .15s;
-}
-
-.cert-item:hover { border-color: var(--red); transform: translateY(-1px); }
-
-.cert-issuer {
-  font-family: var(--mono); font-size: .55rem; color: var(--muted);
-  text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px;
-}
-
-.cert-name {
-  font-size: .8rem; font-weight: 700; color: var(--ink); line-height: 1.3;
-}
-
-.cert-date {
-  font-family: var(--mono); font-size: .55rem; color: #bbb; margin-top: 4px;
-}
-
-/* ── EXPERIENCE ── */
-.exp-list { display: flex; flex-direction: column; gap: 0; }
-
-.exp-item {
-  display: grid; grid-template-columns: 140px 1fr;
-  gap: 0 24px; padding: 24px 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-@media(max-width:560px){
-  .exp-item { grid-template-columns: 1fr; gap: 8px; }
-}
-
-.exp-dates {
-  font-family: var(--mono); font-size: .62rem; color: var(--muted);
-  letter-spacing: .04em; padding-top: 3px; line-height: 1.5;
-}
-
-.exp-role { font-size: .95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
-.exp-org { font-family: var(--mono); font-size: .68rem; color: var(--red); margin-bottom: 8px; }
-.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-.exp-bullets li {
-  font-size: .82rem; color: #555; line-height: 1.5; padding-left: 14px; position: relative;
-}
-.exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--red); font-size: .7rem; top: 2px; }
+.skill-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.skill-name{font-family:var(--display);font-size:22px;color:var(--text)}
 
 /* ── ABOUT ── */
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-@media(max-width:640px){ .about-grid { grid-template-columns: 1fr; } }
-
-.about-block-title {
-  font-family: var(--mono); font-size: .6rem; color: var(--red);
-  text-transform: uppercase; letter-spacing: .12em; margin-bottom: 12px;
-  padding-bottom: 6px; border-bottom: 1px solid var(--rule);
-}
-
-.about-text { font-size: .88rem; color: #555; line-height: 1.8; }
-.about-text strong { color: var(--ink); font-weight: 700; }
-
-.about-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-.about-list li {
-  font-size: .84rem; color: #555; padding-left: 14px; position: relative; line-height: 1.5;
-}
-.about-list li::before { content: '·'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
-
-.verify-strip {
-  margin-top: 32px; padding: 18px 20px;
-  background: var(--ink); border-radius: 6px;
-  border-left: 3px solid var(--gold);
-}
-
-.verify-title {
-  font-family: var(--mono); font-size: .6rem; color: var(--gold);
-  text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px;
-}
-
-.verify-links { display: flex; gap: 12px; flex-wrap: wrap; }
-
-.verify-link {
-  font-family: var(--mono); font-size: .65rem; color: #aaa;
-  text-decoration: none; padding: 4px 10px;
-  border: 1px solid #333; border-radius: 2px;
-  transition: all .15s;
-}
-
-.verify-link:hover { border-color: var(--gold); color: var(--gold); }
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+@media(max-width:600px){.about-grid{grid-template-columns:1fr}}
+.about-card{background:var(--surface);border:1px solid var(--border);padding:28px}
+.about-card h3{font-family:var(--display);font-size:24px;margin-bottom:16px;text-transform:uppercase;color:var(--text)}
+.about-card p,.about-card li{font-size:12px;color:var(--muted);line-height:1.85}
+.about-card ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.about-card li::before{content:"◆ ";color:var(--accent);font-size:8px}
 
 /* ── CONTACT ── */
-.contact-wrap {
-  background: var(--ink); border-radius: 8px; padding: 48px;
-  position: relative; overflow: hidden; text-align: center;
+.contact-strip{
+  background:var(--accent);padding:48px 24px;text-align:center;
+  margin-top:80px;
 }
-
-.contact-wrap::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+.contact-strip h2{font-family:var(--display);font-size:clamp(36px,7vw,72px);color:#fff;margin-bottom:8px}
+.contact-strip p{font-size:11px;color:rgba(255,255,255,.7);letter-spacing:.15em;margin-bottom:28px}
+.contact-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.contact-link{
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  padding:10px 24px;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.3);color:#fff;text-decoration:none;
+  transition:background .2s;
 }
-
-.contact-label {
-  font-family: var(--mono); font-size: .6rem; color: #555;
-  text-transform: uppercase; letter-spacing: .14em; margin-bottom: 12px;
-}
-
-.contact-heading {
-  font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800;
-  color: #fff; margin-bottom: 8px; letter-spacing: -.02em;
-}
-
-.contact-sub {
-  font-family: var(--mono); font-size: .72rem; color: #666; margin-bottom: 32px;
-}
-
-.contact-links {
-  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
-  margin-bottom: 32px;
-}
-
-.contact-btn {
-  font-family: var(--sans); font-size: .75rem; font-weight: 700;
-  padding: 10px 20px; border-radius: 3px; text-decoration: none;
-  text-transform: uppercase; letter-spacing: .04em; transition: all .15s;
-  display: inline-flex; align-items: center; gap: 6px;
-}
-
-.contact-btn.linkedin { background: #0a66c2; color: #fff; }
-.contact-btn.linkedin:hover { background: #0856a8; }
-.contact-btn.github { background: #fff; color: var(--ink); }
-.contact-btn.github:hover { background: #eee; }
-.contact-btn.x { background: #000; color: #fff; border: 1px solid #333; }
-.contact-btn.x:hover { border-color: #666; }
-.contact-btn.wa { background: #25D366; color: #fff; }
-.contact-btn.wa:hover { background: #1db855; }
-.contact-btn.email { background: var(--red); color: #fff; }
-.contact-btn.email:hover { background: #b82828; }
-
-.contact-footnote {
-  font-family: var(--mono); font-size: .6rem; color: #444;
-  line-height: 1.8; border-top: 1px solid #1a1a1a; padding-top: 20px;
-}
+.contact-link:hover{background:rgba(255,255,255,.2)}
 
 /* ── FOOTER ── */
-footer {
-  background: var(--ink); border-top: 1px solid #1a1a1a;
-  padding: 20px 28px; text-align: center;
+footer{
+  text-align:center;padding:32px 24px;border-top:1px solid var(--border);
+  font-size:9px;color:var(--muted);letter-spacing:.15em;line-height:2;
 }
 
-.footer-text {
-  font-family: var(--mono); font-size: .6rem; color: #444; line-height: 1.8;
+/* ── THEME OVERRIDES ── */
+
+/* GitHub Dark */
+body.theme-github{
+  --bg:#0d1117;--surface:#161b22;--surface2:#21262d;--border:#30363d;
+  --accent:#58a6ff;--accent2:#1f6feb;--text:#c9d1d9;--muted:#8b949e;
 }
+body.theme-github nav{background:rgba(13,17,23,0.92)}
 
-.footer-text span { color: var(--red); }
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* WhatsApp Green */
+body.theme-whatsapp{
+  --bg:#111b21;--surface:#202c33;--surface2:#2a3942;--border:#3b4a54;
+  --accent:#25d366;--accent2:#128c7e;--text:#e9edef;--muted:#8696a0;
 }
+body.theme-whatsapp nav{background:rgba(17,27,33,0.92)}
+body.theme-whatsapp .btn-primary{color:#111b21}
+body.theme-whatsapp .theme-btn{color:#111b21}
 
-.hero-eyebrow { animation: fadeUp .5s ease .1s both; }
-.hero-name    { animation: fadeUp .5s ease .2s both; }
-.hero-title   { animation: fadeUp .5s ease .3s both; }
-.hero-desc    { animation: fadeUp .5s ease .4s both; }
-.cert-strip   { animation: fadeUp .5s ease .5s both; }
-.hero-cta     { animation: fadeUp .5s ease .6s both; }
-
-/* ── MOBILE ── */
-@media(max-width:600px){
-  nav { padding: 12px 16px; }
-  .nav-links { gap: 14px; }
-  .nav-badge { display: none; }
-  section { padding: 60px 16px; }
-  .contact-wrap { padding: 32px 20px; }
-  .hero { padding: 100px 16px 60px; }
+/* Microsoft Fluent Light */
+body.theme-fluent{
+  --bg:#ffffff;--surface:#f5f5f5;--surface2:#ebebeb;--border:#d1d1d1;
+  --accent:#0078d4;--accent2:#106ebe;--text:#201f1e;--muted:#605e5c;
 }
+body.theme-fluent nav{background:rgba(255,255,255,0.95)}
+body.theme-fluent .project-card:hover{box-shadow:0 4px 24px rgba(0,120,212,.12)}
+body.theme-fluent .cipc-badge{background:rgba(0,120,212,.06)}
 </style>
 </head>
-<body>
+<body class="theme-x">
+<div class="scanline"></div>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">T<sup>4</sup>Tech</div>
+  <span class="nav-logo">T<sup style="font-size:10px">⁴</sup><span>TECH</span></span>
   <div class="nav-links">
     <a href="#projects">Projects</a>
     <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
-    <span class="nav-badge">Open to Work</span>
   </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-eyebrow">
-    T⁴Tech Solutions · <span>CIPC Registered</span> · Johannesburg, ZA · 2026
-  </div>
-  <h1 class="hero-name">Tefo<br><span class="accent">Radebe</span></h1>
-  <div class="hero-title">Power Platform Developer & Functional Consultant</div>
-  <p class="hero-desc">
+  <div class="cipc-badge"><span class="dot"></span> T⁴Tech Solutions · CIPC Registered · 2026</div>
+  <p class="hero-eyebrow">Power Platform Developer & Functional Consultant · Johannesburg, ZA</p>
+  <h1 class="hero-name">Tefo<br/><span class="last">Radebe</span></h1>
+  <p class="hero-title">Functional Consultant Who Builds</p>
+  <p class="hero-bio">
     Founder of <strong>T⁴Tech Solutions</strong> — a registered tech consultancy targeting SMEs in spares, retail, and logistics across Gauteng.
-    I build Power Platform automation solutions, ship AI-powered tools, and deploy production apps from idea to GitHub Pages.
-    BSc IT · Physical-to-Cloud technical profile.
+    I build Power Platform solutions, deploy AI-powered tools, and ship production apps from my phone.
+    <br/><br/>
+    <strong>PL-400 · PL-200 · MB-210</strong>
   </p>
-
-  <div class="cert-strip">
-    <span class="cert-pill ms">PL-400 Developer</span>
-    <span class="cert-pill ms">PL-200 Consultant</span>
-    <span class="cert-pill ms">MB-210 Dynamics 365</span>
-    <span class="cert-pill bc">Cardano Certified</span>
-    <span class="cert-pill bc">Bitcoin Dev CS120</span>
-    <span class="cert-pill cl">BSc IT NQF 7</span>
-    <span class="cert-pill cl">Code 10 Licence</span>
+  <div class="hero-tags">
+    <span class="tag hot">Power Platform</span>
+    <span class="tag hot">Canvas Apps</span>
+    <span class="tag hot">Power Automate</span>
+    <span class="tag">Model-Driven Apps</span>
+    <span class="tag">JavaScript</span>
+    <span class="tag">Cybersecurity</span>
+    <span class="tag">Blockchain</span>
+    <span class="tag hot">T⁴Tech Solutions</span>
   </div>
-
   <div class="hero-cta">
     <a href="#projects" class="btn btn-primary">View Projects</a>
     <a href="#contact" class="btn btn-ghost">Get In Touch</a>
   </div>
 </div>
 
-<hr class="rule">
-
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="section-label">Live & Deployed</div>
-  <h2 class="section-title">What I've <span>Built</span></h2>
-
+  <p class="section-label reveal">Live Projects</p>
   <div class="projects-grid">
 
-    <a class="project-card" href="https://geeradebe.github.io/linkedout" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
+    <a class="project-card reveal" href="https://geeradebe.github.io/linkedout" target="_blank" rel="noreferrer">
+      <div class="project-status"><span class="live-dot"></span> Live · Public</div>
       <div class="project-name">LinkedOut</div>
-      <div class="project-desc">Graduate intelligence platform for unemployed South African grads the system forgot. Live job feed, AI bots (Resume, Job Match, Market Intel), application tracker, and 3-theme accessibility toggle.</div>
-      <div class="project-tags">
-        <span class="tag hot">React CDN</span>
-        <span class="tag hot">Claude AI</span>
-        <span class="tag">Remotive API</span>
-        <span class="tag">PWA</span>
-        <span class="tag">GitHub Pages</span>
+      <p class="project-desc">Graduate intelligence platform for unemployed South African grads the system forgot. Live job feed, AI bots (Resume, Job Match, Market Intel), application tracker, and 3-theme accessibility toggle.</p>
+      <div class="project-stack">
+        <span class="stack-tag">React CDN</span>
+        <span class="stack-tag">Remotive API</span>
+        <span class="stack-tag">Claude AI</span>
+        <span class="stack-tag">PWA</span>
+        <span class="stack-tag">GitHub Pages</span>
       </div>
       <div class="project-footer">
-        <span class="project-cat">Graduate Tools</span>
+        <span class="project-type">Graduate Tools</span>
         <span class="project-arrow">→</span>
       </div>
     </a>
 
-    <a class="project-card" href="https://geeradebe.github.io/satstockvel" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
+    <a class="project-card reveal" href="https://geeradebe.github.io/SatStockvel" target="_blank" rel="noreferrer">
+      <div class="project-status"><span class="live-dot"></span> Live · Public</div>
       <div class="project-name">SatStockvel</div>
-      <div class="project-desc">Bitcoin savings dashboard built on the traditional stokvel model. Per-member BTC accumulation curves, live price ticker, payout markers, and a dark Bitcoin-orange aesthetic.</div>
-      <div class="project-tags">
-        <span class="tag hot">HTML/JS</span>
-        <span class="tag">BTC API</span>
-        <span class="tag">Chart.js</span>
-        <span class="tag">GitHub Pages</span>
+      <p class="project-desc">Bitcoin savings dashboard built on the traditional stokvel model. Per-member BTC accumulation curves, live price ticker, payout markers, and a dark Bitcoin-orange aesthetic.</p>
+      <div class="project-stack">
+        <span class="stack-tag">HTML/JS</span>
+        <span class="stack-tag">BTC API</span>
+        <span class="stack-tag">Chart.js</span>
+        <span class="stack-tag">GitHub Pages</span>
       </div>
       <div class="project-footer">
-        <span class="project-cat">Fintech · Community</span>
+        <span class="project-type">Fintech · Community</span>
         <span class="project-arrow">→</span>
       </div>
     </a>
 
-    <a class="project-card" href="https://geeradebe.github.io/T4Techs.SiteOperationsSuite" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
+    <a class="project-card reveal" href="https://geeradebe.github.io/T4Techs.SiteOperationsSuite" target="_blank" rel="noreferrer">
+      <div class="project-status"><span class="live-dot"></span> Live · Public</div>
       <div class="project-name">T⁴Tech Ops Suite</div>
-      <div class="project-desc">Dark industrial PWA for field operations — site reports, personnel management, work logs with .doc export, toast notifications, and bulk delete. Built for Gauteng SME field teams.</div>
-      <div class="project-tags">
-        <span class="tag hot">PWA</span>
-        <span class="tag">Service Worker</span>
-        <span class="tag">IndexedDB</span>
-        <span class="tag">GitHub Pages</span>
+      <p class="project-desc">Dark industrial PWA for field operations — site reports, personnel management, work logs with .doc export, toast notifications, and bulk delete. Built for Gauteng SME field teams.</p>
+      <div class="project-stack">
+        <span class="stack-tag">PWA</span>
+        <span class="stack-tag">Service Worker</span>
+        <span class="stack-tag">IndexedDB</span>
+        <span class="stack-tag">GitHub Pages</span>
       </div>
       <div class="project-footer">
-        <span class="project-cat">Field Operations</span>
+        <span class="project-type">Field Operations</span>
         <span class="project-arrow">→</span>
       </div>
     </a>
 
-    <a class="project-card" href="https://geeradebe.github.io/T-Tech-Solutions" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public · v1.5</div>
-      <div class="project-name">T⁴Tech Pricing Engine</div>
-      <div class="project-desc">Dynamic pricing calculator with formula-based quoting (S = B×D×C + A), 15% retainer model, auto-tier detection (Starter / Professional / Enterprise), WhatsApp copy function, and PDF export for instant client proposals.</div>
-      <div class="project-tags">
-        <span class="tag hot">HTML/JS</span>
-        <span class="tag hot">jsPDF</span>
-        <span class="tag">WhatsApp API</span>
-        <span class="tag">GitHub Pages</span>
+    <a class="project-card reveal" href="https://geeradebe.github.io/T-Tech-Solutions" target="_blank" rel="noreferrer">
+      <div class="project-status"><span class="live-dot"></span> Live · Public</div>
+      <div class="project-name">T⁴Tech Pricing</div>
+      <p class="project-desc">Interactive pricing calculator with 15% retainer model, 3 complexity tiers, auto-tier detection thresholds, and a WhatsApp copy function for instant client proposals.</p>
+      <div class="project-stack">
+        <span class="stack-tag">HTML/JS</span>
+        <span class="stack-tag">WhatsApp API</span>
+        <span class="stack-tag">GitHub Pages</span>
       </div>
       <div class="project-footer">
-        <span class="project-cat">Business Tools</span>
+        <span class="project-type">Business Tools</span>
         <span class="project-arrow">→</span>
       </div>
     </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/portfolio" target="_blank" rel="noopener">
-      <div class="project-status">Live · This Site</div>
-      <div class="project-name">This Portfolio</div>
-      <div class="project-desc">Single-file HTML portfolio. Mobile-first, no build pipeline, deployed via GitHub mobile. Dark industrial aesthetic with animated hero, cert wall, experience timeline, and contact section.</div>
-      <div class="project-tags">
-        <span class="tag hot">HTML/CSS/JS</span>
-        <span class="tag">GitHub Pages</span>
-        <span class="tag">Zero Dependencies</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-cat">Meta · Portfolio</span>
-        <span class="project-arrow">→</span>
-      </div>
-    </a>
-
-    <div class="project-card" style="opacity:.6; cursor:default;">
-      <div class="project-status" style="color:#555;">In Development</div>
-      <div class="project-name">Supply Chain Capital Intelligence</div>
-      <div class="project-desc">Blueprint platform for spares and logistics SMEs. Stock visibility, supplier coordination, and procurement intelligence — Power Platform + Power BI backend.</div>
-      <div class="project-tags">
-        <span class="tag">Power Platform</span>
-        <span class="tag">Power BI</span>
-        <span class="tag">Dataverse</span>
-      </div>
-      <div class="project-footer">
-        <span class="project-cat">SME · Logistics</span>
-        <span class="project-arrow" style="color:#333;">→</span>
-      </div>
-    </div>
 
   </div>
 </section>
-
-<hr class="rule">
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="section-label">Stack & Credentials</div>
-  <h2 class="section-title">Core <span>Skills</span></h2>
-
-  <div class="skills-layout">
-    <div>
-      <div class="skills-group-title">Microsoft Power Platform</div>
-      <div class="skill-rows">
-        <div class="skill-row"><span class="skill-name">Power Apps — Canvas</span><span class="skill-badge badge-cert">PL-400</span></div>
-        <div class="skill-row"><span class="skill-name">Power Apps — Model-Driven</span><span class="skill-badge badge-cert">PL-400</span></div>
-        <div class="skill-row"><span class="skill-name">Power Automate</span><span class="skill-badge badge-cert">PL-200</span></div>
-        <div class="skill-row"><span class="skill-name">Dynamics 365 Sales</span><span class="skill-badge badge-cert">MB-210</span></div>
-        <div class="skill-row"><span class="skill-name">Dataverse & SharePoint</span><span class="skill-badge badge-platform">Platform</span></div>
-        <div class="skill-row"><span class="skill-name">Power BI</span><span class="skill-badge badge-platform">Platform</span></div>
-      </div>
-
-      <div class="skills-group-title">Development</div>
-      <div class="skill-rows">
-        <div class="skill-row"><span class="skill-name">JavaScript / HTML / CSS</span><span class="skill-badge badge-lang">Language</span></div>
-        <div class="skill-row"><span class="skill-name">Python (Data Analysis)</span><span class="skill-badge badge-data">Maven · Simplilearn</span></div>
-        <div class="skill-row"><span class="skill-name">Electron.js + SQLite</span><span class="skill-badge badge-lang">Desktop</span></div>
-        <div class="skill-row"><span class="skill-name">React / Node.js</span><span class="skill-badge badge-lang">Framework</span></div>
-        <div class="skill-row"><span class="skill-name">C# / .NET / Java / C++</span><span class="skill-badge badge-lang">BSc IT</span></div>
-      </div>
-    </div>
-
-    <div>
-      <div class="skills-group-title">Cloud & DevOps</div>
-      <div class="skill-rows">
-        <div class="skill-row"><span class="skill-name">Microsoft Azure (Admin)</span><span class="skill-badge badge-cloud">Alison</span></div>
-        <div class="skill-row"><span class="skill-name">AWS (Lambda · CLI · BaaS)</span><span class="skill-badge badge-cloud">Alison Diploma</span></div>
-        <div class="skill-row"><span class="skill-name">Google Cloud Platform</span><span class="skill-badge badge-cloud">Simplilearn</span></div>
-        <div class="skill-row"><span class="skill-name">Docker · Kubernetes</span><span class="skill-badge badge-cloud">Alison Diploma</span></div>
-        <div class="skill-row"><span class="skill-name">DevOps Engineering</span><span class="skill-badge badge-cloud">Alison</span></div>
-      </div>
-
-      <div class="skills-group-title">Blockchain & Security</div>
-      <div class="skill-rows">
-        <div class="skill-row"><span class="skill-name">Cardano Blockchain</span><span class="skill-badge badge-bc">Certified Associate</span></div>
-        <div class="skill-row"><span class="skill-name">Bitcoin Development</span><span class="skill-badge badge-bc">Saylor CS120</span></div>
-        <div class="skill-row"><span class="skill-name">Ethereum / Solidity</span><span class="skill-badge badge-bc">Alison</span></div>
-        <div class="skill-row"><span class="skill-name">Kali Linux / CompTIA A+</span><span class="skill-badge badge-sec">Security</span></div>
-        <div class="skill-row"><span class="skill-name">AI Auditing</span><span class="skill-badge badge-sec">ISACA</span></div>
-        <div class="skill-row"><span class="skill-name">Generative AI</span><span class="skill-badge badge-data">Microsoft</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CERT WALL -->
-  <div class="section-label" style="margin-top:48px;">Full Credentials</div>
-  <h3 style="font-size:1.2rem;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;">Certification <span style="color:var(--red)">Wall</span></h3>
-  <p style="font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-bottom:0;">Verify all credentials at <a href="https://linkedin.com/in/geeradebe" target="_blank" style="color:var(--red);text-decoration:none;">linkedin.com/in/geeradebe</a></p>
-
-  <div class="cert-wall">
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Power Platform Developer Associate (PL-400)</div><div class="cert-date">Oct 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Dynamics 365 Sales Functional Consultant (MB-210)</div><div class="cert-date">Oct 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Power Platform Functional Consultant (PL-200)</div><div class="cert-date">2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Create & Manage Canvas Apps with Power Apps</div><div class="cert-date">Oct 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Create & Manage Automated Processes — Power Automate</div><div class="cert-date">Oct 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Create & Manage Model-Driven Apps with Dataverse</div><div class="cert-date">Sep 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Generative AI — Career Essentials</div><div class="cert-date">Nov 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Business Analysis Fundamentals</div><div class="cert-date">Nov 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Career Essentials in System Administration</div><div class="cert-date">Nov 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Deviare</div><div class="cert-name">Microsoft AI Fluency Program</div><div class="cert-date">Feb 2025</div></div>
-    <div class="cert-item"><div class="cert-issuer">Academia Cardano</div><div class="cert-name">Cardano Blockchain Certified Associate</div><div class="cert-date">Feb 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Saylor University</div><div class="cert-name">CS120: Bitcoin for Developers I</div><div class="cert-date">Apr 2022 · ID: 50470514</div></div>
-    <div class="cert-item"><div class="cert-issuer">Afriminers</div><div class="cert-name">African Bitcoiner</div><div class="cert-date">Sep 2023 · ID: BC00320</div></div>
-    <div class="cert-item"><div class="cert-issuer">Alison</div><div class="cert-name">Blockchain as a Service Using AWS</div><div class="cert-date">Aug 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Alison</div><div class="cert-name">Creating Ethereum Blockchain using Solidity</div><div class="cert-date">Aug 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Alison</div><div class="cert-name">Advanced Diploma — Cloud Computing for AWS</div><div class="cert-date">Oct 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Alison</div><div class="cert-name">Microsoft Azure Administrator</div><div class="cert-date">Sep 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Alison</div><div class="cert-name">Diploma in Kubernetes Administration</div><div class="cert-date">Oct 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Alison</div><div class="cert-name">DevOps Engineering — Kubernetes, Docker & GCP</div><div class="cert-date">Oct 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Alison</div><div class="cert-name">CompTIA A+ 1000 — Part I</div><div class="cert-date">Jan 2025</div></div>
-    <div class="cert-item"><div class="cert-issuer">Alison</div><div class="cert-name">DevOps Fundamentals</div><div class="cert-date">Sep 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Alison</div><div class="cert-name">Project Management: The Basics</div><div class="cert-date">Sep 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Simplilearn</div><div class="cert-name">Introduction to Google Cloud Platform</div><div class="cert-date">Sep 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Simplilearn</div><div class="cert-name">Introduction to Kali Linux Basics</div><div class="cert-date">Oct 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Simplilearn</div><div class="cert-name">Introduction to MATLAB</div><div class="cert-date">Sep 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Simplilearn</div><div class="cert-name">Python Certification Course</div><div class="cert-date">Sep 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Maven Analytics</div><div class="cert-name">Python Foundations for Data Analysis</div><div class="cert-date">Sep 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Maven Analytics</div><div class="cert-name">Thinking Like an Analyst</div><div class="cert-date">Oct 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Maven Analytics</div><div class="cert-name">Building a World-Class Portfolio</div><div class="cert-date">Jan 2025</div></div>
-    <div class="cert-item"><div class="cert-issuer">ISACA</div><div class="cert-name">Auditing Generative AI: Strategy, Analysis & Risk Mitigation</div><div class="cert-date">Nov 2024</div></div>
-    <div class="cert-item"><div class="cert-issuer">Cisco</div><div class="cert-name">Introduction to IoT</div><div class="cert-date">Jan 2025</div></div>
-    <div class="cert-item"><div class="cert-issuer">UniAthena</div><div class="cert-name">Basics of Microsoft Power BI</div><div class="cert-date">Jan 2025</div></div>
+  <p class="section-label reveal">Core Skills</p>
+  <div class="skills-grid">
+    <div class="skill-item reveal"><div class="skill-label">Certified</div><div class="skill-name">PL-400</div></div>
+    <div class="skill-item reveal"><div class="skill-label">Certified</div><div class="skill-name">PL-200</div></div>
+    <div class="skill-item reveal"><div class="skill-label">Certified</div><div class="skill-name">MB-210</div></div>
+    <div class="skill-item reveal"><div class="skill-label">Platform</div><div class="skill-name">Canvas Apps</div></div>
+    <div class="skill-item reveal"><div class="skill-label">Platform</div><div class="skill-name">Power Automate</div></div>
+    <div class="skill-item reveal"><div class="skill-label">Platform</div><div class="skill-name">Model-Driven</div></div>
+    <div class="skill-item reveal"><div class="skill-label">Language</div><div class="skill-name">JavaScript</div></div>
+    <div class="skill-item reveal"><div class="skill-label">Blockchain</div><div class="skill-name">Cardano</div></div>
+    <div class="skill-item reveal"><div class="skill-label">Targeting</div><div class="skill-name">Cybersecurity</div></div>
+    <div class="skill-item reveal"><div class="skill-label">Education</div><div class="skill-name">BSc IT</div></div>
   </div>
 </section>
-
-<hr class="rule">
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-label">Work History</div>
-  <h2 class="section-title">Experience <span>&</span> Background</h2>
-
-  <div class="exp-list">
-
-    <div class="exp-item">
-      <div class="exp-dates">Jan 2025<br>Dec 2025</div>
-      <div>
-        <div class="exp-role">IT Technician → Assistant Construction Work Supervisor (Reg. 8.8)</div>
-        <div class="exp-org">Morena Enterprise Technology · Sub-Contractor to CSI Thabile Networking Solutions · Sandton</div>
-        <ul class="exp-bullets">
-          <li>Deployed as IT Technician for fibre optic cabling and network infrastructure at Vantage JNB 11 & 12, Midrand</li>
-          <li>Promoted to Assistant Construction Work Supervisor under OHS Act 85 of 1993, Construction Regulation 8(8)</li>
-          <li>Supervised fibre optic cable installation through manhole infrastructure; enforced 100% PPE compliance</li>
-          <li>Co-authored Daily Safe Task Instructions (DSTI) and Method Statements under Project Manager Morne Venter</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-dates">Jul 2024<br>Dec 2024</div>
-      <div>
-        <div class="exp-role">Power Platform Developer Trainee</div>
-        <div class="exp-org">Afrika Tikkun Services · Training: Mecer Inter-Ed · Midrand, Gauteng</div>
-        <ul class="exp-bullets">
-          <li>Completed Microsoft Power Platform training (PL-400, PL-200, MB-210) through Mecer Inter-Ed</li>
-          <li>Developed Power Automate workflows reducing manual data entry across NGO operations</li>
-          <li>Built Canvas Apps with Power Fx for staff-facing data capture and workflow automation</li>
-          <li>Configured Dynamics 365 Sales modules aligned to organisational KPIs</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-dates">Nov 2022<br>May 2024</div>
-      <div>
-        <div class="exp-role">IT Support Specialist & Student Advisor</div>
-        <div class="exp-org">TOBB Technologies / Cardano Africa Live · Johannesburg South (Hybrid)</div>
-        <ul class="exp-bullets">
-          <li>Supported Cardano Africa Live platform infrastructure; integrated IoT hardware with blockchain data pipelines</li>
-          <li>Managed digital meter-reading systems; delivered L1/L2 remote and on-site technical support</li>
-          <li>Served as Student Advisor — onboarded and mentored Cardano Africa ecosystem participants</li>
-          <li>Represented TOBB Technologies at Cardano Africa Live Summit, Johannesburg (December 2022)</li>
-          <li>Earned Cardano Blockchain Certified Associate credential (Academia Cardano, Feb 2024)</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- EDUCATION -->
-  <div class="section-label" style="margin-top:48px;">Academic Background</div>
-  <div class="exp-list">
-
-    <div class="exp-item">
-      <div class="exp-dates">2020<br>2023</div>
-      <div>
-        <div class="exp-role">BSc in Information Technology (NQF Level 7)</div>
-        <div class="exp-org">Richfield Graduate Institute of Technology · Johannesburg · Overall: 72.40%</div>
-        <ul class="exp-bullets">
-          <li>Specialisation: Digital Applications Development, Cloud Computing, Database Management</li>
-          <li>Key modules: Cyber Security 84%, AI 72%, ML 68%, IoT & Big Data, Mobile App Dev, Work Integrated Learning 93%</li>
-          <li>SAQA ID: 35954 · NQF Level 7 · 370 Credits</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-dates">2018</div>
-      <div>
-        <div class="exp-role">End User Computing (NQF Level 3)</div>
-        <div class="exp-org">Maluti TVET College</div>
-        <ul class="exp-bullets">
-          <li>Microsoft Office suite mastery, digital information management, enterprise computing foundations</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-dates">2015</div>
-      <div>
-        <div class="exp-role">National Senior Certificate — Science Stream</div>
-        <div class="exp-org">Metsimatsho Senior Secondary School</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<hr class="rule">
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="section-label">Who I Am</div>
-  <h2 class="section-title">About <span>T⁴Tech</span></h2>
-
+  <p class="section-label reveal">About</p>
   <div class="about-grid">
-    <div>
-      <div class="about-block-title">The Company</div>
-      <p class="about-text">
-        <strong>T⁴Tech Solutions</strong> is a CIPC-registered tech consultancy based in Johannesburg, targeting SMEs in the spares, retail, and logistics sector across Gauteng. We deliver Power Platform Automation-as-a-Service — from Canvas Apps to full process automation with a monthly retainer model.
-      </p>
-      <br>
-      <div class="about-block-title">What I Build</div>
-      <ul class="about-list">
-        <li>Power Platform solutions for spares & logistics SMEs</li>
+    <div class="about-card reveal">
+      <h3>T⁴Tech Solutions</h3>
+      <p>A CIPC-registered tech consultancy based in Johannesburg, targeting SMEs in the spares, retail, and logistics sector across Gauteng. We deliver Power Platform Automation-as-a-Service — from Canvas Apps to full process automation.</p>
+    </div>
+    <div class="about-card reveal">
+      <h3>What I Build</h3>
+      <ul>
+        <li>Power Platform solutions for SMEs</li>
         <li>AI-powered web apps and dashboards</li>
-        <li>Field operations PWAs (offline-capable, loadshedding-proof)</li>
-        <li>Graduate tools — LinkedOut</li>
-        <li>Fintech community tools — SatStockvel</li>
-        <li>Government digital transformation procurement (in pipeline)</li>
+        <li>Field operations PWAs</li>
+        <li>Graduate tools (LinkedOut)</li>
+        <li>Fintech community tools (SatStockvel)</li>
       </ul>
     </div>
-    <div>
-      <div class="about-block-title">Background</div>
-      <p class="about-text">
-        BSc IT from Richfield Graduate Institute of Technology · End User Computing from Maluti TVET · 
-        Microsoft Certified PL-400, PL-200, MB-210 via Mecer Inter-Ed · Cardano Blockchain Certified Associate · 
-        African Bitcoiner · Bitcoin Developer (Saylor CS120) · Opseng Stakepool Operator · 
-        Pursuing cybersecurity Honours via SASSETA funding.
-      </p>
-      <br>
-      <div class="about-block-title">Philosophy</div>
-      <p class="about-text">
-        <strong>Functional Consultant who builds.</strong> Privacy-first software. Local-first data. 
-        Tools built for South African realities — not Silicon Valley assumptions. 
-        If the system locks you out, build your own door. 
-        The cooperative network advantage isn't just for tuck shops — automation gives any SME the information edge.
-      </p>
+    <div class="about-card reveal">
+      <h3>Background</h3>
+      <p>BSc IT from Richfield · End User Computing from Maluti TVET · Cardano Blockchain Certified Associate · Opseng Stakepool Operator · Pursuing cybersecurity Honours via SASSETA.</p>
     </div>
-  </div>
-
-  <div class="verify-strip">
-    <div class="verify-title">🔗 Verify Credentials & Identity</div>
-    <div class="verify-links">
-      <a href="https://linkedin.com/in/geeradebe" target="_blank" class="verify-link">LinkedIn Profile</a>
-      <a href="https://github.com/GeeRadebe" target="_blank" class="verify-link">GitHub — GeeRadebe</a>
-      <a href="https://x.com/GeeRadebe" target="_blank" class="verify-link">X — @GeeRadebe</a>
-      <a href="https://linkedin.com/in/geeradebe" target="_blank" class="verify-link">Microsoft Certs (via LinkedIn)</a>
-      <a href="https://linkedin.com/in/geeradebe" target="_blank" class="verify-link">Blockchain Certs (via LinkedIn)</a>
+    <div class="about-card reveal">
+      <h3>Philosophy</h3>
+      <p>Functional Consultant who builds. Privacy-first software. Local-first data. Tools built for South African realities — not Silicon Valley assumptions. If the system locks you out, build your own door.</p>
     </div>
   </div>
 </section>
-
-<hr class="rule">
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="contact-wrap">
-    <div class="contact-label">Let's Build</div>
-    <h2 class="contact-heading">T⁴Tech Solutions</h2>
-    <div class="contact-sub">Johannesburg · CIPC Registered · Open to Work · Open to Contracts</div>
-
-    <div class="contact-links">
-      <a href="https://linkedin.com/in/geeradebe" target="_blank" class="contact-btn linkedin">LinkedIn</a>
-      <a href="https://github.com/GeeRadebe" target="_blank" class="contact-btn github">GitHub</a>
-      <a href="https://x.com/GeeRadebe" target="_blank" class="contact-btn x">X / Twitter</a>
-      <a href="https://wa.me/27617679297" target="_blank" class="contact-btn wa">WhatsApp</a>
-      <a href="mailto:giventefor1@gmail.com" class="contact-btn email">Email</a>
-    </div>
-
-    <div class="contact-footnote">
-      T⁴TECH SOLUTIONS · JOHANNESBURG, GAUTENG · SOUTH AFRICA<br>
-      CIPC Registered · PL-400 · PL-200 · MB-210 · BSc IT (NQF 7)<br>
-      © 2026 Tefo Given Radebe · All rights reserved
-    </div>
+<div class="contact-strip" id="contact">
+  <h2>Let's Build</h2>
+  <p>T⁴TECH SOLUTIONS · JOHANNESBURG · CIPC REGISTERED</p>
+  <div class="contact-links">
+    <a class="contact-link" href="https://github.com/GeeRadebe" target="_blank">GitHub</a>
+    <a class="contact-link" href="https://x.com/GeeRadebe" target="_blank">X / Twitter</a>
+    <a class="contact-link" href="https://linkedin.com/in/geeradebe" target="_blank">LinkedIn</a>
+    <a class="contact-link" href="mailto:tefo@t4techsolutions.co.za">Email</a>
+    <a class="contact-link" href="https://wa.me/27" target="_blank">WhatsApp</a>
   </div>
-</section>
+</div>
 
 <footer>
-  <div class="footer-text">
-    <span>T⁴Tech Solutions</span> · Tefo Radebe · Johannesburg, South Africa<br>
-    CIPC Registered · PL-400 · PL-200 · MB-210 · github.com/GeeRadebe · @GeeRadebe
-  </div>
+  © 2026 T⁴Tech Solutions · Tefo Radebe · Johannesburg, South Africa<br/>
+  CIPC Registered · PL-400 · PL-200 · MB-210
 </footer>
 
-</body>
-</html>
+<!-- THEME FAB -->
+<div class="theme-fab" id="themeFab">
+  <div class="theme-panel" id="themePanel" style="display:none">
+    <button class="theme-opt active" data-theme="theme-x" onclick="setTheme('theme-x',this)">
+      <span class="theme-dot" style="background:#1d9bf0"></span> X / Twitter
+    </button>
+    <button class="theme-opt" data-theme="theme-github" onclick="setTheme('theme-github',this)">
+      <span class="theme-dot" style="background:#58a6ff"></span> GitHub Dark
+    </button>
+    <button class="theme-opt" data-theme="theme-whatsapp" onclick="setTheme('theme-whatsapp',this)">
+      <span class="theme-dot" style="background:#25d366"></span> WhatsApp
+    </button>
+    <button class="theme-opt" data-theme="theme-fluent" onclick="setTheme('theme-fluent',this)">
+      <span class="theme-dot" style="background:#0078d4"></span> Microsoft Fluent
+    </button>
+  </div>
+  <button class="theme-btn" id="themeToggleBtn" onclick="var p=document.getElementById('themePanel');p.style.display=p.style.display==='flex'?'none':'flex'" title="Change theme">◑</button>
+</div>
+
+<script>
+// ── THEME ────────────────────────────────────────────────────────────────────
+const THEME_ICONS = {'theme-x':'◑','theme-github':'◐','theme-whatsapp':'●','theme-fluent':'○'};
+let panelOpen = false;
+
+function toggleThemePanel(){
+  panelOpen = !panelOpen;
+  document.getElementById('themePanel').style.display = panelOpen ? 'flex' : 'none';
+}
+
+function setTheme(cls, btn){
+  const body = document.body;
+  ['theme-x','theme-github','theme-whatsapp','theme-fluent'].forEach(t=>body.classList.remove(t));
+  body.classList.add(cls);
+  document.querySelectorAll('.theme-opt').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('themeToggleBtn').textContent = THEME_ICONS[cls]||'◑';
+  try{ localStorage.setItem('tr-theme', cls); }catch{}
+  panelOpen = false;
+  document.getElementById('themePanel').style.display = 'none';
+}
+
+// Restore saved theme
+try{
+  const saved = localStorage.getItem('tr-theme');
+  if(saved){
+    const btn = document.querySelector(`[data-theme="${saved}"]`);
+    setTheme(saved, btn);
+  }
+}catch{}
+
+// Close panel on outside click
+document.addEventListener('click', e=>{
+  if(panelOpen && !document.getElementById('themeFab').contains(e.target)){
+    panelOpen=false;
+    docum
