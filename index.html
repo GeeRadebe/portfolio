@@ -4,33 +4,229 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tefo Radebe — T⁴Tech Solutions</title>
-<meta name="description" content="Power Platform Developer & Functional Consultant. Founder of T⁴Tech Solutions. Johannesburg, South Africa."/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
-@font-face{font-family:'OpenDyslexic';src:url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.otf') format('opentype');}
-
-/* ── RESET ── */
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+body{background:#0a0a0a;color:#f0f0f0;font-family:'IBM Plex Mono',monospace;line-height:1.65;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:#222}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ── THEME VARS ── */
-:root{
-  --bg:#000000;--surface:#0f0f0f;--surface2:#161616;--border:#2f2f2f;
-  --accent:#1d9bf0;--accent2:#1a8cd8;--text:#e7e9ea;--muted:#71767b;
-  --display:'Bebas Neue',sans-serif;--body:'IBM Plex Mono',monospace;--hero:'Syne',sans-serif;
-  --radius:4px;--lh:1.65;
-}
-body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:var(--lh);overflow-x:hidden}
+/* TICKER */
+.ticker{background:#ff3b3b;height:28px;overflow:hidden;display:flex;align-items:center;border-bottom:1px solid #000}
+.ttrack{display:flex;animation:marquee 25s linear infinite;white-space:nowrap}
+.ttrack span{font-size:9px;letter-spacing:.22em;color:#fff;padding:0 24px;text-transform:uppercase}
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-thumb{background:var(--border)}
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-filter:blur(16px);border-bottom:1px solid #1a1a1a;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#f0f0f0;letter-spacing:.04em}
+.nav-logo span{color:#ff3b3b}
+.nav-links{display:flex;gap:20px}
+.nav-links a{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#555;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#f0f0f0}
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-@keyframes popIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes scanline{0%{top:-10%}100%{top:110%}}
+/* HERO */
+.hero{padding:60px 20px 40px;max-width:960px;margin:0 auto;border-bottom:1px solid #1a1a1a}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px;border:1px solid #ff3b3b;color:#ff3b3b;margin-bottom:20px}
+.bdot{width:5px;height:5px;border-radius:50%;background:#ff3b3b;animation:pulse 2s infinite}
+.eyebrow{font-size:10px;letter-spacing:.22em;color:#555;text-transform:uppercase;margin-bottom:16px}
+.hname{font-family:'Syne',sans-serif;font-size:clamp(60px,15vw,140px);font-weight:800;line-height:.85;margin-bottom:4px;color:#f0f0f0}
+.hname span{color:#ff3b3b;display:block}
+.htitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,3.5vw,36px);letter-spacing:.06em;text-transform:uppercase;color:#333;margin-bottom:24px}
+.hbio{font-size:13px;color:#777;max-width:480px;line-height:1.85;margin-bottom:28px}
+.hbio strong{color:#f0f0f0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
+.tag{font-size:8px;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;border:1px solid #1a1a1a;color:#444}
+.tag.h{border-color:#ff3b3b;color:#ff3b3b}
+.cta{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:11px 24px;text-decoration:none;transition:all .2s}
+.btn.p{background:#ff3b3b;color:#fff}
+.btn.p:hover{background:#cc2222}
+.btn.g{background:transparent;color:#f0f0f0;border:1px solid #222}
+.btn.g:hover{border-color:#ff3b3b;color:#ff3b3b}
 
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-.reveal.show{opacity:1;transform:none}
+/* PROJECTS */
+section{max-width:960px;margin:0 auto;padding:48px 20px;border-bottom:1px solid #1a1a1a}
+.slabel{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#ff3b3b;margin-bottom:28px;padding-left:12px;border-left:2px solid #ff3b3b}
+
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:#1a1a1a}
+@media(max-width:600px){.pgrid{grid-template-columns:1fr}}
+.pcard{background:#0a0a0a;padding:22px;text-decoration:none;color:#f0f0f0;display:block;transition:background .2s;position:relative;overflow:hidden}
+.pcard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#ff3b3b;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.pcard:hover{background:#111}
+.pcard:hover::after{transform:scaleX(1)}
+.pcard:hover .parrow{transform:translateX(4px)}
+.ldot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#00d26a;animation:pulse 2s infinite;margin-right:6px}
+.pstatus{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:#444;margin-bottom:10px;display:flex;align-items:center}
+.pname{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px;color:#f0f0f0}
+.pdesc{font-size:11px;color:#555;line-height:1.75;margin-bottom:12px}
+.pstack{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px}
+.stag{font-size:7px;letter-spacing:.1em;padding:2px 7px;border:1px solid #1a1a1a;color:#444;text-transform:uppercase}
+.pfoot{display:flex;align-items:center;justify-content:space-between}
+.ptype{font-size:8px;color:#444;letter-spacing:.15em;text-transform:uppercase}
+.parrow{font-size:14px;color:#ff3b3b;transition:transform .2s}
+
+/* SKILLS */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:1px;background:#1a1a1a}
+.sitem{background:#0a0a0a;padding:16px;transition:background .2s}
+.sitem:hover{background:#111}
+.slabel2{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:#444;margin-bottom:5px}
+.sname{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#f0f0f0}
+
+/* ABOUT */
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1a1a1a}
+@media(max-width:600px){.agrid{grid-template-columns:1fr}}
+.acard{background:#0a0a0a;padding:22px}
+.acard h3{font-family:'Bebas Neue',sans-serif;font-size:20px;margin-bottom:12px;text-transform:uppercase;color:#f0f0f0;letter-spacing:.04em}
+.acard p,.acard li{font-size:11px;color:#555;line-height:1.9}
+.acard ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.acard li::before{content:"→ ";color:#ff3b3b;font-size:9px}
+
+/* CONTACT */
+.cstrip{background:#ff3b3b;padding:48px 20px;text-align:center}
+.cstrip h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,80px);color:#fff;margin-bottom:6px;letter-spacing:.04em}
+.cstrip p{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:.2em;margin-bottom:24px;text-transform:uppercase}
+.clinks{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.clink{font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:10px 20px;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.3);color:#fff;text-decoration:none;transition:background .2s}
+.clink:hover{background:rgba(0,0,0,.35)}
+
+footer{text-align:center;padding:20px;border-top:1px solid #1a1a1a;font-size:8px;color:#333;letter-spacing:.15em;line-height:2}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ttrack">
+    <span>T⁴TECH SOLUTIONS</span><span style="opacity:.4">◆</span>
+    <span>FUNCTIONAL CONSULTANT WHO BUILDS</span><span style="opacity:.4">◆</span>
+    <span>JOHANNESBURG · GAUTENG</span><span style="opacity:.4">◆</span>
+    <span>PL-400 · PL-200 · MB-210</span><span style="opacity:.4">◆</span>
+    <span>6 LIVE PROJECTS</span><span style="opacity:.4">◆</span>
+    <span>LOCKED OUT? BUILD YOUR OWN DOOR</span><span style="opacity:.4">◆</span>
+    <span>T⁴TECH SOLUTIONS</span><span style="opacity:.4">◆</span>
+    <span>FUNCTIONAL CONSULTANT WHO BUILDS</span><span style="opacity:.4">◆</span>
+    <span>JOHANNESBURG · GAUTENG</span><span style="opacity:.4">◆</span>
+    <span>PL-400 · PL-200 · MB-210</span><span style="opacity:.4">◆</span>
+    <span>6 LIVE PROJECTS</span><span style="opacity:.4">◆</span>
+    <span>LOCKED OUT? BUILD YOUR OWN DOOR</span><span style="opacity:.4">◆</span>
+  </div>
+</div>
+
+<nav>
+  <span class="nav-logo">T<sup style="font-size:10px">⁴</sup><span>TECH</span></span>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge"><span class="bdot"></span>T⁴Tech Solutions · Founded 2026</div>
+  <p class="eyebrow">Power Platform Developer & Functional Consultant · Johannesburg, ZA</p>
+  <h1 class="hname">Tefo<span>Radebe</span></h1>
+  <p class="htitle">Functional Consultant Who Builds</p>
+  <p class="hbio">Founder of <strong>T⁴Tech Solutions</strong> — targeting SMEs in spares, retail, and logistics across Gauteng. Power Platform solutions, AI-powered tools, production apps built from a phone.<br/><br/><strong>PL-400 · PL-200 · MB-210</strong></p>
+  <div class="tags">
+    <span class="tag h">Power Platform</span><span class="tag h">Canvas Apps</span><span class="tag h">Power Automate</span>
+    <span class="tag">Model-Driven</span><span class="tag">JavaScript</span><span class="tag">Cybersecurity</span>
+    <span class="tag">Blockchain</span><span class="tag h">T⁴Tech</span>
+  </div>
+  <div class="cta">
+    <a href="#projects" class="btn p">View Projects</a>
+    <a href="#contact" class="btn g">Get In Touch</a>
+  </div>
+</div>
+
+<section id="projects">
+  <p class="slabel">Live Projects</p>
+  <div class="pgrid">
+    <a class="pcard" href="https://geeradebe.github.io/linkedout" target="_blank" rel="noreferrer">
+      <div class="pstatus"><span class="ldot"></span>Live · Public</div>
+      <div class="pname">LinkedOut</div>
+      <p class="pdesc">Graduate intelligence platform. Live ZA job feed, AI Resume/Match/Intel bots, application tracker. Built for every grad the system forgot.</p>
+      <div class="pstack"><span class="stag">React CDN</span><span class="stag">Claude AI</span><span class="stag">PWA</span></div>
+      <div class="pfoot"><span class="ptype">Graduate Tools</span><span class="parrow">→</span></div>
+    </a>
+    <a class="pcard" href="https://geeradebe.github.io/SatStockvel" target="_blank" rel="noreferrer">
+      <div class="pstatus"><span class="ldot"></span>Live · Public</div>
+      <div class="pname">SatStockvel</div>
+      <p class="pdesc">Bitcoin savings on the stokvel model. Live BTC price, accumulation curves per member, payout schedule, 3 themes.</p>
+      <div class="pstack"><span class="stag">HTML/JS</span><span class="stag">BTC API</span><span class="stag">Chart.js</span></div>
+      <div class="pfoot"><span class="ptype">Fintech · Community</span><span class="parrow">→</span></div>
+    </a>
+    <a class="pcard" href="https://geeradebe.github.io/T4Techs.SiteOperationsSuite" target="_blank" rel="noreferrer">
+      <div class="pstatus"><span class="ldot"></span>Live · Public</div>
+      <div class="pname">T⁴Tech Ops Suite</div>
+      <p class="pdesc">PWA for field operations. Site reports, personnel registry, work logs, .doc export. For Gauteng SME field teams.</p>
+      <div class="pstack"><span class="stag">PWA</span><span class="stag">IndexedDB</span><span class="stag">Offline</span></div>
+      <div class="pfoot"><span class="ptype">Field Operations</span><span class="parrow">→</span></div>
+    </a>
+    <a class="pcard" href="https://geeradebe.github.io/T-Tech-Solutions" target="_blank" rel="noreferrer">
+      <div class="pstatus"><span class="ldot"></span>Live · Public</div>
+      <div class="pname">T⁴Tech Pricing</div>
+      <p class="pdesc">Dynamic pricing calculator. 3 complexity tiers, 15% retainer model, auto-tier detection, WhatsApp proposal export.</p>
+      <div class="pstack"><span class="stag">HTML/JS</span><span class="stag">WhatsApp API</span></div>
+      <div class="pfoot"><span class="ptype">Business Tools</span><span class="parrow">→</span></div>
+    </a>
+    <a class="pcard" href="https://geeradebe.github.io/EmergencyZa" target="_blank" rel="noreferrer">
+      <div class="pstatus"><span class="ldot"></span>Live · Public</div>
+      <div class="pname">EmergencyZA</div>
+      <p class="pdesc">SA emergency directory. Police, clinics, hospitals, fire stations, GBV shelters across Gauteng. One-tap call. Offline.</p>
+      <div class="pstack"><span class="stag">HTML/JS</span><span class="stag">GPS</span><span class="stag">Offline-First</span></div>
+      <div class="pfoot"><span class="ptype">Public Safety</span><span class="parrow">→</span></div>
+    </a>
+    <a class="pcard" href="https://geeradebe.github.io/Kasileague" target="_blank" rel="noreferrer">
+      <div class="pstatus"><span class="ldot"></span>Live · Public</div>
+      <div class="pname">KasiLeague</div>
+      <p class="pdesc">Township soccer platform. Live standings, fixtures, team profiles, top scorers. Vosloorus, Windmill Park, Villa Lisa.</p>
+      <div class="pstack"><span class="stag">HTML/JS</span><span class="stag">WhatsApp Share</span><span class="stag">Live Stats</span></div>
+      <div class="pfoot"><span class="ptype">Sports · Community</span><span class="parrow">→</span></div>
+    </a>
+  </div>
+</section>
+
+<section id="skills">
+  <p class="slabel">Core Skills</p>
+  <div class="sgrid">
+    <div class="sitem"><div class="slabel2">Certified</div><div class="sname">PL-400</div></div>
+    <div class="sitem"><div class="slabel2">Certified</div><div class="sname">PL-200</div></div>
+    <div class="sitem"><div class="slabel2">Certified</div><div class="sname">MB-210</div></div>
+    <div class="sitem"><div class="slabel2">Platform</div><div class="sname">Canvas Apps</div></div>
+    <div class="sitem"><div class="slabel2">Platform</div><div class="sname">Power Automate</div></div>
+    <div class="sitem"><div class="slabel2">Platform</div><div class="sname">Model-Driven</div></div>
+    <div class="sitem"><div class="slabel2">Language</div><div class="sname">JavaScript</div></div>
+    <div class="sitem"><div class="slabel2">Blockchain</div><div class="sname">Cardano</div></div>
+    <div class="sitem"><div class="slabel2">Targeting</div><div class="sname">Cybersecurity</div></div>
+    <div class="sitem"><div class="slabel2">Education</div><div class="sname">BSc IT</div></div>
+  </div>
+</section>
+
+<section id="about">
+  <p class="slabel">About</p>
+  <div class="agrid">
+    <div class="acard"><h3>T⁴Tech Solutions</h3><p>Tech consultancy based in Johannesburg targeting SMEs in spares, retail, and logistics across Gauteng. Power Platform Automation-as-a-Service.</p></div>
+    <div class="acard"><h3>What I Build</h3><ul><li>Power Platform solutions for SMEs</li><li>AI-powered web apps and dashboards</li><li>Field operations PWAs</li><li>Graduate tools (LinkedOut)</li><li>Fintech community tools (SatStockvel)</li></ul></div>
+    <div class="acard"><h3>Background</h3><p>BSc IT · Richfield · End User Computing · Maluti TVET · Cardano Blockchain Certified · Opseng Stakepool · Cybersecurity Honours via SASSETA.</p></div>
+    <div class="acard"><h3>Philosophy</h3><p>Functional Consultant who builds. Privacy-first. Local-first. Tools built for South African realities. If the system locks you out, build your own door.</p></div>
+  </div>
+</section>
+
+<div class="cstrip" id="contact">
+  <h2>Let's Build</h2>
+  <p>T⁴Tech Solutions · Johannesburg · 2026</p>
+  <div class="clinks">
+    <a class="clink" href="https://github.com/GeeRadebe" target="_blank">GitHub</a>
+    <a class="clink" href="https://x.com/GeeRadebe" target="_blank">X / Twitter</a>
+    <a class="clink" href="https://linkedin.com/in/geeradebe" target="_blank">LinkedIn</a>
+    <a class="clink" href="mailto:Giventefor1@gmail.com">Email</a>
+  </div>
+</div>
+
+<footer>© 2026 T⁴Tech Solutions · Tefo Radebe · Johannesburg · PL-400 · PL-200 · MB-210</footer>
+
+</body>
+                                                                                                                      </html>
