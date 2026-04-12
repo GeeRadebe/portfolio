@@ -3,1057 +3,415 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Tefo Radebe — Power Platform Developer & Functional Consultant. T⁴Tech Solutions, Johannesburg."/>
-<title>Tefo Radebe · T⁴Tech Solutions</title>
+<meta name="description" content="Tefo Given Radebe — Microsoft Power Platform Developer & Functional Consultant. PL-400 · PL-200 · MB-210. Johannesburg."/>
+<title>Tefo Given Radebe · Power Platform Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --bg: #09090B;
-  --surface: #111115;
-  --surface2: #18181E;
-  --surface3: #1E1E28;
-  --border: #232330;
-  --border2: #2E2E42;
-  --gold: #F0B429;
-  --gold2: #C8901A;
-  --cyan: #06B6D4;
-  --green: #22C55E;
-  --red: #EF4444;
-  --purple: #A855F7;
-  --blue: #3B82F6;
-  --orange: #F97316;
-  --text: #E8E8F2;
-  --muted: #6B6B88;
-  --muted2: #9A9AB8;
-  --max: 1200px;
-}
-
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:'DM Mono',monospace;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
-  overflow-x:hidden;
-}
-
-/* ── GRAIN OVERLAY ── */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:0;opacity:.6;
-}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  height:56px;
-  background:rgba(9,9,11,.85);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;
-  padding:0 clamp(16px,4vw,40px);
-  gap:24px;
-}
-nav::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),var(--cyan),transparent);
-}
-.nav-brand{
-  font-family:'Syne',sans-serif;font-weight:800;font-size:16px;
-  letter-spacing:.04em;display:flex;align-items:center;gap:8px;
-  text-decoration:none;color:var(--text);
-}
-.nav-brand-dot{
-  width:28px;height:28px;background:var(--gold);border-radius:7px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;color:#000;
-  box-shadow:0 0 10px rgba(240,180,41,.4);
-}
+:root{--bg:#09090B;--surface:#111115;--surface2:#18181E;--surface3:#1E1E28;--border:#232330;--border2:#2E2E42;--gold:#F0B429;--gold2:#C8901A;--cyan:#06B6D4;--green:#22C55E;--red:#EF4444;--purple:#A855F7;--blue:#3B82F6;--orange:#F97316;--text:#E8E8F2;--muted:#6B6B88;--muted2:#9A9AB8;--max:1200px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.5}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;background:rgba(9,9,11,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 clamp(16px,4vw,40px);gap:24px}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),var(--cyan),transparent)}
+.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:.04em;display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text)}
+.nav-dot{width:28px;height:28px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;box-shadow:0 0 10px rgba(240,180,41,.4)}
 .nav-links{display:flex;gap:20px;margin-left:auto;align-items:center}
-.nav-links a{
-  font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;transition:color .2s;
-}
-.nav-links a:hover{color:var(--gold)}
-.nav-cta{
-  padding:7px 16px;background:var(--gold);color:#000;
-  border-radius:7px;font-family:'Syne',sans-serif;font-weight:700;
-  font-size:11px;letter-spacing:.06em;text-decoration:none;
-  transition:all .2s;
-}
-.nav-cta:hover{background:#F5C842;transform:translateY(-1px);color:#000!important}
-
-/* ── SECTIONS ── */
-section{
-  max-width:var(--max);margin:0 auto;
-  padding:0 clamp(16px,4vw,40px);
-  position:relative;z-index:1;
-}
-
-/* ── HERO ── */
-.hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;justify-content:center;
-  padding-top:80px;padding-bottom:60px;
-  position:relative;
-}
-.hero-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:48px;align-items:center;
-}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:20px;
-}
-.hero-eyebrow-line{width:32px;height:1px;background:var(--gold)}
-.hero-name{
-  font-family:'Fraunces',serif;font-size:clamp(44px,6vw,80px);
-  font-weight:700;line-height:1;letter-spacing:-.02em;
-  margin-bottom:12px;
-}
+.nav-links a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--gold)}
+.nav-cta{padding:7px 16px;background:var(--gold);color:#000;border-radius:7px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;letter-spacing:.06em;text-decoration:none;transition:all .2s}.nav-cta:hover{background:#F5C842;color:#000!important}
+section{max-width:var(--max);margin:0 auto;padding:0 clamp(16px,4vw,40px);position:relative;z-index:1}
+.sw{padding:80px 0}
+.dv{max-width:var(--max);margin:0 auto;padding:0 clamp(16px,4vw,40px);position:relative;z-index:1}
+.dvl{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:80px;padding-bottom:60px;position:relative}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.hbd{position:absolute;top:0;right:-100px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(240,180,41,.04) 0%,transparent 70%);pointer-events:none}
+.hbd2{position:absolute;bottom:0;left:-100px;width:500px;height:400px;background:radial-gradient(ellipse,rgba(6,182,212,.03) 0%,transparent 70%);pointer-events:none}
+.avail{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:20px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);font-size:10px;letter-spacing:.1em;color:var(--green);margin-bottom:24px}
+.adot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:ap 1.5s ease infinite}
+@keyframes ap{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.eline{width:32px;height:1px;background:var(--gold)}
+.hero-name{font-family:'Fraunces',serif;font-size:clamp(44px,6vw,80px);font-weight:700;line-height:1;letter-spacing:-.02em;margin-bottom:12px}
 .hero-name em{font-style:italic;color:var(--gold)}
-.hero-role{
-  font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,22px);
-  font-weight:600;color:var(--muted2);margin-bottom:24px;
-  letter-spacing:.02em;
-}
-.hero-desc{
-  font-size:13px;color:var(--muted);line-height:1.9;
-  max-width:480px;margin-bottom:36px;
-}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn-primary{
-  padding:11px 24px;background:var(--gold);color:#000;
-  border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;
-  font-size:12px;letter-spacing:.06em;text-decoration:none;
-  transition:all .2s;display:inline-flex;align-items:center;gap:6px;
-  border:none;cursor:pointer;
-}
-.btn-primary:hover{background:#F5C842;transform:translateY(-2px);box-shadow:0 8px 24px rgba(240,180,41,.3)}
-.btn-outline{
-  padding:11px 24px;background:none;color:var(--text);
-  border:1px solid var(--border2);border-radius:9px;
-  font-family:'Syne',sans-serif;font-weight:700;font-size:12px;
-  letter-spacing:.06em;text-decoration:none;transition:all .2s;
-  display:inline-flex;align-items:center;gap:6px;
-}
-.btn-outline:hover{border-color:var(--cyan);color:var(--cyan)}
-
-/* Hero stats */
-.hero-stats{
-  display:grid;grid-template-columns:1fr 1fr;gap:14px;
-}
-.stat-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:14px;
-  padding:20px;position:relative;overflow:hidden;
-}
-.stat-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--stat-color, var(--gold));
-}
-.stat-val{
-  font-family:'Fraunces',serif;font-size:36px;font-weight:700;
-  color:var(--stat-color, var(--gold));line-height:1;margin-bottom:6px;
-}
-.stat-lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.stat-sub{font-size:11px;color:var(--muted);margin-top:4px}
-.stat-icon{
-  position:absolute;bottom:14px;right:16px;
-  font-size:28px;opacity:.12;
-}
-
-/* Stack badges */
+.hero-role{font-family:'Syne',sans-serif;font-size:clamp(14px,1.8vw,19px);font-weight:600;color:var(--muted2);margin-bottom:24px;letter-spacing:.02em}
 .stack{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:28px}
-.stack-badge{
-  padding:4px 11px;border-radius:20px;font-size:10px;font-weight:500;
-  letter-spacing:.06em;border:1px solid;
-}
-.sb-gold{background:rgba(240,180,41,.08);color:var(--gold);border-color:rgba(240,180,41,.2)}
-.sb-cyan{background:rgba(6,182,212,.08);color:var(--cyan);border-color:rgba(6,182,212,.2)}
-.sb-purple{background:rgba(168,85,247,.08);color:var(--purple);border-color:rgba(168,85,247,.2)}
-.sb-green{background:rgba(34,197,94,.08);color:var(--green);border-color:rgba(34,197,94,.2)}
-.sb-blue{background:rgba(59,130,246,.08);color:var(--blue);border-color:rgba(59,130,246,.2)}
-.sb-orange{background:rgba(249,115,22,.08);color:var(--orange);border-color:rgba(249,115,22,.2)}
-
-/* ── SECTION HEADER ── */
-.sec-hd{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  margin-bottom:32px;padding-bottom:16px;
-  border-bottom:1px solid var(--border);
-}
-.sec-title{
-  font-family:'Fraunces',serif;font-size:clamp(28px,4vw,40px);
-  font-weight:700;letter-spacing:-.02em;line-height:1.1;
-}
-.sec-title em{font-style:italic;color:var(--gold)}
-.sec-count{
-  font-size:11px;letter-spacing:.1em;color:var(--muted);
-  font-family:'DM Mono',monospace;
-}
-
-/* ── FEATURED PROJECTS (2 big ones) ── */
-.featured-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:20px;
-  margin-bottom:20px;
-}
-.feat-card{
-  border-radius:18px;border:1px solid var(--border);
-  background:var(--surface);overflow:hidden;
-  transition:transform .25s,border-color .25s;
-  position:relative;
-}
-.feat-card:hover{transform:translateY(-4px)}
-.feat-card-top{
-  height:180px;position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-.feat-card-top-inner{
-  font-size:64px;filter:drop-shadow(0 4px 20px rgba(0,0,0,.5));
-  transition:transform .3s;
-}
-.feat-card:hover .feat-card-top-inner{transform:scale(1.1)}
-.feat-card-body{padding:22px}
-.feat-tag{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:3px 10px;border-radius:20px;font-size:9px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;
-}
-.feat-name{
-  font-family:'Syne',sans-serif;font-size:20px;font-weight:800;
-  margin-bottom:8px;letter-spacing:-.01em;
-}
-.feat-desc{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px}
-.feat-stack{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
-.feat-tech{
-  padding:3px 9px;border-radius:5px;font-size:9px;font-weight:600;
-  letter-spacing:.08em;background:var(--surface2);color:var(--muted2);
-  border:1px solid var(--border);
-}
-.feat-links{display:flex;gap:8px}
-.feat-link{
-  padding:7px 14px;border-radius:8px;font-family:'Syne',sans-serif;
-  font-weight:700;font-size:10px;letter-spacing:.08em;
-  text-decoration:none;transition:all .15s;display:inline-flex;align-items:center;gap:5px;
-}
-.fl-primary{background:var(--gold);color:#000}
-.fl-primary:hover{background:#F5C842}
-.fl-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
-.fl-secondary:hover{border-color:var(--gold);color:var(--gold)}
-
-/* ── PROJECTS GRID ── */
-.projects-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
-  gap:16px;
-}
-.proj-card{
-  border-radius:16px;border:1px solid var(--border);
-  background:var(--surface);overflow:hidden;
-  transition:transform .2s,border-color .2s;
-  display:flex;flex-direction:column;
-}
-.proj-card:hover{transform:translateY(-3px);border-color:var(--border2)}
-.proj-card-top{
-  height:7px;width:100%;
-  background:var(--proj-accent, var(--gold));
-}
-.proj-card-body{padding:18px;flex:1;display:flex;flex-direction:column}
-.proj-icon{font-size:28px;margin-bottom:12px}
-.proj-name{
-  font-family:'Syne',sans-serif;font-size:15px;font-weight:800;
-  margin-bottom:4px;
-}
-.proj-tag{
-  font-size:9px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--proj-accent, var(--gold));margin-bottom:10px;font-weight:700;
-}
-.proj-desc{font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:14px;flex:1}
-.proj-stack{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px}
-.proj-tech{
-  padding:2px 8px;border-radius:4px;font-size:9px;
-  background:var(--surface2);color:var(--muted2);
-  border:1px solid var(--border);letter-spacing:.04em;
-}
-.proj-footer{
-  display:flex;gap:7px;padding-top:12px;
-  border-top:1px solid var(--border);
-}
-.pf-link{
-  padding:6px 12px;border-radius:7px;font-family:'Syne',sans-serif;
-  font-weight:700;font-size:10px;letter-spacing:.06em;
-  text-decoration:none;transition:all .15s;
-}
-.pfl-demo{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
-.pfl-demo:hover{border-color:var(--proj-accent, var(--gold));color:var(--proj-accent, var(--gold))}
-.pfl-code{background:none;color:var(--muted);border:1px solid var(--border)}
-.pfl-code:hover{color:var(--text);border-color:var(--border2)}
-
-/* NEW badge */
-.new-badge{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:2px 8px;border-radius:4px;font-size:8px;font-weight:700;
-  letter-spacing:.1em;background:rgba(240,180,41,.15);color:var(--gold);
-  border:1px solid rgba(240,180,41,.3);text-transform:uppercase;
-  vertical-align:middle;margin-left:6px;
-}
-
-/* ── EXPERIENCE ── */
-.exp-grid{display:flex;flex-direction:column;gap:16px}
-.exp-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:14px;padding:22px 24px;
-  display:grid;grid-template-columns:auto 1fr;gap:0 20px;
-  transition:border-color .2s;
-}
-.exp-card:hover{border-color:var(--border2)}
-.exp-timeline{
-  display:flex;flex-direction:column;align-items:center;
-  padding-top:4px;
-}
-.exp-dot{
-  width:10px;height:10px;border-radius:50%;
-  background:var(--gold);flex-shrink:0;
-  box-shadow:0 0 8px rgba(240,180,41,.4);
-}
-.exp-line{flex:1;width:1px;background:var(--border);margin-top:6px}
-.exp-role{
-  font-family:'Syne',sans-serif;font-size:16px;font-weight:700;
-  margin-bottom:3px;
-}
-.exp-company{font-size:13px;color:var(--gold);margin-bottom:3px}
-.exp-period{font-size:10px;color:var(--muted);letter-spacing:.08em;margin-bottom:12px}
-.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:5px}
-.exp-bullets li{font-size:11px;color:var(--muted2);line-height:1.6;padding-left:14px;position:relative}
-.exp-bullets li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:10px}
-
-/* ── CERTS ── */
-.certs-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;
-}
-.cert-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  padding:16px;display:flex;gap:14px;align-items:flex-start;
-  transition:border-color .2s;
-}
-.cert-card:hover{border-color:var(--border2)}
-.cert-icon{
-  width:38px;height:38px;border-radius:9px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:18px;
-}
-.cert-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;margin-bottom:3px}
-.cert-issuer{font-size:10px;color:var(--muted);letter-spacing:.06em}
-
-/* ── EDUCATION ── */
-.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.edu-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;
-  transition:border-color .2s;
-}
-.edu-card:hover{border-color:var(--border2)}
-.edu-degree{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px}
-.edu-inst{font-size:12px;color:var(--cyan)}
-.edu-period{font-size:10px;color:var(--muted);margin-top:3px}
-
-/* ── CONTACT/FOOTER ── */
-.contact-section{
-  max-width:var(--max);margin:0 auto;
-  padding:80px clamp(16px,4vw,40px) 40px;
-  position:relative;z-index:1;
-}
-.contact-inner{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:20px;padding:48px;
-  display:grid;grid-template-columns:1fr 1fr;gap:48px;
-  align-items:center;position:relative;overflow:hidden;
-}
-.contact-inner::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--gold),var(--cyan));
-}
-.contact-inner::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(6,182,212,.04),transparent);
-  pointer-events:none;
-}
-.contact-title{
-  font-family:'Fraunces',serif;font-size:36px;font-weight:700;
-  line-height:1.1;margin-bottom:14px;
-}
-.contact-title em{color:var(--gold);font-style:italic}
-.contact-desc{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:24px}
-.social-links{display:flex;flex-direction:column;gap:10px}
-.social-item{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 16px;background:var(--surface2);border:1px solid var(--border);
-  border-radius:10px;text-decoration:none;color:var(--text);
-  transition:all .2s;
-}
-.social-item:hover{border-color:var(--border2);transform:translateX(4px)}
-.social-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.social-handle{font-size:13px;font-weight:600;font-family:'Syne',sans-serif}
-.social-platform{font-size:10px;color:var(--muted);letter-spacing:.08em}
-
-.footer-bar{
-  max-width:var(--max);margin:0 auto;
-  padding:20px clamp(16px,4vw,40px) 32px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-top:1px solid var(--border);
-  position:relative;z-index:1;
-}
-.footer-copy{font-size:10px;color:var(--muted);letter-spacing:.08em}
-.footer-made{font-size:10px;color:var(--muted);letter-spacing:.06em}
-
-/* ── SECTION SPACING ── */
-.section-wrap{padding:80px 0}
-
-/* ── DIVIDER ── */
-.divider{
-  max-width:var(--max);margin:0 auto;
-  padding:0 clamp(16px,4vw,40px);
-  position:relative;z-index:1;
-}
-.divider-line{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-
-/* ── ANIMATIONS ── */
-.fade-up{
-  opacity:0;transform:translateY(24px);
-  transition:opacity .6s ease,transform .6s ease;
-}
-.fade-up.visible{opacity:1;transform:translateY(0)}
-
-/* ── AVAILABLE BADGE ── */
-.avail-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:6px 14px;border-radius:20px;
-  background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);
-  font-size:10px;letter-spacing:.1em;color:var(--green);
-  margin-bottom:24px;
-}
-.avail-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:avail-pulse 1.5s ease infinite}
-@keyframes avail-pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
-
-/* ── BG DECORATION ── */
-.hero-bg-dec{
-  position:absolute;top:0;right:-100px;width:600px;height:600px;
-  background:radial-gradient(ellipse,rgba(240,180,41,.04) 0%,transparent 70%);
-  pointer-events:none;
-}
-.hero-bg-dec2{
-  position:absolute;bottom:0;left:-100px;width:500px;height:400px;
-  background:radial-gradient(ellipse,rgba(6,182,212,.03) 0%,transparent 70%);
-  pointer-events:none;
-}
-
-/* ── RESPONSIVE ── */
-@media(max-width:880px){
-  .hero-grid{grid-template-columns:1fr;gap:40px}
-  .hero-stats{grid-template-columns:repeat(4,1fr);gap:10px}
-  .stat-val{font-size:24px}
-  .featured-grid{grid-template-columns:1fr}
-  .contact-inner{grid-template-columns:1fr;gap:32px;padding:28px}
-  .edu-grid{grid-template-columns:1fr}
-  .nav-links{display:none}
-}
-@media(max-width:640px){
-  .hero-stats{grid-template-columns:1fr 1fr}
-  .projects-grid{grid-template-columns:1fr}
-}
+.sb{padding:4px 11px;border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.06em;border:1px solid}
+.sg{background:rgba(240,180,41,.08);color:var(--gold);border-color:rgba(240,180,41,.2)}
+.sc{background:rgba(6,182,212,.08);color:var(--cyan);border-color:rgba(6,182,212,.2)}
+.sp{background:rgba(168,85,247,.08);color:var(--purple);border-color:rgba(168,85,247,.2)}
+.sn{background:rgba(34,197,94,.08);color:var(--green);border-color:rgba(34,197,94,.2)}
+.sl{background:rgba(59,130,246,.08);color:var(--blue);border-color:rgba(59,130,246,.2)}
+.so{background:rgba(249,115,22,.08);color:var(--orange);border-color:rgba(249,115,22,.2)}
+.hdesc{font-size:13px;color:var(--muted);line-height:1.9;max-width:480px;margin-bottom:36px}
+.hact{display:flex;gap:12px;flex-wrap:wrap}
+.btn-p{padding:11px 24px;background:var(--gold);color:#000;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:.06em;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer}
+.btn-p:hover{background:#F5C842;transform:translateY(-2px);box-shadow:0 8px 24px rgba(240,180,41,.3)}
+.btn-o{padding:11px 24px;background:none;color:var(--text);border:1px solid var(--border2);border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:.06em;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-o:hover{border-color:var(--cyan);color:var(--cyan)}
+.hstats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--sc,var(--gold))}
+.sv{font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--sc,var(--gold));line-height:1;margin-bottom:6px}
+.sl2{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ss{font-size:11px;color:var(--muted);margin-top:4px}
+.si{position:absolute;bottom:14px;right:16px;font-size:28px;opacity:.12}
+.sec-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.sec-t{font-family:'Fraunces',serif;font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.sec-t em{font-style:italic;color:var(--gold)}
+.sec-c{font-size:11px;letter-spacing:.1em;color:var(--muted);font-family:'DM Mono',monospace}
+/* FEATURED */
+.fg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:20px}
+.fc{border-radius:18px;border:1px solid var(--border);background:var(--surface);overflow:hidden;transition:transform .25s,border-color .25s;position:relative}
+.fc:hover{transform:translateY(-4px)}
+.fct{height:155px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.fci{font-size:54px;filter:drop-shadow(0 4px 20px rgba(0,0,0,.5));transition:transform .3s}
+.fc:hover .fci{transform:scale(1.1)}
+.fcb{padding:18px}
+.ftag{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.fn{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:7px;letter-spacing:-.01em}
+.fd{font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:12px}
+.fst{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.ft{padding:3px 9px;border-radius:5px;font-size:9px;font-weight:600;letter-spacing:.08em;background:var(--surface2);color:var(--muted2);border:1px solid var(--border)}
+.fls{display:flex;gap:8px}
+.fl{padding:7px 14px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:10px;letter-spacing:.08em;text-decoration:none;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.flp{background:var(--gold);color:#000}.flp:hover{background:#F5C842}
+.fls2{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}.fls2:hover{border-color:var(--gold);color:var(--gold)}
+.nb{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:8px;font-weight:700;letter-spacing:.1em;background:rgba(240,180,41,.15);color:var(--gold);border:1px solid rgba(240,180,41,.3);text-transform:uppercase;vertical-align:middle;margin-left:6px}
+/* PROJ GRID */
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.pc{border-radius:16px;border:1px solid var(--border);background:var(--surface);overflow:hidden;transition:transform .2s,border-color .2s;display:flex;flex-direction:column}
+.pc:hover{transform:translateY(-3px);border-color:var(--border2)}
+.pct{height:6px;width:100%;background:var(--pa,var(--gold))}
+.pcb{padding:16px;flex:1;display:flex;flex-direction:column}
+.pi{font-size:24px;margin-bottom:9px}
+.pn{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;margin-bottom:3px}
+.ptag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--pa,var(--gold));margin-bottom:8px;font-weight:700}
+.pd{font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:11px;flex:1}
+.pst{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:11px}
+.ptch{padding:2px 8px;border-radius:4px;font-size:9px;background:var(--surface2);color:var(--muted2);border:1px solid var(--border);letter-spacing:.04em}
+.pf{display:flex;gap:6px;padding-top:10px;border-top:1px solid var(--border)}
+.pl{padding:6px 12px;border-radius:7px;font-family:'Syne',sans-serif;font-weight:700;font-size:10px;letter-spacing:.06em;text-decoration:none;transition:all .15s}
+.pld{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}.pld:hover{border-color:var(--pa,var(--gold));color:var(--pa,var(--gold))}
+.plc{background:none;color:var(--muted);border:1px solid var(--border)}.plc:hover{color:var(--text);border-color:var(--border2)}
+/* EXP */
+.eg{display:flex;flex-direction:column;gap:16px}
+.ec{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;display:grid;grid-template-columns:auto 1fr;gap:0 20px;transition:border-color .2s}
+.ec:hover{border-color:var(--border2)}
+.etl{display:flex;flex-direction:column;align-items:center;padding-top:4px}
+.edot{width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0;box-shadow:0 0 8px rgba(240,180,41,.4)}
+.eline2{flex:1;width:1px;background:var(--border);margin-top:6px}
+.er{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:3px}
+.eco{font-size:13px;color:var(--gold);margin-bottom:3px}
+.ep{font-size:10px;color:var(--muted);letter-spacing:.08em;margin-bottom:12px}
+.eb{list-style:none;display:flex;flex-direction:column;gap:5px}
+.eb li{font-size:11px;color:var(--muted2);line-height:1.6;padding-left:14px;position:relative}
+.eb li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:10px}
+/* EDU */
+.edug{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.educ{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;transition:border-color .2s}
+.educ:hover{border-color:var(--border2)}
+.edud{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:3px}
+.edui{font-size:12px;color:var(--cyan)}
+.edup{font-size:10px;color:var(--muted);margin-top:3px}
+.edun{font-size:10px;color:var(--muted2);margin-top:5px;line-height:1.5}
+/* CERTS */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.cc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s}
+.cc:hover{border-color:var(--border2)}
+.cci{width:36px;height:36px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px}
+.ccn{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;margin-bottom:3px}
+.cciss{font-size:10px;color:var(--muted);letter-spacing:.06em}
+/* CONTACT */
+.cs{max-width:var(--max);margin:0 auto;padding:80px clamp(16px,4vw,40px) 40px;position:relative;z-index:1}
+.ci{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+.ci::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--cyan))}
+.ct{font-family:'Fraunces',serif;font-size:36px;font-weight:700;line-height:1.1;margin-bottom:14px}
+.ct em{color:var(--gold);font-style:italic}
+.cdesc{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:24px}
+.sls{display:flex;flex-direction:column;gap:10px}
+.si2{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);transition:all .2s}
+.si2:hover{border-color:var(--border2);transform:translateX(4px)}
+.sic{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.sh{font-size:13px;font-weight:600;font-family:'Syne',sans-serif}
+.spl{font-size:10px;color:var(--muted);letter-spacing:.08em}
+.fb{max-width:var(--max);margin:0 auto;padding:20px clamp(16px,4vw,40px) 32px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);position:relative;z-index:1}
+.fc2{font-size:10px;color:var(--muted);letter-spacing:.08em}
+.fu{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fu.visible{opacity:1;transform:translateY(0)}
+@media(max-width:1000px){.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:40px}.hstats{grid-template-columns:repeat(4,1fr)}.sv{font-size:20px}.ci{grid-template-columns:1fr;gap:28px;padding:24px}.edug{grid-template-columns:1fr}.nav-links{display:none}.fg{grid-template-columns:1fr}}
+@media(max-width:640px){.hstats{grid-template-columns:1fr 1fr}.pg{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
-<!-- ══ NAV ══ -->
 <nav>
-  <a href="#" class="nav-brand">
-    <div class="nav-brand-dot">T⁴</div>
-    T⁴Tech Solutions
-  </a>
+  <a href="#" class="nav-brand"><div class="nav-dot">T⁴</div>Tefo Radebe</a>
   <div class="nav-links">
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
-    <a href="#certs">Certifications</a>
+    <a href="#education">Education</a>
     <a href="#contact">Contact</a>
     <a href="mailto:tefo@t4tech.co.za" class="nav-cta">Hire Me →</a>
   </div>
 </nav>
 
-<!-- ══ HERO ══ -->
+<!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero-bg-dec"></div>
-  <div class="hero-bg-dec2"></div>
+  <div class="hbd"></div><div class="hbd2"></div>
   <div class="hero-grid">
-    <div class="fade-up">
-      <div class="avail-badge"><div class="avail-dot"></div>Available for Projects & Contracts</div>
-      <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div>Power Platform Developer · Johannesburg</div>
+    <div class="fu">
+      <div class="avail"><div class="adot"></div>Open to Remote / Contract Roles · IT Roles</div>
+      <div class="eyebrow"><div class="eline"></div>Power Platform Developer · Johannesburg</div>
       <h1 class="hero-name">Tefo<br/><em>Radebe</em></h1>
-      <div class="hero-role">Functional Consultant who Builds</div>
+      <div class="hero-role">Microsoft Power Platform Developer<br/>& Functional Consultant</div>
       <div class="stack">
-        <span class="stack-badge sb-gold">Power Platform</span>
-        <span class="stack-badge sb-cyan">Canvas Apps</span>
-        <span class="stack-badge sb-gold">Power Automate</span>
-        <span class="stack-badge sb-purple">JavaScript</span>
-        <span class="stack-badge sb-green">Cardano</span>
-        <span class="stack-badge sb-blue">Azure / AWS</span>
-        <span class="stack-badge sb-orange">Dynamics 365</span>
+        <span class="sb sg">Power Platform</span><span class="sb sc">Canvas Apps</span>
+        <span class="sb sg">Power Automate</span><span class="sb sp">JavaScript</span>
+        <span class="sb sl">Dynamics 365</span><span class="sb sl">Azure</span>
+        <span class="sb so">AWS</span><span class="sb sn">Cardano</span>
       </div>
-      <p class="hero-desc">
-        Founder of T⁴Tech Solutions. I bridge the gap between functional consulting and hands-on development — shipping Canvas Apps, Power Automate flows, and full-stack web tools that solve real problems in the South African market.
-      </p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn-primary">View Projects →</a>
-        <a href="https://github.com/GeeRadebe" target="_blank" class="btn-outline">GitHub ↗</a>
+      <p class="hdesc">PL-400 · PL-200 · MB-210 certified. Founder of T⁴Tech Solutions. I build Canvas Apps, Power Automate flows, and full-stack web tools for real problems — from kasi logistics to tactical security HUDs.</p>
+      <div class="hact">
+        <a href="#projects" class="btn-p">View Projects →</a>
+        <a href="https://github.com/GeeRadebe" target="_blank" class="btn-o">GitHub ↗</a>
       </div>
     </div>
-    <div class="hero-stats fade-up" style="transition-delay:.15s">
-      <div class="stat-card" style="--stat-color:var(--gold)">
-        <div class="stat-val">7+</div>
-        <div class="stat-lbl">Certifications</div>
-        <div class="stat-sub">PL-400 · PL-200 · MB-210 + more</div>
-        <div class="stat-icon">🏆</div>
-      </div>
-      <div class="stat-card" style="--stat-color:var(--cyan)">
-        <div class="stat-val">14</div>
-        <div class="stat-lbl">Live Projects</div>
-        <div class="stat-sub">Deployed on GitHub Pages</div>
-        <div class="stat-icon">⚡</div>
-      </div>
-      <div class="stat-card" style="--stat-color:var(--green)">
-        <div class="stat-val">3+</div>
-        <div class="stat-lbl">Years Experience</div>
-        <div class="stat-sub">Enterprise & SME clients</div>
-        <div class="stat-icon">◎</div>
-      </div>
-      <div class="stat-card" style="--stat-color:var(--purple)">
-        <div class="stat-val">∞</div>
-        <div class="stat-lbl">Stakepool</div>
-        <div class="stat-sub">Cardano · OPSENG · Active</div>
-        <div class="stat-icon">₳</div>
-      </div>
+    <div class="hstats fu" style="transition-delay:.15s">
+      <div class="scard" style="--sc:var(--gold)"><div class="sv">7+</div><div class="sl2">Certifications</div><div class="ss">PL-400 · PL-200 · MB-210</div><div class="si">🏆</div></div>
+      <div class="scard" style="--sc:var(--cyan)"><div class="sv">14</div><div class="sl2">Live Projects</div><div class="ss">Deployed on GitHub Pages</div><div class="si">⚡</div></div>
+      <div class="scard" style="--sc:var(--green)"><div class="sv">3+</div><div class="sl2">Years in IT</div><div class="ss">WIL · Trainee · Subcontractor</div><div class="si">◎</div></div>
+      <div class="scard" style="--sc:var(--purple)"><div class="sv">500+</div><div class="sl2">Connections</div><div class="ss">LinkedIn · /in/geeradebe</div><div class="si">🔗</div></div>
     </div>
   </div>
 </section>
 
-<div class="divider"><div class="divider-line"></div></div>
+<div class="dv"><div class="dvl"></div></div>
 
-<!-- ══ FEATURED PROJECTS ══ -->
-<div class="section-wrap">
-<section id="projects">
-  <div class="sec-hd fade-up">
-    <h2 class="sec-title">Featured <em>Builds</em></h2>
-    <div class="sec-count">02 of 14 · Latest</div>
-  </div>
-
-  <div class="featured-grid fade-up" style="transition-delay:.1s">
+<!-- FEATURED PROJECTS -->
+<div class="sw"><section id="projects">
+  <div class="sec-hd fu"><h2 class="sec-t">Featured <em>Builds</em></h2><div class="sec-c">03 of 14 · Flagship</div></div>
+  <div class="fg fu" style="transition-delay:.1s">
 
     <!-- VantageHawk -->
-    <div class="feat-card" style="border-color:rgba(239,68,68,.3)">
-      <div class="feat-card-top" style="background:linear-gradient(135deg,#09090B,#1A0808)">
+    <div class="fc" style="border-color:rgba(239,68,68,.3)">
+      <div class="fct" style="background:linear-gradient(135deg,#09090B,#1A0808)">
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(239,68,68,.15),transparent)"></div>
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold))"></div>
-        <div class="feat-card-top-inner">🦅</div>
-        <div style="position:absolute;bottom:10px;right:14px">
-          <span class="new-badge">NEW</span>
-        </div>
+        <div class="fci">🦅</div>
+        <div style="position:absolute;bottom:8px;right:12px"><span class="nb">NEW</span></div>
       </div>
-      <div class="feat-card-body">
-        <div class="feat-tag" style="background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.25)">🔴 Tactical Security HUD</div>
-        <div class="feat-name">VantageHawk</div>
-        <p class="feat-desc">Production-ready tactical security command center. Live Leaflet map with guard tracking, pulsing breach geofences, scrolling incident telemetry, 16-card asset health grid, PTT comms, and a red-glowing Emergency Lockdown button. Full state engine driving reactive telemetry.</p>
-        <div class="feat-stack">
-          <span class="feat-tech">Leaflet.js</span>
-          <span class="feat-tech">CSS Animations</span>
-          <span class="feat-tech">Glassmorphism</span>
-          <span class="feat-tech">GeoJSON</span>
-          <span class="feat-tech">Syne · DM Mono</span>
-          <span class="feat-tech">Single-file HTML</span>
-        </div>
-        <div class="feat-links">
-          <a href="https://geeradebe.github.io/vantage-hawk" target="_blank" class="feat-link fl-primary">Live Demo ↗</a>
-          <a href="https://github.com/GeeRadebe/vantage-hawk" target="_blank" class="feat-link fl-secondary">GitHub ↗</a>
+      <div class="fcb">
+        <div class="ftag" style="background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.25)">🔴 Tactical Security HUD</div>
+        <div class="fn">VantageHawk</div>
+        <p class="fd">Full tactical command center. Canvas-based live map with guard tracking, patrol trails, pulsing breach geofence. Incident telemetry feed, 16-asset health grid, PTT comms, Emergency Lockdown. Zero CDN — works offline.</p>
+        <div class="fst"><span class="ft">Canvas API</span><span class="ft">CSS Animations</span><span class="ft">Glassmorphism</span><span class="ft">State Engine</span></div>
+        <div class="fls">
+          <a href="https://geeradebe.github.io/vantage-hawk" target="_blank" class="fl flp">Live ↗</a>
+          <a href="https://github.com/GeeRadebe/vantage-hawk" target="_blank" class="fl fls2">Code ↗</a>
         </div>
       </div>
     </div>
 
-    <!-- InvoiceForge PM -->
-    <div class="feat-card" style="border-color:rgba(240,180,41,.3)">
-      <div class="feat-card-top" style="background:linear-gradient(135deg,#09090B,#1A1400)">
+    <!-- InvoiceForge -->
+    <div class="fc" style="border-color:rgba(240,180,41,.3)">
+      <div class="fct" style="background:linear-gradient(135deg,#09090B,#1A1400)">
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(240,180,41,.12),transparent)"></div>
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--cyan))"></div>
-        <div class="feat-card-top-inner">📋</div>
-        <div style="position:absolute;bottom:10px;right:14px">
-          <span class="new-badge">NEW</span>
-        </div>
+        <div class="fci">📋</div>
+        <div style="position:absolute;bottom:8px;right:12px"><span class="nb">NEW</span></div>
       </div>
-      <div class="feat-card-body">
-        <div class="feat-tag" style="background:rgba(240,180,41,.1);color:var(--gold);border:1px solid rgba(240,180,41,.25)">🟡 Invoice · PM · Finance</div>
-        <div class="feat-name">InvoiceForge PM</div>
-        <p class="feat-desc">Full invoice builder + project management suite. 4 themes, logo upload, recurring invoice templates, WYSIWYG editing, QR payment codes, version tracking, line item library, client book, time tracker, and Claude AI line-item generation. Export PNG + PDF client-side.</p>
-        <div class="feat-stack">
-          <span class="feat-tech">Claude AI API</span>
-          <span class="feat-tech">html2canvas</span>
-          <span class="feat-tech">jsPDF</span>
-          <span class="feat-tech">QRCode.js</span>
-          <span class="feat-tech">localStorage</span>
-          <span class="feat-tech">Single-file HTML</span>
-        </div>
-        <div class="feat-links">
-          <a href="https://geeradebe.github.io/invoiceforge" target="_blank" class="feat-link fl-primary">Live Demo ↗</a>
-          <a href="https://github.com/GeeRadebe/invoiceforge" target="_blank" class="feat-link fl-secondary">GitHub ↗</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ALL PROJECTS GRID -->
-  <div class="sec-hd fade-up" style="margin-top:48px">
-    <h2 class="sec-title">All <em>Projects</em></h2>
-    <div class="sec-count">12 more builds</div>
-  </div>
-
-  <div class="projects-grid">
-
-    <!-- LinkedOut -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--blue)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">🔗</div>
-        <div class="proj-name">LinkedOut</div>
-        <div class="proj-tag">Job Aggregator · PWA</div>
-        <p class="proj-desc">Mobile-first progressive web app aggregating remote jobs from Remotive + Adzuna APIs. Offline support via service worker, localStorage persistence, encrypted credential store. The anti-LinkedIn for developers.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">PWA</span><span class="proj-tech">Service Worker</span>
-          <span class="proj-tech">Remotive API</span><span class="proj-tech">Adzuna API</span>
-          <span class="proj-tech">localStorage</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/linkedout" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/linkedout" target="_blank" class="pf-link pfl-code">Code</a>
+      <div class="fcb">
+        <div class="ftag" style="background:rgba(240,180,41,.1);color:var(--gold);border:1px solid rgba(240,180,41,.25)">🟡 Invoice · PM · Finance</div>
+        <div class="fn">InvoiceForge PM</div>
+        <p class="fd">Full invoice builder + project management. 4 themes, recurring templates, WYSIWYG, QR payment, version tracking, item library, time tracker, Claude AI line-item generation. PNG + PDF export.</p>
+        <div class="fst"><span class="ft">Claude AI API</span><span class="ft">html2canvas</span><span class="ft">jsPDF</span><span class="ft">QRCode.js</span></div>
+        <div class="fls">
+          <a href="https://geeradebe.github.io/invoiceforge" target="_blank" class="fl flp">Live ↗</a>
+          <a href="https://github.com/GeeRadebe/invoiceforge" target="_blank" class="fl fls2">Code ↗</a>
         </div>
       </div>
     </div>
 
     <!-- SatStockvel -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--orange)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">₿</div>
-        <div class="proj-name">SatStockvel</div>
-        <div class="proj-tag">Bitcoin Stokvel Dashboard</div>
-        <p class="proj-desc">Township stokvel reimagined with Bitcoin. Per-member BTC accumulation curves, payout rotation logic, live BTC price ticker, dark Bitcoin-orange aesthetic. Built with Recharts. Solves real township savings pain points.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">React</span><span class="proj-tech">Recharts</span>
-          <span class="proj-tech">BTC Price API</span><span class="proj-tech">Bitcoin-Orange UI</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/satstockvel" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/satstockvel" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
+    <div class="fc" style="border-color:rgba(249,115,22,.3)">
+      <div class="fct" style="background:linear-gradient(135deg,#09090B,#1A0E00)">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(249,115,22,.12),transparent)"></div>
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--orange),var(--gold))"></div>
+        <div class="fci">₿</div>
       </div>
-    </div>
-
-    <!-- T⁴Tech Ops Suite -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--cyan)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">⚙️</div>
-        <div class="proj-name">T⁴Tech Ops Suite</div>
-        <div class="proj-tag">Field Operations · PWA</div>
-        <p class="proj-desc">Dark industrial PWA for field operations teams. Personnel registry, site reports, activity logs, inline service worker for offline use. Built as a deployable tool for T⁴Tech's field consulting engagements.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">PWA</span><span class="proj-tech">Service Worker</span>
-          <span class="proj-tech">IndexedDB</span><span class="proj-tech">Industrial UI</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/ops-suite" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/ops-suite" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- FieldPro -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--green)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">📍</div>
-        <div class="proj-name">FieldPro</div>
-        <div class="proj-tag">Field Agent Management</div>
-        <p class="proj-desc">Field operations management tool for tracking agents, site visits, and job assignments. GPS-aware, mobile-first. Designed for logistics, security, and maintenance companies operating in the field.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">Geolocation API</span><span class="proj-tech">Mobile-first</span>
-          <span class="proj-tech">localStorage</span><span class="proj-tech">PWA</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/fieldpro" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/fieldpro" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- TenderZA -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--gold)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">🏛️</div>
-        <div class="proj-name">TenderZA</div>
-        <div class="proj-tag">Government Procurement Tracker</div>
-        <p class="proj-desc">South African government tender intelligence platform. Track, filter, and monitor procurement opportunities from eTenders. Built for SMMEs pursuing government contracts via CSD. T⁴Tech's own procurement pipeline tool.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">eTenders API</span><span class="proj-tech">CSD Integration</span>
-          <span class="proj-tech">Filter/Search</span><span class="proj-tech">localStorage</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/tenderza" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/tenderza" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- KasiLeague v2 -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--green)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">⚽</div>
-        <div class="proj-name">KasiLeague v2</div>
-        <div class="proj-tag">Township Football Platform</div>
-        <p class="proj-desc">Township soccer league management — fixtures, standings, scorecards. Built with Betway and Hollywood Bets theming for kasi-culture alignment. Targeting informal league administrators across South African townships.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">League Engine</span><span class="proj-tech">Multi-theme</span>
-          <span class="proj-tech">Standings Logic</span><span class="proj-tech">Mobile-first</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/kasileague" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/kasileague" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ChainTrack -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--purple)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">🔗</div>
-        <div class="proj-name">ChainTrack</div>
-        <div class="proj-tag">Supply Chain Intelligence</div>
-        <p class="proj-desc">Supply chain capital intelligence platform with 12-week educational roadmap and localStorage progress tracker. Built under the T⁴Tech brand for SME logistics operators looking to professionalise their procurement workflows.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">Progress Tracker</span><span class="proj-tech">12-Week Roadmap</span>
-          <span class="proj-tech">localStorage</span><span class="proj-tech">Educational Tool</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/chaintrack" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/chaintrack" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- EmergencyZA -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--red)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">🚨</div>
-        <div class="proj-name">EmergencyZA</div>
-        <div class="proj-tag">Emergency Response Directory</div>
-        <p class="proj-desc">South African emergency services quick-access platform. Consolidated directory of EMS, SAPS, fire, and medical services by province and region. Designed for fast access during crisis — no logins, no friction.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">SA-specific</span><span class="proj-tech">Geolocation</span>
-          <span class="proj-tech">Offline-capable</span><span class="proj-tech">PWA</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/emergencyza" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/emergencyza" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pricing Calculator -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--gold)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">🧮</div>
-        <div class="proj-name">Dynamic Pricing Calculator</div>
-        <div class="proj-tag">Power Platform Pricing Tool</div>
-        <p class="proj-desc">Interactive pricing engine using the formula S = (B × D × C) + A. Three service tiers, 15% retainer logic, real-time output. Built for T⁴Tech's Power Platform Automation-as-a-Service proposal targeting spares and logistics SMEs.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">Pricing Logic</span><span class="proj-tech">3-Tier Model</span>
-          <span class="proj-tech">Retainer Calc</span><span class="proj-tech">T⁴Tech Brand</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/pricing-calc" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/pricing-calc" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scholar-Link -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--cyan)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">🎓</div>
-        <div class="proj-name">Scholar-Link</div>
-        <div class="proj-tag">Student–Mentor Connector</div>
-        <p class="proj-desc">Platform connecting students with mentors and bursary opportunities across South Africa. Addresses the gap between township talent and corporate development programs. Lightweight, mobile-optimised, zero-login entry.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">Match Engine</span><span class="proj-tech">SA Bursaries</span>
-          <span class="proj-tech">Mobile-first</span><span class="proj-tech">localStorage</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/scholar-link" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/scholar-link" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- T⁴ ID Hub -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--gold)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">🪪</div>
-        <div class="proj-name">T⁴ ID Hub</div>
-        <div class="proj-tag">SSO · Central Entry Point</div>
-        <p class="proj-desc">Central authentication and app-launch hub for the entire T⁴Tech ecosystem. Single sign-on entry point routing to all 14 apps. Branded portal with session management and unified T⁴Tech identity across products.</p>
-        <div class="proj-stack">
-          <span class="proj-tech">SSO Logic</span><span class="proj-tech">App Registry</span>
-          <span class="proj-tech">Session Mgmt</span><span class="proj-tech">T⁴ Ecosystem</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/t4id" target="_blank" class="pf-link pfl-demo">Live ↗</a>
-          <a href="https://github.com/GeeRadebe/t4id" target="_blank" class="pf-link pfl-code">Code</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Power Platform AaaS -->
-    <div class="proj-card fade-up" style="--proj-accent:var(--blue)">
-      <div class="proj-card-top"></div>
-      <div class="proj-card-body">
-        <div class="proj-icon">⚡</div>
-        <div class="proj-name">GTR Spares AaaS Demo</div>
-        <div class="proj-tag">Power Platform · Automation-as-a-Service</div>
-        <p class="proj-desc">Flagship demo for T⁴Tech's Power Platform Automation-as-a-Service offering. Targets the spares and logistics vertical with automated procurement notifications, supplier flows, and field ops dashboards. Built for "GTR Spares — Boksburg."</p>
-        <div class="proj-stack">
-          <span class="proj-tech">Power Automate</span><span class="proj-tech">Canvas App</span>
-          <span class="proj-tech">Dataverse</span><span class="proj-tech">SME Logistics</span>
-        </div>
-        <div class="proj-footer">
-          <a href="https://geeradebe.github.io/aaas-demo" target="_blank" class="pf-link pfl-demo">Demo ↗</a>
-          <a href="https://github.com/GeeRadebe" target="_blank" class="pf-link pfl-code">GitHub</a>
+      <div class="fcb">
+        <div class="ftag" style="background:rgba(249,115,22,.1);color:var(--orange);border:1px solid rgba(249,115,22,.25)">🟠 Bitcoin · Stokvel · Kasi</div>
+        <div class="fn">SatStockvel</div>
+        <p class="fd">Township stokvel reimagined with Bitcoin. Per-member BTC accumulation curves, payout rotation logic, live BTC price ticker. Solves a real SA informal savings problem with crypto rails.</p>
+        <div class="fst"><span class="ft">React</span><span class="ft">Recharts</span><span class="ft">BTC Price API</span><span class="ft">Stokvel Logic</span></div>
+        <div class="fls">
+          <a href="https://geeradebe.github.io/satstockvel" target="_blank" class="fl flp">Live ↗</a>
+          <a href="https://github.com/GeeRadebe/satstockvel" target="_blank" class="fl fls2">Code ↗</a>
         </div>
       </div>
     </div>
 
   </div>
-</section>
-</div>
 
-<div class="divider"><div class="divider-line"></div></div>
+  <!-- REST -->
+  <div class="sec-hd fu" style="margin-top:48px"><h2 class="sec-t">All <em>Projects</em></h2><div class="sec-c">11 more builds</div></div>
+  <div class="pg">
+    <div class="pc fu" style="--pa:var(--blue)"><div class="pct"></div><div class="pcb"><div class="pi">🔗</div><div class="pn">LinkedOut</div><div class="ptag">Job Aggregator · PWA</div><p class="pd">Mobile-first PWA aggregating remote jobs from Remotive + Adzuna. Offline via service worker, localStorage persistence.</p><div class="pst"><span class="ptch">PWA</span><span class="ptch">Service Worker</span><span class="ptch">Remotive API</span><span class="ptch">Adzuna API</span></div><div class="pf"><a href="https://geeradebe.github.io/linkedout" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/linkedout" target="_blank" class="pl plc">Code</a></div></div></div>
 
-<!-- ══ EXPERIENCE ══ -->
-<div class="section-wrap">
-<section id="experience">
-  <div class="sec-hd fade-up">
-    <h2 class="sec-title">Work <em>History</em></h2>
-    <div class="sec-count">3 roles</div>
+    <div class="pc fu" style="--pa:var(--cyan)"><div class="pct"></div><div class="pcb"><div class="pi">⚙️</div><div class="pn">T⁴Tech Ops Suite</div><div class="ptag">Field Operations · PWA</div><p class="pd">Dark industrial PWA. Personnel registry, site reports, activity logs, inline service worker for offline use.</p><div class="pst"><span class="ptch">PWA</span><span class="ptch">Service Worker</span><span class="ptch">IndexedDB</span></div><div class="pf"><a href="https://geeradebe.github.io/ops-suite" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/ops-suite" target="_blank" class="pl plc">Code</a></div></div></div>
+
+    <div class="pc fu" style="--pa:var(--green)"><div class="pct"></div><div class="pcb"><div class="pi">📍</div><div class="pn">FieldPro</div><div class="ptag">Field Agent Management</div><p class="pd">Track field agents, site visits, job assignments. GPS-aware, mobile-first. Built for logistics and security field ops.</p><div class="pst"><span class="ptch">Geolocation API</span><span class="ptch">Mobile-first</span><span class="ptch">PWA</span></div><div class="pf"><a href="https://geeradebe.github.io/fieldpro" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/fieldpro" target="_blank" class="pl plc">Code</a></div></div></div>
+
+    <div class="pc fu" style="--pa:var(--gold)"><div class="pct"></div><div class="pcb"><div class="pi">🏛️</div><div class="pn">TenderZA</div><div class="ptag">Government Procurement</div><p class="pd">SA government tender intelligence. Track procurement from eTenders. Built for SMMEs pursuing government contracts via CSD.</p><div class="pst"><span class="ptch">eTenders</span><span class="ptch">CSD</span><span class="ptch">Filter/Search</span></div><div class="pf"><a href="https://geeradebe.github.io/tenderza" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/tenderza" target="_blank" class="pl plc">Code</a></div></div></div>
+
+    <div class="pc fu" style="--pa:var(--green)"><div class="pct"></div><div class="pcb"><div class="pi">⚽</div><div class="pn">KasiLeague v2</div><div class="ptag">Township Football</div><p class="pd">Township soccer league management. Fixtures, standings, scorecards. Betway + Hollywood Bets theming for kasi culture alignment.</p><div class="pst"><span class="ptch">League Engine</span><span class="ptch">Multi-theme</span><span class="ptch">Mobile-first</span></div><div class="pf"><a href="https://geeradebe.github.io/kasileague" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/kasileague" target="_blank" class="pl plc">Code</a></div></div></div>
+
+    <div class="pc fu" style="--pa:var(--purple)"><div class="pct"></div><div class="pcb"><div class="pi">🔗</div><div class="pn">ChainTrack</div><div class="ptag">Supply Chain Intelligence</div><p class="pd">12-week supply chain capital roadmap with localStorage progress tracker. For SME logistics operators professionalising procurement.</p><div class="pst"><span class="ptch">Progress Tracker</span><span class="ptch">12-Week Roadmap</span><span class="ptch">localStorage</span></div><div class="pf"><a href="https://geeradebe.github.io/chaintrack" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/chaintrack" target="_blank" class="pl plc">Code</a></div></div></div>
+
+    <div class="pc fu" style="--pa:var(--red)"><div class="pct"></div><div class="pcb"><div class="pi">🚨</div><div class="pn">EmergencyZA</div><div class="ptag">Emergency Response</div><p class="pd">SA emergency services quick-access. EMS, SAPS, fire, medical by province. Fast access during crisis — no logins, no friction.</p><div class="pst"><span class="ptch">SA-specific</span><span class="ptch">Geolocation</span><span class="ptch">PWA</span></div><div class="pf"><a href="https://geeradebe.github.io/emergencyza" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/emergencyza" target="_blank" class="pl plc">Code</a></div></div></div>
+
+    <div class="pc fu" style="--pa:var(--gold)"><div class="pct"></div><div class="pcb"><div class="pi">🧮</div><div class="pn">Dynamic Pricing Calculator</div><div class="ptag">Power Platform Pricing</div><p class="pd">S = (B × D × C) + A. Three tiers, 15% retainer. Built for T⁴Tech's AaaS proposal targeting spares and logistics SMEs.</p><div class="pst"><span class="ptch">Pricing Logic</span><span class="ptch">3-Tier Model</span><span class="ptch">Retainer Calc</span></div><div class="pf"><a href="https://geeradebe.github.io/pricing-calc" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/pricing-calc" target="_blank" class="pl plc">Code</a></div></div></div>
+
+    <div class="pc fu" style="--pa:var(--cyan)"><div class="pct"></div><div class="pcb"><div class="pi">🎓</div><div class="pn">Scholar-Link</div><div class="ptag">Student–Mentor Connector</div><p class="pd">Connects SA students with mentors and bursaries. Bridges township talent and corporate development programmes.</p><div class="pst"><span class="ptch">Match Engine</span><span class="ptch">SA Bursaries</span><span class="ptch">Mobile-first</span></div><div class="pf"><a href="https://geeradebe.github.io/scholar-link" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/scholar-link" target="_blank" class="pl plc">Code</a></div></div></div>
+
+    <div class="pc fu" style="--pa:var(--gold)"><div class="pct"></div><div class="pcb"><div class="pi">🪪</div><div class="pn">T⁴ ID Hub</div><div class="ptag">SSO · App Launcher</div><p class="pd">Central SSO and launch hub for the T⁴Tech ecosystem. Routes to all 14 apps. Unified identity across products.</p><div class="pst"><span class="ptch">SSO Logic</span><span class="ptch">App Registry</span><span class="ptch">Session Mgmt</span></div><div class="pf"><a href="https://geeradebe.github.io/t4id" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe/t4id" target="_blank" class="pl plc">Code</a></div></div></div>
+
+    <div class="pc fu" style="--pa:var(--blue)"><div class="pct"></div><div class="pcb"><div class="pi">⚡</div><div class="pn">GTR Spares AaaS Demo</div><div class="ptag">Power Platform · AaaS</div><p class="pd">Flagship demo for T⁴Tech's Automation-as-a-Service. Automated procurement notifications, supplier flows, field ops dashboards.</p><div class="pst"><span class="ptch">Power Automate</span><span class="ptch">Canvas App</span><span class="ptch">Dataverse</span></div><div class="pf"><a href="https://geeradebe.github.io/aaas-demo" target="_blank" class="pl pld">Live ↗</a><a href="https://github.com/GeeRadebe" target="_blank" class="pl plc">GitHub</a></div></div></div>
   </div>
-  <div class="exp-grid">
+</section></div>
 
-    <div class="exp-card fade-up">
-      <div class="exp-timeline"><div class="exp-dot"></div><div class="exp-line"></div></div>
+<div class="dv"><div class="dvl"></div></div>
+
+<!-- EXPERIENCE -->
+<div class="sw"><section id="experience">
+  <div class="sec-hd fu"><h2 class="sec-t">Work <em>Experience</em></h2><div class="sec-c">3 roles · from LinkedIn</div></div>
+  <div class="eg">
+
+    <div class="ec fu">
+      <div class="etl"><div class="edot"></div><div class="eline2"></div></div>
       <div>
-        <div class="exp-role">Founder & Lead Consultant</div>
-        <div class="exp-company">T⁴Tech Solutions</div>
-        <div class="exp-period">2023 — PRESENT · Johannesburg, Gauteng</div>
-        <ul class="exp-bullets">
-          <li>Founded tech consulting and field operations company serving SME clients across Gauteng</li>
-          <li>Delivering Power Platform Automation-as-a-Service targeting spares, logistics, and security verticals</li>
-          <li>Built 14 production-grade single-file web applications deployed on GitHub Pages</li>
-          <li>Registered on CSD, pursuing government procurement channels and CIPC Pty Ltd registration</li>
-          <li>Operating Cardano stakepool (OPSENG) and exploring blockchain integration for SME tools</li>
+        <div class="er">IT Technician (Subcontractor)</div>
+        <div class="eco">CSI Thabile Networking Solutions · Contract</div>
+        <div class="ep">JAN 2025 – DEC 2025 · 1 YR · SANDTON · ON-SITE</div>
+        <ul class="eb">
+          <li>Install and configure cabling infrastructure for various technical systems</li>
+          <li>Ensuring seamless integration and performance across network installations</li>
+          <li>Technical support across client sites · Skills: Technical Support</li>
         </ul>
       </div>
     </div>
 
-    <div class="exp-card fade-up" style="transition-delay:.1s">
-      <div class="exp-timeline"><div class="exp-dot" style="background:var(--cyan)"></div><div class="exp-line"></div></div>
+    <div class="ec fu" style="transition-delay:.1s">
+      <div class="etl"><div class="edot" style="background:var(--cyan)"></div><div class="eline2"></div></div>
       <div>
-        <div class="exp-role">Power Platform Developer</div>
-        <div class="exp-company">TOBB Technologies</div>
-        <div class="exp-period">2022 — 2023 · Johannesburg, Gauteng</div>
-        <ul class="exp-bullets">
-          <li>Developed Canvas Apps and Model-Driven Apps for enterprise clients on the Power Platform</li>
-          <li>Built Power Automate flows for business process automation across sales and operations</li>
-          <li>Implemented Dynamics 365 Sales customisations and MB-210 certified solutions</li>
-          <li>JavaScript development for PCF controls and client-side Dataverse extensions</li>
+        <div class="er">Power Platform Developer Trainee</div>
+        <div class="eco">Afrika Tikkun · Contract (via Mecer Inter-Ed)</div>
+        <div class="ep">JUL 2024 – DEC 2024 · 6 MOS · MIDRAND · ON-SITE</div>
+        <ul class="eb">
+          <li>Comprehensive Work Readiness Training Course to enhance employability</li>
+          <li>Microsoft Power Apps and Power Platform Functional Consulting training</li>
+          <li>Skills: Microsoft Power Apps · Power Platform Functional Consultant · +5 skills</li>
         </ul>
       </div>
     </div>
 
-    <div class="exp-card fade-up" style="transition-delay:.2s">
-      <div class="exp-timeline"><div class="exp-dot" style="background:var(--purple)"></div></div>
+    <div class="ec fu" style="transition-delay:.2s">
+      <div class="etl"><div class="edot" style="background:var(--purple)"></div></div>
       <div>
-        <div class="exp-role">IT Trainer & Systems Support</div>
-        <div class="exp-company">Afrika Tikkun via Mecer Inter-Ed · CSI Thabile Networking Solutions</div>
-        <div class="exp-period">2020 — 2022 · Johannesburg, Gauteng</div>
-        <ul class="exp-bullets">
-          <li>Delivered End User Computing training to youth beneficiaries at Afrika Tikkun sites</li>
-          <li>Network installation and IT support at CSI Thabile — Cisco IoT infrastructure deployments</li>
-          <li>Supported learners through Microsoft Office, internet literacy, and entry-level coding</li>
-          <li>Completed Cisco IoT and AWS Cloud Computing certifications during this period</li>
+        <div class="er">IT Support Specialist (WIL / Freelance)</div>
+        <div class="eco">TOBB Technologies · Freelance</div>
+        <div class="ep">NOV 2022 – MAY 2024 · 1 YR 7 MOS · JHB SOUTH · HYBRID</div>
+        <ul class="eb">
+          <li>Work Integrated Learning placement during BSc IT at Richfield (2nd–3rd year)</li>
+          <li>IT support and troubleshooting across client environments</li>
+          <li>Involved in Cardano Africa Live — Internship Graduate Summit, Dec 2022, Ormonde JHB</li>
+          <li>Skills: Meter Reading · Event Planning · IT Support</li>
         </ul>
       </div>
     </div>
 
   </div>
-</section>
-</div>
+</section></div>
 
-<div class="divider"><div class="divider-line"></div></div>
+<div class="dv"><div class="dvl"></div></div>
 
-<!-- ══ CERTIFICATIONS ══ -->
-<div class="section-wrap">
-<section id="certs">
-  <div class="sec-hd fade-up">
-    <h2 class="sec-title">Certifi<em>cations</em></h2>
-    <div class="sec-count">7 certs · 2 degrees</div>
-  </div>
-  <div class="certs-grid fade-up">
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(240,180,41,.1)">🏆</div>
-      <div><div class="cert-name">PL-400: Power Platform Developer</div><div class="cert-issuer">MICROSOFT · CERTIFIED</div></div>
+<!-- EDUCATION -->
+<div class="sw"><section id="education">
+  <div class="sec-hd fu"><h2 class="sec-t">Edu<em>cation</em></h2><div class="sec-c">4 institutions</div></div>
+  <div class="edug fu">
+    <div class="educ" style="border-color:rgba(240,180,41,.2)">
+      <div class="edud">Microsoft Power Platform Developer, ICT</div>
+      <div class="edui">Mecer Inter-Ed</div>
+      <div class="edup">Jul 2024 – Dec 2024</div>
+      <div class="edun">Skills: Building Power Platform Solutions · Power Platform Functional Consultant</div>
     </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(6,182,212,.1)">⚡</div>
-      <div><div class="cert-name">PL-200: Power Platform Functional Consultant</div><div class="cert-issuer">MICROSOFT · CERTIFIED</div></div>
+    <div class="educ">
+      <div class="edud">Bachelor of Science in Information Technology</div>
+      <div class="edui">Richfield Graduate Institute of Technology</div>
+      <div class="edup">Jan 2020 – May 2023</div>
+      <div class="edun">BSc IT · Skills: Programming</div>
     </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(59,130,246,.1)">📊</div>
-      <div><div class="cert-name">MB-210: Dynamics 365 Sales</div><div class="cert-issuer">MICROSOFT · CERTIFIED</div></div>
+    <div class="educ">
+      <div class="edud">End User Computing Certification</div>
+      <div class="edui">Maluti TVET College</div>
+      <div class="edup">Jan 2018 – Oct 2018</div>
+      <div class="edun">Computer/IT Administration and Management · Computer Basics</div>
     </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(168,85,247,.1)">₳</div>
-      <div><div class="cert-name">Cardano Blockchain Certified Associate</div><div class="cert-issuer">CARDANO FOUNDATION</div></div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(239,68,68,.1)">🔐</div>
-      <div><div class="cert-name">AI Auditing Fundamentals</div><div class="cert-issuer">ISACA · CERTIFIED</div></div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(249,115,22,.1)">☁️</div>
-      <div><div class="cert-name">AWS Cloud Computing</div><div class="cert-issuer">AMAZON WEB SERVICES</div></div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(34,197,94,.1)">🌐</div>
-      <div><div class="cert-name">Cisco IoT Fundamentals</div><div class="cert-issuer">CISCO NETWORKING ACADEMY</div></div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon" style="background:rgba(240,180,41,.08)">₿</div>
-      <div><div class="cert-name">CS120: Bitcoin for Developers</div><div class="cert-issuer">SAYLOR ACADEMY</div></div>
+    <div class="educ">
+      <div class="edud">Matric — Science Stream</div>
+      <div class="edui">Metsimatsho Secondary School</div>
+      <div class="edup">Jan 2015 – Dec 2015</div>
     </div>
   </div>
+</section></div>
 
-  <div style="margin-top:28px">
-    <div class="sec-hd fade-up" style="margin-bottom:16px">
-      <h2 class="sec-title" style="font-size:22px">Edu<em>cation</em></h2>
-    </div>
-    <div class="edu-grid fade-up">
-      <div class="edu-card">
-        <div class="edu-degree">BSc Information Technology</div>
-        <div class="edu-inst">Richfield Graduate Institute of Technology</div>
-        <div class="edu-period">Completed · Johannesburg</div>
-      </div>
-      <div class="edu-card">
-        <div class="edu-degree">End User Computing (N4-N6)</div>
-        <div class="edu-inst">Maluti TVET College</div>
-        <div class="edu-period">Completed · Further Education</div>
-      </div>
-      <div class="edu-card" style="border-color:rgba(240,180,41,.2)">
-        <div class="edu-degree">Cybersecurity Honours</div>
-        <div class="edu-inst">SASSETA</div>
-        <div class="edu-period">In Progress · 2024–2025</div>
-      </div>
-      <div class="edu-card">
-        <div class="edu-degree">TEFL Certification</div>
-        <div class="edu-inst">Online · TeacherRecord Platform</div>
-        <div class="edu-period">Completed · Supplementary</div>
-      </div>
-    </div>
+<div class="dv"><div class="dvl"></div></div>
+
+<!-- CERTIFICATIONS -->
+<div class="sw"><section id="certs">
+  <div class="sec-hd fu"><h2 class="sec-t">Certifi<em>cations</em></h2><div class="sec-c">7 certs</div></div>
+  <div class="cg fu">
+    <div class="cc"><div class="cci" style="background:rgba(240,180,41,.1)">🏆</div><div><div class="ccn">PL-400: Power Platform Developer</div><div class="cciss">MICROSOFT CERTIFIED</div></div></div>
+    <div class="cc"><div class="cci" style="background:rgba(6,182,212,.1)">⚡</div><div><div class="ccn">PL-200: Power Platform Functional Consultant</div><div class="cciss">MICROSOFT CERTIFIED</div></div></div>
+    <div class="cc"><div class="cci" style="background:rgba(59,130,246,.1)">📊</div><div><div class="ccn">MB-210: Dynamics 365 Sales</div><div class="cciss">MICROSOFT CERTIFIED</div></div></div>
+    <div class="cc"><div class="cci" style="background:rgba(168,85,247,.1)">₳</div><div><div class="ccn">Cardano Blockchain Certified Associate</div><div class="cciss">CARDANO FOUNDATION</div></div></div>
+    <div class="cc"><div class="cci" style="background:rgba(239,68,68,.1)">🔐</div><div><div class="ccn">AI Auditing Fundamentals</div><div class="cciss">ISACA</div></div></div>
+    <div class="cc"><div class="cci" style="background:rgba(249,115,22,.1)">☁️</div><div><div class="ccn">AWS Cloud Computing</div><div class="cciss">AMAZON WEB SERVICES</div></div></div>
+    <div class="cc"><div class="cci" style="background:rgba(34,197,94,.1)">🌐</div><div><div class="ccn">Cisco IoT Fundamentals</div><div class="cciss">CISCO NETWORKING ACADEMY</div></div></div>
+    <div class="cc"><div class="cci" style="background:rgba(240,180,41,.08)">₿</div><div><div class="ccn">CS120: Bitcoin for Developers</div><div class="cciss">SAYLOR ACADEMY</div></div></div>
   </div>
-</section>
-</div>
+</section></div>
 
-<!-- ══ CONTACT ══ -->
-<div class="contact-section" id="contact">
-  <div class="contact-inner fade-up">
+<!-- CONTACT -->
+<div class="cs" id="contact">
+  <div class="ci fu">
     <div>
-      <div class="hero-eyebrow" style="margin-bottom:12px"><div class="hero-eyebrow-line"></div>Get in Touch</div>
-      <h2 class="contact-title">Let's build<br/><em>something real</em></h2>
-      <p class="contact-desc">
-        Available for Power Platform projects, full-stack consulting, and technology partnerships. T⁴Tech serves clients across Gauteng and remotely. Government procurement and SMME projects welcome — CSD registered.
-      </p>
+      <div class="eyebrow" style="margin-bottom:12px"><div class="eline"></div>Get in Touch</div>
+      <h2 class="ct">Let's build<br/><em>something real</em></h2>
+      <p class="cdesc">Available for Power Platform projects, IT roles, and contract work. Open to remote and on-site across Gauteng. CSD registered — government procurement welcome.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="mailto:tefo@t4tech.co.za" class="btn-primary">tefo@t4tech.co.za →</a>
-        <a href="https://linkedin.com/in/geeradebe" target="_blank" class="btn-outline">LinkedIn ↗</a>
+        <a href="mailto:tefo@t4tech.co.za" class="btn-p">tefo@t4tech.co.za →</a>
+        <a href="https://linkedin.com/in/geeradebe" target="_blank" class="btn-o">LinkedIn ↗</a>
       </div>
     </div>
-    <div class="social-links">
-      <a href="https://github.com/GeeRadebe" target="_blank" class="social-item">
-        <div class="social-icon" style="background:var(--surface3)">🐙</div>
-        <div><div class="social-handle">@GeeRadebe</div><div class="social-platform">GITHUB · 14 REPOS</div></div>
-        <div style="margin-left:auto;color:var(--muted);font-size:12px">↗</div>
-      </a>
-      <a href="https://x.com/GeeRadebe" target="_blank" class="social-item">
-        <div class="social-icon" style="background:var(--surface3)">𝕏</div>
-        <div><div class="social-handle">@GeeRadebe</div><div class="social-platform">X (TWITTER)</div></div>
-        <div style="margin-left:auto;color:var(--muted);font-size:12px">↗</div>
-      </a>
-      <a href="https://linkedin.com/in/geeradebe" target="_blank" class="social-item">
-        <div class="social-icon" style="background:rgba(10,102,194,.15)">in</div>
-        <div><div class="social-handle">Tefo Radebe</div><div class="social-platform">LINKEDIN · /IN/GEERADEBE</div></div>
-        <div style="margin-left:auto;color:var(--muted);font-size:12px">↗</div>
-      </a>
-      <a href="https://geeradebe.github.io" target="_blank" class="social-item">
-        <div class="social-icon" style="background:rgba(240,180,41,.12)">T⁴</div>
-        <div><div class="social-handle">geeradebe.github.io</div><div class="social-platform">PORTFOLIO · T⁴TECH ECOSYSTEM</div></div>
-        <div style="margin-left:auto;color:var(--muted);font-size:12px">↗</div>
-      </a>
+    <div class="sls">
+      <a href="https://github.com/GeeRadebe" target="_blank" class="si2"><div class="sic" style="background:var(--surface3)">🐙</div><div><div class="sh">@GeeRadebe</div><div class="spl">GITHUB · 14 REPOS</div></div><div style="margin-left:auto;color:var(--muted);font-size:12px">↗</div></a>
+      <a href="https://x.com/GeeRadebe" target="_blank" class="si2"><div class="sic" style="background:var(--surface3)">𝕏</div><div><div class="sh">@GeeRadebe</div><div class="spl">X (TWITTER)</div></div><div style="margin-left:auto;color:var(--muted);font-size:12px">↗</div></a>
+      <a href="https://linkedin.com/in/geeradebe" target="_blank" class="si2"><div class="sic" style="background:rgba(10,102,194,.15)">in</div><div><div class="sh">Tefo Given Radebe</div><div class="spl">LINKEDIN · 500+ CONNECTIONS</div></div><div style="margin-left:auto;color:var(--muted);font-size:12px">↗</div></a>
+      <a href="https://geeradebe.github.io" target="_blank" class="si2"><div class="sic" style="background:rgba(240,180,41,.12)">T⁴</div><div><div class="sh">geeradebe.github.io</div><div class="spl">PORTFOLIO · T⁴TECH ECOSYSTEM</div></div><div style="margin-left:auto;color:var(--muted);font-size:12px">↗</div></a>
     </div>
   </div>
 </div>
 
-<!-- ══ FOOTER ══ -->
-<div class="footer-bar">
-  <div class="footer-copy">© 2025 T⁴TECH SOLUTIONS · TEFO RADEBE · JOHANNESBURG</div>
-  <div class="footer-made">BUILT WITH CLAUDE · DEPLOYED ON GITHUB PAGES</div>
+<div class="fb">
+  <div class="fc2">© 2025 TEFO GIVEN RADEBE · JOHANNESBURG · T⁴TECH SOLUTIONS</div>
+  <div style="font-size:10px;color:var(--muted)">BUILT WITH CLAUDE · GITHUB PAGES</div>
 </div>
 
 <script>
-// Intersection Observer for fade-up animations
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-
-// Nav active state
-const sections = document.querySelectorAll('section[id], #hero');
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
-  navLinks.forEach(a => {
-    a.style.color = a.getAttribute('href') === '#'+current ? 'var(--gold)' : '';
-  });
-}, { passive: true });
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
