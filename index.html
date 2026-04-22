@@ -3,400 +3,354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Tefo Radebe — Power Platform Developer & Functional Consultant. PL-400 · PL-200 · MB-210. Founder of T⁴Tech Solutions, Johannesburg.">
-<meta name="keywords" content="Power Platform Developer, Functional Consultant, PL-400, Canvas Apps, Power Automate, Johannesburg, South Africa, T4Tech Solutions">
-<meta property="og:title" content="Tefo Radebe — T⁴Tech Solutions">
-<meta property="og:description" content="Power Platform Developer & Functional Consultant. PL-400 · PL-200 · MB-210. Building automation solutions for SMEs in Gauteng.">
-<meta property="og:type" content="website">
-<title>Tefo Radebe — T⁴Tech Solutions</title>
+<meta name="description" content="Tefo Radebe — Power Platform Developer & Functional Consultant. PL-400 · PL-200 · MB-210. Founder of T⁴Tech Solutions.">
+<title>Tefo Radebe | T⁴Tech Solutions</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --ink: #0D0D0D; --paper: #F5F2ED; --red: #D63030; --gold: #C9A84C; --rule: #D0CAC0;
-  --surface: #EDEAE3; --mono: 'DM Mono', monospace; --sans: 'Syne', sans-serif; --muted: #888;
+  --void: #000000;
+  --titanium: #E0E0E0;
+  --cyber-red: #FF003C;
+  --hazard: #1A1A1A;
+  --grid: #111111;
 }
-*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+* { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
-body { background: var(--paper); color: var(--ink); font-family: var(--sans); overflow-x: hidden; cursor: default; }
+body {
+  background: var(--void);
+  color: var(--titanium);
+  font-family: 'Syne', system-ui;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* Boot Screen */
+#boot-screen {
+  position: fixed; inset: 0; background: var(--void); z-index: 9999;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  font-family: 'DM Mono', monospace; color: var(--cyber-red); gap: 24px;
+}
+.boot-bar { width: 340px; height: 3px; background: var(--hazard); overflow: hidden; }
+.boot-progress { height: 100%; width: 0%; background: linear-gradient(90deg, var(--cyber-red), #00ffcc); transition: width 3s ease-out; }
 
 /* NAV */
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--ink); border-bottom: 2px solid var(--red); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; }
-.nav-logo { font-weight: 800; font-size: 1rem; color: #fff; letter-spacing: .02em; }
-.nav-logo sup { color: var(--red); font-size: .65em; }
-.nav-links { display: flex; gap: 24px; align-items: center; }
-.nav-links a { font-family: var(--mono); font-size: .65rem; color: #888; text-decoration: none; text-transform: uppercase; letter-spacing: .1em; transition: color .2s; }
-.nav-links a:hover { color: var(--gold); }
-.nav-badge { font-family: var(--mono); font-size: .55rem; color: var(--red); border: 1px solid var(--red); padding: 2px 8px; border-radius: 2px; letter-spacing: .08em; text-transform: uppercase; }
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(0,0,0,0.96); backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--cyber-red);
+  padding: 20px 40px; display: flex; align-items: center; justify-content: space-between;
+  font-family: 'DM Mono', monospace; font-size: 0.82rem;
+}
+.nav-logo { font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem; }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a { color: #888; text-decoration: none; transition: color 0.3s; }
+.nav-links a:hover { color: var(--cyber-red); }
+.status { 
+  font-size: 0.68rem; padding: 6px 16px; border: 1px solid var(--cyber-red); 
+  color: var(--cyber-red); letter-spacing: 0.12em; 
+}
 
 /* HERO */
-.hero { min-height: 100vh; padding: 120px 28px 80px; max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; }
-.hero-eyebrow { font-family: var(--mono); font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 20px; }
-.hero-eyebrow span { color: var(--red); }
-.hero-name { font-size: clamp(3rem, 10vw, 6.5rem); font-weight: 800; line-height: .95; letter-spacing: -.03em; margin-bottom: 16px; }
-.hero-name .accent { color: var(--red); }
-.hero-title { font-family: var(--mono); font-size: clamp(.85rem, 2vw, 1.1rem); color: var(--muted); margin-bottom: 28px; letter-spacing: .02em; }
-.hero-desc { font-size: clamp(.95rem, 2vw, 1.15rem); max-width: 620px; line-height: 1.7; color: #444; margin-bottom: 36px; }
-.hero-desc strong { color: var(--ink); }
-.cert-strip { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
-.cert-pill { font-family: var(--mono); font-size: .62rem; font-weight: 500; padding: 5px 12px; border-radius: 2px; letter-spacing: .06em; text-transform: uppercase; }
-.cert-pill.ms { background: var(--ink); color: var(--gold); border: 1px solid var(--gold); }
-.cert-pill.bc { background: transparent; color: var(--red); border: 1px solid var(--red); }
-.cert-pill.cl { background: var(--surface); color: var(--ink); border: 1px solid var(--rule); }
-.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn { font-family: var(--sans); font-size: .78rem; font-weight: 700; padding: 12px 22px; border-radius: 3px; cursor: pointer; text-decoration: none; letter-spacing: .03em; text-transform: uppercase; transition: all .15s; display: inline-block; }
-.btn-primary { background: var(--red); color: #fff; border: none; }
-.btn-primary:hover { background: #b82828; }
-.btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
-.btn-ghost:hover { background: var(--ink); color: #fff; }
-
-/* SECTIONS */
-section { max-width: 980px; margin: 0 auto; padding: 80px 28px; }
-.section-label { font-family: var(--mono); font-size: .62rem; color: var(--muted); text-transform: uppercase; letter-spacing: .14em; margin-bottom: 8px; }
-.section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 40px; line-height: 1.05; }
-.section-title span { color: var(--red); }
-.rule { border: none; border-top: 1px solid var(--rule); margin: 0 28px; }
+.hero {
+  min-height: 100vh; padding: 140px 40px 100px; display: flex; align-items: center;
+  background: radial-gradient(circle at 20% 30%, rgba(255,0,60,0.06) 0%, transparent 60%);
+}
+.hero-content { max-width: 920px; }
+.eyebrow { font-family: 'DM Mono'; font-size: 0.78rem; color: #666; letter-spacing: 0.18em; margin-bottom: 16px; }
+.hero-name { 
+  font-size: clamp(3.8rem, 9vw, 7.2rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.05em;
+}
+.hero-name .red { color: var(--cyber-red); }
+.tagline { font-size: 1.25rem; color: #bbb; max-width: 680px; margin: 32px 0 48px; }
+.cert-strip { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
+.cert-pill {
+  font-family: 'DM Mono'; font-size: 0.68rem; padding: 8px 20px; border: 1px solid #333; 
+  transition: all 0.3s;
+}
+.cert-pill:hover { border-color: var(--cyber-red); color: var(--cyber-red); transform: translateY(-2px); }
+.cta { 
+  display: flex; gap: 16px; flex-wrap: wrap;
+}
+.btn {
+  padding: 16px 34px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  border: 2px solid; font-size: 0.9rem; transition: all 0.4s;
+}
+.btn-red { border-color: var(--cyber-red); color: var(--cyber-red); }
+.btn-red:hover { background: var(--cyber-red); color: #000; }
+.btn-ghost { border-color: #555; color: #aaa; }
+.btn-ghost:hover { border-color: var(--titanium); color: var(--titanium); }
 
 /* PROJECTS */
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
-.project-card { background: var(--ink); border-radius: 6px; padding: 24px; position: relative; overflow: hidden; text-decoration: none; display: flex; flex-direction: column; transition: transform .2s; border: 1px solid #1a1a1a; }
-.project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--red), var(--gold)); }
-.project-card:hover { transform: translateY(-3px); }
-.project-status { font-family: var(--mono); font-size: .55rem; color: #3a3; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
-.project-status::before { content: ''; width: 6px; height: 6px; background: #3a3; border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
-.project-name { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
-.project-desc { font-family: var(--mono); font-size: .68rem; color: #888; line-height: 1.6; margin-bottom: 18px; flex: 1; }
-.project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-.tag { font-family: var(--mono); font-size: .55rem; padding: 3px 8px; border-radius: 2px; letter-spacing: .06em; background: #1a1a1a; color: #666; border: 1px solid #2a2a2a; }
-.tag.hot { color: var(--gold); border-color: #3a3000; background: #1a1500; }
-.project-footer { display: flex; align-items: center; justify-content: space-between; }
-.project-cat { font-family: var(--mono); font-size: .58rem; color: #444; text-transform: uppercase; letter-spacing: .08em; }
-.project-arrow { color: var(--red); font-size: 1.1rem; }
+#projects { padding: 120px 40px; background: var(--grid); }
+.section-label { font-family: 'DM Mono'; font-size: 0.72rem; color: #666; letter-spacing: 0.15em; margin-bottom: 12px; }
+.section-title { font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 60px; }
+.section-title span { color: var(--cyber-red); }
 
-/* TRAINING */
-.training-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.training-header h3 { font-size: 1.35rem; font-weight: 800; letter-spacing: -.02em; }
-.training-badge { font-family: var(--mono); font-size: .65rem; background: var(--red); color: #fff; padding: 4px 10px; border-radius: 2px; letter-spacing: .06em; }
-.training-img { width: 100%; max-width: 920px; border: 1px solid var(--rule); border-radius: 6px; margin: 24px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.projects-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px;
+}
+.project-card {
+  background: #0a0a0a; border: 2px solid #222; padding: 36px; transition: all 0.4s;
+  position: relative; text-decoration: none; color: inherit;
+}
+.project-card:hover {
+  border-color: var(--cyber-red);
+  transform: translateY(-8px);
+  box-shadow: 0 25px 40px -10px rgba(255,0,60,0.15);
+}
+.project-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyber-red), transparent);
+  transform: scaleX(0); transition: transform 0.5s;
+}
+.project-card:hover::before { transform: scaleX(1); }
 
-/* ABOUT, CONTACT, FOOTER styles (kept functional) */
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-@media(max-width:640px){ .about-grid { grid-template-columns: 1fr; } }
-.about-block-title { font-family: var(--mono); font-size: .6rem; color: var(--red); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
-.about-text { font-size: .88rem; color: #555; line-height: 1.8; }
-.about-text strong { color: var(--ink); font-weight: 700; }
-.about-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-.about-list li { font-size: .84rem; color: #555; padding-left: 14px; position: relative; line-height: 1.5; }
-.about-list li::before { content: '·'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+.project-status { font-family: 'DM Mono'; font-size: 0.68rem; color: #00cc88; letter-spacing: 0.1em; margin-bottom: 14px; }
+.project-name { font-size: 1.55rem; font-weight: 800; margin-bottom: 16px; }
+.project-desc { font-family: 'DM Mono'; font-size: 0.9rem; color: #999; line-height: 1.7; margin-bottom: 28px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { 
+  font-family: 'DM Mono'; font-size: 0.68rem; padding: 5px 14px; background: #111; border: 1px solid #333;
+}
+.tag.crypto { border-color: #4a90e2; color: #7cb6f5; }
+.tag.cyber { border-color: var(--cyber-red); color: var(--cyber-red); }
 
-.verify-strip { margin-top: 32px; padding: 18px 20px; background: var(--ink); border-radius: 6px; border-left: 3px solid var(--gold); }
-.verify-title { font-family: var(--mono); font-size: .6rem; color: var(--gold); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
-.verify-links { display: flex; gap: 12px; flex-wrap: wrap; }
-.verify-link { font-family: var(--mono); font-size: .65rem; color: #aaa; text-decoration: none; padding: 4px 10px; border: 1px solid #333; border-radius: 2px; transition: all .15s; }
-.verify-link:hover { border-color: var(--gold); color: var(--gold); }
+/* HP CERTIFICATES */
+.hp-certs {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; margin-top: 40px;
+}
+.hp-card {
+  background: #0a0a0a; border: 2px solid #003366; padding: 32px;
+}
+.hp-card h3 { color: #0078d4; margin-bottom: 12px; }
 
-.contact-wrap { background: var(--ink); border-radius: 8px; padding: 48px; position: relative; overflow: hidden; text-align: center; }
-.contact-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--red), var(--gold), var(--red)); }
-.contact-label { font-family: var(--mono); font-size: .6rem; color: #555; text-transform: uppercase; letter-spacing: .14em; margin-bottom: 12px; }
-.contact-heading { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; color: #fff; margin-bottom: 8px; letter-spacing: -.02em; }
-.contact-sub { font-family: var(--mono); font-size: .72rem; color: #666; margin-bottom: 32px; }
-.contact-links { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
-.contact-btn { font-family: var(--sans); font-size: .75rem; font-weight: 700; padding: 10px 20px; border-radius: 3px; text-decoration: none; text-transform: uppercase; letter-spacing: .04em; transition: all .15s; display: inline-flex; align-items: center; gap: 6px; }
-.contact-btn.linkedin { background: #0a66c2; color: #fff; }
-.contact-btn.linkedin:hover { background: #0856a8; }
-.contact-btn.github { background: #fff; color: var(--ink); }
-.contact-btn.github:hover { background: #eee; }
-.contact-btn.x { background: #000; color: #fff; border: 1px solid #333; }
-.contact-btn.x:hover { border-color: #666; }
-.contact-btn.wa { background: #25D366; color: #fff; }
-.contact-btn.wa:hover { background: #1db855; }
-.contact-btn.email { background: var(--red); color: #fff; }
-.contact-btn.email:hover { background: #b82828; }
-.contact-footnote { font-family: var(--mono); font-size: .6rem; color: #444; line-height: 1.8; border-top: 1px solid #1a1a1a; padding-top: 20px; }
-
-footer { background: var(--ink); border-top: 1px solid #1a1a1a; padding: 40px 28px 20px; text-align: center; }
-.footer-text { font-family: var(--mono); font-size: .6rem; color: #444; line-height: 1.8; }
-.footer-text span { color: var(--red); }
-.back-to-top { display: inline-block; margin-top: 20px; font-family: var(--mono); font-size: .65rem; color: var(--gold); text-decoration: none; border-bottom: 1px dotted var(--gold); }
-
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.hero-eyebrow, .hero-name, .hero-title, .hero-desc, .cert-strip, .hero-cta { animation: fadeUp .5s ease both; }
+/* Footer */
+footer {
+  background: var(--void); padding: 80px 40px 40px; text-align: center; font-family: 'DM Mono'; color: #555;
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo">T<sup>4</sup>Tech</div>
-  <div class="nav-links">
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
-    <a href="#training">Training</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <span class="nav-badge">Open to Work</span>
-  </div>
-</nav>
-
-<div class="hero">
-  <div class="hero-eyebrow">T⁴Tech Solutions · <span>CIPC Registered</span> · Johannesburg, ZA · 2026</div>
-  <h1 class="hero-name">Tefo<br><span class="accent">Radebe</span></h1>
-  <div class="hero-title">Power Platform Developer & Functional Consultant</div>
-  <p class="hero-desc">Founder of <strong>T⁴Tech Solutions</strong> — a registered tech consultancy targeting SMEs in spares, retail, and logistics across Gauteng. I build Power Platform automation solutions, ship AI-powered tools, and deploy production apps from idea to GitHub Pages. BSc IT · Physical-to-Cloud technical profile.</p>
-
-  <div class="cert-strip">
-    <span class="cert-pill ms">PL-400 Developer</span>
-    <span class="cert-pill ms">PL-200 Consultant</span>
-    <span class="cert-pill ms">MB-210 Dynamics 365</span>
-    <span class="cert-pill bc">Cardano Certified</span>
-    <span class="cert-pill bc">Bitcoin Dev CS120</span>
-    <span class="cert-pill cl">BSc IT NQF 7</span>
-    <span class="cert-pill cl">Code 10 Licence</span>
-  </div>
-
-  <div class="hero-cta">
-    <a href="#projects" class="btn btn-primary">View Projects</a>
-    <a href="#contact" class="btn btn-ghost">Get In Touch</a>
-  </div>
+<div id="boot-screen">
+  <div style="font-size:2.4rem; font-weight:800; letter-spacing:-0.04em;">T⁴TECH NODE</div>
+  <div style="font-size:0.95rem; color:#555;">SYSTEM INITIALIZATION...</div>
+  <div class="boot-bar"><div class="boot-progress" id="progress"></div></div>
+  <div id="boot-percent" style="font-size:1.1rem; font-family:'DM Mono';">0%</div>
 </div>
 
-<hr class="rule">
+<nav>
+  <div class="nav-logo">T⁴<span style="color:var(--cyber-red)">TECH</span></div>
+  <div class="nav-links">
+    <a href="#projects">PROJECTS</a>
+    <a href="#training">CERTIFICATIONS</a>
+    <a href="#contact">CONTACT</a>
+  </div>
+  <div class="status">SYSTEM_STATUS: ACTIVE_NODE</div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">T⁴TECH SOLUTIONS • JOHANNESBURG • 2026</div>
+    <h1 class="hero-name">TEFO<br><span class="red">RADEBE</span></h1>
+    <p class="tagline">Power Platform Developer &amp; Functional Consultant<br>Building production-grade automation, cryptographic trust layers, and defensive tools for South African SMEs.</p>
+
+    <div class="cert-strip">
+      <span class="cert-pill" style="border-color:#0078d4;color:#0078d4;">PL-400 • PL-200 • MB-210</span>
+      <span class="cert-pill" style="border-color:var(--cyber-red);color:var(--cyber-red);">HP LIFE — IT for Business Success</span>
+      <span class="cert-pill" style="border-color:var(--cyber-red);color:var(--cyber-red);">HP LIFE — Professional Networking</span>
+    </div>
+
+    <div class="cta">
+      <a href="#projects" class="btn btn-red">VIEW ALL PROJECTS</a>
+      <a href="#contact" class="btn btn-ghost">SECURE CONTACT</a>
+    </div>
+  </div>
+</section>
 
 <section id="projects">
-  <div class="section-label">Live & Deployed</div>
-  <h2 class="section-title">What I've <span>Built</span></h2>
+  <div class="section-label">LIVE &amp; DEPLOYED SYSTEMS</div>
+  <h2 class="section-title">CRITICAL <span>NODES</span></h2>
 
   <div class="projects-grid">
 
-    <a class="project-card" href="https://geeradebe.github.io/LinkedOut" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">LinkedOut</div>
-      <div class="project-desc">Graduate intelligence platform for unemployed South African grads the system forgot. Live job feed, AI bots (Resume, Job Match, Market Intel), application tracker, and 3-theme accessibility toggle.</div>
-      <div class="project-tags"><span class="tag hot">React CDN</span><span class="tag hot">Claude AI</span><span class="tag">Remotive API</span><span class="tag">PWA</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Graduate Tools</span><span class="project-arrow">→</span></div>
+    <!-- NEW FLAGship PROJECTS -->
+    <a href="https://geeradebe.github.io/Certi-fika" target="_blank" class="project-card">
+      <div class="project-status">LIVE • CRYPTOGRAPHIC TRUST</div>
+      <div class="project-name">CERTI-FIKA</div>
+      <div class="project-desc">Verifiable Credentials wallet with HMAC-SHA256 fingerprinting, DID support, and ultra-compact QR codes for instant tamper-proof verification.</div>
+      <div class="tags">
+        <span class="tag crypto">Verifiable Credentials</span>
+        <span class="tag crypto">HMAC-SHA256</span>
+        <span class="tag">DID • QR</span>
+      </div>
     </a>
 
-    <a class="project-card" href="https://geeradebe.github.io/SatStockvel" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">SatStockvel</div>
-      <div class="project-desc">Bitcoin savings dashboard built on the traditional stokvel model. Per-member BTC accumulation curves, live price ticker, payout markers, and a dark Bitcoin-orange aesthetic.</div>
-      <div class="project-tags"><span class="tag hot">HTML/JS</span><span class="tag">BTC API</span><span class="tag">Chart.js</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Fintech · Community</span><span class="project-arrow">→</span></div>
+    <a href="https://geeradebe.github.io/KasiGuard" target="_blank" class="project-card">
+      <div class="project-status">LIVE • DEFENSIVE RISK MATRIX</div>
+      <div class="project-name">KASIGUARD</div>
+      <div class="project-desc">Cybersecurity risk assessment engine for SMEs. Weighted scoring, exponential penalties, Power Automate reports, and external threat intelligence.</div>
+      <div class="tags">
+        <span class="tag cyber">Risk Scoring</span>
+        <span class="tag cyber">Power Platform</span>
+        <span class="tag">Threat Intel</span>
+      </div>
     </a>
 
-    <a class="project-card" href="https://geeradebe.github.io/T4Tech-OPS" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">T⁴Tech Ops Suite</div>
-      <div class="project-desc">Dark industrial PWA for field operations — site reports, personnel management, work logs with .doc export, toast notifications, and bulk delete. Built for Gauteng SME field teams.</div>
-      <div class="project-tags"><span class="tag hot">PWA</span><span class="tag">Service Worker</span><span class="tag">IndexedDB</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Field Operations</span><span class="project-arrow">→</span></div>
+    <!-- ALL YOUR EXISTING PROJECTS -->
+    <a href="https://geeradebe.github.io/portfolio" target="_blank" class="project-card">
+      <div class="project-status">LIVE • THIS SITE</div>
+      <div class="project-name">portfolio</div>
+      <div class="project-desc">My personal website — single-file, zero-dependencies, industrial minimal design.</div>
+      <div class="tags"><span class="tag">HTML/CSS</span><span class="tag">GitHub Pages</span></div>
     </a>
 
-    <a class="project-card" href="https://geeradebe.github.io/T4Tech-Pricing" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public · v1.5</div>
-      <div class="project-name">T⁴Tech Pricing Engine</div>
-      <div class="project-desc">Dynamic pricing calculator with formula-based quoting (S = B×D×C + A), 15% retainer model, auto-tier detection, WhatsApp copy function, and PDF export for instant client proposals.</div>
-      <div class="project-tags"><span class="tag hot">HTML/JS</span><span class="tag hot">jsPDF</span><span class="tag">WhatsApp API</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Business Tools</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/portfolio" target="_blank" rel="noopener">
-      <div class="project-status">Live · This Site</div>
-      <div class="project-name">This Portfolio</div>
-      <div class="project-desc">Single-file HTML portfolio. Mobile-first, no build pipeline, deployed via GitHub mobile. Dark industrial aesthetic with animated hero, cert wall, experience timeline, and contact section.</div>
-      <div class="project-tags"><span class="tag hot">HTML/CSS/JS</span><span class="tag">GitHub Pages</span><span class="tag">Zero Dependencies</span></div>
-      <div class="project-footer"><span class="project-cat">Meta · Portfolio</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/EmergencyZA" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">EmergencyZA</div>
-      <div class="project-desc">SA emergency services directory. 73 facilities across Gauteng — police stations, clinics, hospitals, fire stations, GBV shelters. One-tap call. GPS-sorted. Works offline. Free.</div>
-      <div class="project-tags"><span class="tag hot">HTML/JS</span><span class="tag">GPS Location</span><span class="tag">Offline-First</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Public Safety</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/KasiLeague" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">KasiLeague</div>
-      <div class="project-desc">Township soccer tournament platform. Live standings, fixtures, player registry, knockout brackets, live match dashboard with clock, Betway/Hollywood themes, WhatsApp result sharing.</div>
-      <div class="project-tags"><span class="tag hot">HTML/JS</span><span class="tag">Live Stats</span><span class="tag">WhatsApp API</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Sports · Community</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/Tenderza" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">TenderZA</div>
-      <div class="project-desc">Government tender application generator for South African SMMEs. 5-step document builder, CSD compliance checker, 14-document checklist, live Gauteng opportunities, WhatsApp and PDF export.</div>
-      <div class="project-tags"><span class="tag hot">HTML/JS</span><span class="tag">CSD Ready</span><span class="tag">B-BBEE</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Gov Procurement · SMME</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/T4-ID-Hub" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">T⁴ ID Hub</div>
-      <div class="project-desc">Single sign-on entry point for the entire T⁴Tech ecosystem. Digital passport with role-based identity. 9-app grid. Session persistence. PIN login.</div>
-      <div class="project-tags"><span class="tag hot">HTML/JS</span><span class="tag">SSO</span><span class="tag">LocalStorage</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Ecosystem · Identity</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/FieldPro" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">FieldPro</div>
-      <div class="project-desc">Kasi rental marketplace for East & West Rand. Room seekers find available bachelor rooms by area. Landlord dashboard, WhatsApp lead generator.</div>
-      <div class="project-tags"><span class="tag hot">Tailwind CSS</span><span class="tag">WhatsApp API</span><span class="tag">Kasi-First</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">PropTech · East Rand</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/ChainTrack" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">ChainTrack</div>
-      <div class="project-desc">Driver delivery app for kasi logistics. Live route map (Leaflet.js), PIN-confirmed delivery handoff, earnings tracker, online/offline toggle.</div>
-      <div class="project-tags"><span class="tag hot">Leaflet.js</span><span class="tag">PIN Confirmation</span><span class="tag">Dark Mode</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Logistics · Last-Mile</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/Scholar-Link" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">Scholar-Link</div>
-      <div class="project-desc">Scholar transport safety platform. Driver boards students with capacity guard. SOS button sends WhatsApp emergency alert to parents.</div>
-      <div class="project-tags"><span class="tag hot">Tailwind CSS</span><span class="tag">WhatsApp SOS</span><span class="tag">Overload Guard</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Education · Safety</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <!-- Newly confirmed from your latest screenshots -->
-    <a class="project-card" href="https://geeradebe.github.io/Invoice-builder" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
-      <div class="project-name">Invoice-builder</div>
-      <div class="project-desc">Invoice builder with AI integration. Automated Financial Document Engine for fast, professional invoicing.</div>
-      <div class="project-tags"><span class="tag hot">HTML/JS</span><span class="tag">AI Integration</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Business Tools</span><span class="project-arrow">→</span></div>
-    </a>
-
-    <a class="project-card" href="https://geeradebe.github.io/Vantage-Hawk" target="_blank" rel="noopener">
-      <div class="project-status">Live · Public</div>
+    <a href="https://geeradebe.github.io/Vantage-Hawk" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
       <div class="project-name">Vantage-Hawk</div>
-      <div class="project-desc">VantageHawk: Tactical Security Command Center. High-performance, authoritative security dashboard.</div>
-      <div class="project-tags"><span class="tag hot">HTML/JS</span><span class="tag">Security</span><span class="tag">GitHub Pages</span></div>
-      <div class="project-footer"><span class="project-cat">Security Tools</span><span class="project-arrow">→</span></div>
+      <div class="project-desc">Tactical Security Command Center. High-performance security dashboard.</div>
+      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">Security</span></div>
     </a>
 
-    <!-- In Development -->
-    <div class="project-card" style="opacity:.5; cursor:default;">
-      <div class="project-status" style="color:#555;">In Development</div>
-      <div class="project-name">Supply Chain Capital Intelligence</div>
-      <div class="project-desc">Blueprint platform for spares and logistics SMEs. Stock visibility, supplier coordination, and procurement intelligence — Power Platform + Power BI backend.</div>
-      <div class="project-tags"><span class="tag">Power Platform</span><span class="tag">Power BI</span><span class="tag">Dataverse</span></div>
-      <div class="project-footer"><span class="project-cat">SME · Logistics</span><span class="project-arrow" style="color:#333;">→</span></div>
-    </div>
+    <a href="https://geeradebe.github.io/Invoice-builder" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">Invoice-builder</div>
+      <div class="project-desc">Invoice builder with AI integration. Automated Financial Document Engine.</div>
+      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">AI</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/T4Tech-OPS" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">T4Tech-OPS</div>
+      <div class="project-desc">Dark industrial PWA for field operations — site reports, personnel management, work logs.</div>
+      <div class="tags"><span class="tag">PWA</span><span class="tag">Service Worker</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/T4Tech-Pricing" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">T4Tech-Pricing</div>
+      <div class="project-desc">Dynamic pricing calculator with formula-based quoting, PDF export, and WhatsApp integration.</div>
+      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">jsPDF</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/LinkedOut" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">LinkedOut</div>
+      <div class="project-desc">Graduate intelligence platform with AI bots, job feed, and application tracker.</div>
+      <div class="tags"><span class="tag">React</span><span class="tag">AI</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/EmergencyZA" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">EmergencyZA</div>
+      <div class="project-desc">SA emergency services directory with one-tap calling and offline support.</div>
+      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">GPS</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/Scholar-Link" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">Scholar-Link</div>
+      <div class="project-desc">Scholar transport safety platform with SOS button and capacity guard.</div>
+      <div class="tags"><span class="tag">Tailwind</span><span class="tag">WhatsApp SOS</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/ChainTrack" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">ChainTrack</div>
+      <div class="project-desc">Driver delivery app for kasi logistics with live route map and PIN confirmation.</div>
+      <div class="tags"><span class="tag">Leaflet.js</span><span class="tag">Offline</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/FieldPro" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">FieldPro</div>
+      <div class="project-desc">Kasi rental marketplace for rooms with landlord dashboard and WhatsApp leads.</div>
+      <div class="tags"><span class="tag">Tailwind</span><span class="tag">WhatsApp</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/T4-ID-Hub" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">T4-ID-Hub</div>
+      <div class="project-desc">Single sign-on entry point for the entire T⁴Tech ecosystem with role-based access.</div>
+      <div class="tags"><span class="tag">SSO</span><span class="tag">LocalStorage</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/Tenderza" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">Tenderza</div>
+      <div class="project-desc">Government tender application generator for SMMEs with CSD compliance checker.</div>
+      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">B-BBEE</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/KasiLeague" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">KasiLeague</div>
+      <div class="project-desc">Township soccer tournament platform with live standings, fixtures, and WhatsApp sharing.</div>
+      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">Live Stats</span></div>
+    </a>
+
+    <a href="https://geeradebe.github.io/SatStockvel" target="_blank" class="project-card">
+      <div class="project-status">LIVE • PUBLIC</div>
+      <div class="project-name">SatStockvel</div>
+      <div class="project-desc">Bitcoin savings dashboard built on traditional stokvel model with live price ticker.</div>
+      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">BTC API</span></div>
+    </a>
 
   </div>
 </section>
 
-<hr class="rule">
-
-<!-- SKILLS (full section) -->
-<section id="skills">
-  <div class="section-label">Stack & Credentials</div>
-  <h2 class="section-title">Core <span>Skills</span></h2>
-  <div class="skills-layout">
-    <div>
-      <div class="skills-group-title">Microsoft Power Platform</div>
-      <div class="skill-rows">
-        <div class="skill-row"><span class="skill-name">Power Apps — Canvas</span><span class="skill-badge badge-cert">PL-400</span></div>
-        <div class="skill-row"><span class="skill-name">Power Apps — Model-Driven</span><span class="skill-badge badge-cert">PL-400</span></div>
-        <div class="skill-row"><span class="skill-name">Power Automate</span><span class="skill-badge badge-cert">PL-200</span></div>
-        <div class="skill-row"><span class="skill-name">Dynamics 365 Sales</span><span class="skill-badge badge-cert">MB-210</span></div>
-        <div class="skill-row"><span class="skill-name">Dataverse & SharePoint</span><span class="skill-badge badge-platform">Platform</span></div>
-        <div class="skill-row"><span class="skill-name">Power BI</span><span class="skill-badge badge-platform">Platform</span></div>
-      </div>
-      <div class="skills-group-title">Development</div>
-      <div class="skill-rows">
-        <div class="skill-row"><span class="skill-name">JavaScript / HTML / CSS</span><span class="skill-badge badge-lang">Language</span></div>
-        <div class="skill-row"><span class="skill-name">Python (Data Analysis)</span><span class="skill-badge badge-data">Maven · Simplilearn</span></div>
-        <div class="skill-row"><span class="skill-name">Electron.js + SQLite</span><span class="skill-badge badge-lang">Desktop</span></div>
-        <div class="skill-row"><span class="skill-name">React / Node.js</span><span class="skill-badge badge-lang">Framework</span></div>
-        <div class="skill-row"><span class="skill-name">C# / .NET / Java / C++</span><span class="skill-badge badge-lang">BSc IT</span></div>
-      </div>
-    </div>
-    <div>
-      <div class="skills-group-title">Cloud & DevOps</div>
-      <div class="skill-rows">
-        <div class="skill-row"><span class="skill-name">Microsoft Azure (Admin)</span><span class="skill-badge badge-cloud">Alison</span></div>
-        <div class="skill-row"><span class="skill-name">AWS (Lambda · CLI · BaaS)</span><span class="skill-badge badge-cloud">Alison Diploma</span></div>
-        <div class="skill-row"><span class="skill-name">Google Cloud Platform</span><span class="skill-badge badge-cloud">Simplilearn</span></div>
-        <div class="skill-row"><span class="skill-name">Docker · Kubernetes</span><span class="skill-badge badge-cloud">Alison Diploma</span></div>
-        <div class="skill-row"><span class="skill-name">DevOps Engineering</span><span class="skill-badge badge-cloud">Alison</span></div>
-      </div>
-      <div class="skills-group-title">Blockchain & Security</div>
-      <div class="skill-rows">
-        <div class="skill-row"><span class="skill-name">Cardano Blockchain</span><span class="skill-badge badge-bc">Certified Associate</span></div>
-        <div class="skill-row"><span class="skill-name">Bitcoin Development</span><span class="skill-badge badge-bc">Saylor CS120</span></div>
-        <div class="skill-row"><span class="skill-name">Ethereum / Solidity</span><span class="skill-badge badge-bc">Alison</span></div>
-        <div class="skill-row"><span class="skill-name">Kali Linux / CompTIA A+</span><span class="skill-badge badge-sec">Security</span></div>
-        <div class="skill-row"><span class="skill-name">AI Auditing</span><span class="skill-badge badge-sec">ISACA</span></div>
-        <div class="skill-row"><span class="skill-name">Generative AI</span><span class="skill-badge badge-data">Microsoft</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-label" style="margin-top:48px;">Full Credentials</div>
-  <h3 style="font-size:1.2rem;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;">Certification <span style="color:var(--red)">Wall</span></h3>
-  <p style="font-family:var(--mono);font-size:.65rem;color:var(--muted);">Verify all credentials at <a href="https://linkedin.com/in/geeradebe" target="_blank" style="color:var(--red);">linkedin.com/in/geeradebe</a></p>
-
-  <div class="cert-wall">
-    <!-- All your cert items from previous version are here – unchanged -->
-    <div class="cert-item"><div class="cert-issuer">Microsoft</div><div class="cert-name">Power Platform Developer Associate (PL-400)</div><div class="cert-date">Oct 2024</div></div>
-    <!-- ... (the full list of 30+ certs is the same as before) ... -->
-  </div>
-</section>
-
-<hr class="rule">
-
-<!-- EXPERIENCE + EDUCATION (unchanged from previous) -->
-<section id="experience">
-  <!-- Full experience content from earlier versions – kept identical -->
-</section>
-
-<hr class="rule">
-
-<!-- TRAINING -->
 <section id="training">
-  <div class="section-label">Professional Development</div>
-  <h2 class="section-title">Mecer Inter-Ed <span>Power Platform Training</span></h2>
-  <div class="training-header">
-    <span class="training-badge">COMPLETED 2024</span>
-    <h3>Microsoft Power Platform Developer Pathway</h3>
+  <div class="section-label">PROFESSIONAL DEVELOPMENT</div>
+  <h2 class="section-title">CERTIFICATIONS <span>2026</span></h2>
+
+  <div class="hp-certs">
+    <div class="hp-card">
+      <h3>IT for Business Success</h3>
+      <p style="color:#aaa;">Technology selection and integration strategies for business growth.</p>
+      <div style="margin-top:20px; font-family:'DM Mono'; font-size:0.78rem; color:#666;">
+        HP Foundation • 21 April 2026<br>
+        Serial: 5b692f3b-b80d-4c09-86a3-c372d86153b3
+      </div>
+    </div>
+
+    <div class="hp-card">
+      <h3>Professional Networking for Career Growth</h3>
+      <p style="color:#aaa;">Practical networking strategies, personal branding, and digital tools.</p>
+      <div style="margin-top:20px; font-family:'DM Mono'; font-size:0.78rem; color:#666;">
+        HP Foundation • 18 April 2026<br>
+        Serial: 91115480-8c72-4fd9-896b-f1b26ceabc44
+      </div>
+    </div>
   </div>
-  <p style="font-size: .9rem; line-height: 1.7; max-width: 680px; color: #555;">
-    Intensive hands-on training through <strong>Mecer Inter-Ed</strong> (via Afrika Tikkun Services). 
-    Successfully completed the full pathway and passed the official exams for 
-    <strong>PL-400</strong>, <strong>PL-200</strong>, and <strong>MB-210</strong>.
-  </p>
-  <img src="mecer-schedule.jpg" alt="Mecer Inter-Ed Power Platform Training & Exam Schedule 2024" class="training-img">
-  <p style="font-family: var(--mono); font-size: .68rem; color: var(--muted); margin-top: 12px;">
-    Focused on Canvas Apps, Model-Driven Apps, Power Automate, Dataverse, Dynamics 365 Sales, and Power BI.
-  </p>
-</section>
-
-<hr class="rule">
-
-<!-- ABOUT, CONTACT, FOOTER (unchanged) -->
-<section id="about">
-  <!-- Full about content from previous -->
-</section>
-
-<section id="contact">
-  <!-- Full contact content from previous -->
 </section>
 
 <footer>
-  <div class="footer-text">
-    <span>T⁴Tech Solutions</span> · Tefo Radebe · Johannesburg, South Africa<br>
-    CIPC Registered · PL-400 · PL-200 · MB-210 · github.com/GeeRadebe · @GeeRadebe
-  </div>
-  <a href="#" class="back-to-top">↑ Back to Top</a>
+  <div>T⁴Tech Solutions • Tefo Radebe • Johannesburg, South Africa</div>
+  <div style="margin-top:12px; font-size:0.8rem;">CIPC Registered • github.com/GeeRadebe • @GeeRadebe</div>
 </footer>
 
+<script>
+window.onload = () => {
+  let progress = 0;
+  const bar = document.getElementById('progress');
+  const percentEl = document.getElementById('boot-percent');
+
+  const interval = setInterval(() => {
+    progress += Math.random() * 22 + 8;
+    if (progress > 100) progress = 100;
+    bar.style.width = progress + '%';
+    percentEl.textContent = Math.floor(progress) + '%';
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        document.getElementById('boot-screen').style.transition = 'opacity 0.8s';
+        document.getElementById('boot-screen').style.opacity = '0';
+        setTimeout(() => document.getElementById('boot-screen').remove(), 900);
+      }, 300);
+    }
+  }, 55);
+};
+</script>
 </body>
-      </html>
+                          </html>
