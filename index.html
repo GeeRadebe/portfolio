@@ -1,356 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Tefo Radebe — Power Platform Developer & Functional Consultant. PL-400 · PL-200 · MB-210. Founder of T⁴Tech Solutions.">
-<title>Tefo Radebe | T⁴Tech Solutions</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --void: #000000;
-  --titanium: #E0E0E0;
-  --cyber-red: #FF003C;
-  --hazard: #1A1A1A;
-  --grid: #111111;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--void);
-  color: var(--titanium);
-  font-family: 'Syne', system-ui;
-  overflow-x: hidden;
-  line-height: 1.5;
-}
-
-/* Boot Screen */
-#boot-screen {
-  position: fixed; inset: 0; background: var(--void); z-index: 9999;
-  display: flex; align-items: center; justify-content: center; flex-direction: column;
-  font-family: 'DM Mono', monospace; color: var(--cyber-red); gap: 24px;
-}
-.boot-bar { width: 340px; height: 3px; background: var(--hazard); overflow: hidden; }
-.boot-progress { height: 100%; width: 0%; background: linear-gradient(90deg, var(--cyber-red), #00ffcc); transition: width 3s ease-out; }
-
-/* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(0,0,0,0.96); backdrop-filter: blur(12px);
-  border-bottom: 2px solid var(--cyber-red);
-  padding: 20px 40px; display: flex; align-items: center; justify-content: space-between;
-  font-family: 'DM Mono', monospace; font-size: 0.82rem;
-}
-.nav-logo { font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem; }
-.nav-links { display: flex; gap: 36px; }
-.nav-links a { color: #888; text-decoration: none; transition: color 0.3s; }
-.nav-links a:hover { color: var(--cyber-red); }
-.status { 
-  font-size: 0.68rem; padding: 6px 16px; border: 1px solid var(--cyber-red); 
-  color: var(--cyber-red); letter-spacing: 0.12em; 
-}
-
-/* HERO */
-.hero {
-  min-height: 100vh; padding: 140px 40px 100px; display: flex; align-items: center;
-  background: radial-gradient(circle at 20% 30%, rgba(255,0,60,0.06) 0%, transparent 60%);
-}
-.hero-content { max-width: 920px; }
-.eyebrow { font-family: 'DM Mono'; font-size: 0.78rem; color: #666; letter-spacing: 0.18em; margin-bottom: 16px; }
-.hero-name { 
-  font-size: clamp(3.8rem, 9vw, 7.2rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.05em;
-}
-.hero-name .red { color: var(--cyber-red); }
-.tagline { font-size: 1.25rem; color: #bbb; max-width: 680px; margin: 32px 0 48px; }
-.cert-strip { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
-.cert-pill {
-  font-family: 'DM Mono'; font-size: 0.68rem; padding: 8px 20px; border: 1px solid #333; 
-  transition: all 0.3s;
-}
-.cert-pill:hover { border-color: var(--cyber-red); color: var(--cyber-red); transform: translateY(-2px); }
-.cta { 
-  display: flex; gap: 16px; flex-wrap: wrap;
-}
-.btn {
-  padding: 16px 34px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-  border: 2px solid; font-size: 0.9rem; transition: all 0.4s;
-}
-.btn-red { border-color: var(--cyber-red); color: var(--cyber-red); }
-.btn-red:hover { background: var(--cyber-red); color: #000; }
-.btn-ghost { border-color: #555; color: #aaa; }
-.btn-ghost:hover { border-color: var(--titanium); color: var(--titanium); }
-
-/* PROJECTS */
-#projects { padding: 120px 40px; background: var(--grid); }
-.section-label { font-family: 'DM Mono'; font-size: 0.72rem; color: #666; letter-spacing: 0.15em; margin-bottom: 12px; }
-.section-title { font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 60px; }
-.section-title span { color: var(--cyber-red); }
-
-.projects-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px;
-}
-.project-card {
-  background: #0a0a0a; border: 2px solid #222; padding: 36px; transition: all 0.4s;
-  position: relative; text-decoration: none; color: inherit;
-}
-.project-card:hover {
-  border-color: var(--cyber-red);
-  transform: translateY(-8px);
-  box-shadow: 0 25px 40px -10px rgba(255,0,60,0.15);
-}
-.project-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--cyber-red), transparent);
-  transform: scaleX(0); transition: transform 0.5s;
-}
-.project-card:hover::before { transform: scaleX(1); }
-
-.project-status { font-family: 'DM Mono'; font-size: 0.68rem; color: #00cc88; letter-spacing: 0.1em; margin-bottom: 14px; }
-.project-name { font-size: 1.55rem; font-weight: 800; margin-bottom: 16px; }
-.project-desc { font-family: 'DM Mono'; font-size: 0.9rem; color: #999; line-height: 1.7; margin-bottom: 28px; }
-.tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.tag { 
-  font-family: 'DM Mono'; font-size: 0.68rem; padding: 5px 14px; background: #111; border: 1px solid #333;
-}
-.tag.crypto { border-color: #4a90e2; color: #7cb6f5; }
-.tag.cyber { border-color: var(--cyber-red); color: var(--cyber-red); }
-
-/* HP CERTIFICATES */
-.hp-certs {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; margin-top: 40px;
-}
-.hp-card {
-  background: #0a0a0a; border: 2px solid #003366; padding: 32px;
-}
-.hp-card h3 { color: #0078d4; margin-bottom: 12px; }
-
-/* Footer */
-footer {
-  background: var(--void); padding: 80px 40px 40px; text-align: center; font-family: 'DM Mono'; color: #555;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T⁴ // PORTFOLIO</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <style>
+        body { background: #050505; color: #00ff87; font-family: 'Courier New', monospace; }
+        .glass { background: rgba(10, 10, 10, 0.8); border: 1px solid #1a1a1a; }
+        input, textarea { background: #000 !important; border: 1px solid #333 !important; color: #00ff87 !important; }
+    </style>
 </head>
 <body>
+    <div id="root"></div>
 
-<div id="boot-screen">
-  <div style="font-size:2.4rem; font-weight:800; letter-spacing:-0.04em;">T⁴TECH NODE</div>
-  <div style="font-size:0.95rem; color:#555;">SYSTEM INITIALIZATION...</div>
-  <div class="boot-bar"><div class="boot-progress" id="progress"></div></div>
-  <div id="boot-percent" style="font-size:1.1rem; font-family:'DM Mono';">0%</div>
-</div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const _S = supabase.createClient('YOUR_URL', 'YOUR_KEY');
 
-<nav>
-  <div class="nav-logo">T⁴<span style="color:var(--cyber-red)">TECH</span></div>
-  <div class="nav-links">
-    <a href="#projects">PROJECTS</a>
-    <a href="#training">CERTIFICATIONS</a>
-    <a href="#contact">CONTACT</a>
-  </div>
-  <div class="status">SYSTEM_STATUS: ACTIVE_NODE</div>
-</nav>
+        const App = () => {
+            const [view, setView] = useState('main');
+            const [data, setData] = useState({ certs: [], posts: [], media: [] });
+            const [cmd, setCmd] = useState("");
 
-<section class="hero">
-  <div class="hero-content">
-    <div class="eyebrow">T⁴TECH SOLUTIONS • JOHANNESBURG • 2026</div>
-    <h1 class="hero-name">TEFO<br><span class="red">RADEBE</span></h1>
-    <p class="tagline">Power Platform Developer &amp; Functional Consultant<br>Building production-grade automation, cryptographic trust layers, and defensive tools for South African SMEs.</p>
+            useEffect(() => {
+                sync();
+                _S.channel('any').on('postgres_changes',{event:'*',schema:'public'},sync).subscribe();
+            }, []);
 
-    <div class="cert-strip">
-      <span class="cert-pill" style="border-color:#0078d4;color:#0078d4;">PL-400 • PL-200 • MB-210</span>
-      <span class="cert-pill" style="border-color:var(--cyber-red);color:var(--cyber-red);">HP LIFE — IT for Business Success</span>
-      <span class="cert-pill" style="border-color:var(--cyber-red);color:var(--cyber-red);">HP LIFE — Professional Networking</span>
-    </div>
+            async function sync() {
+                const { data: certs } = await _S.from('certs').select('*');
+                const { data: posts } = await _S.from('posts').select('*');
+                setData({ certs: certs || [], posts: posts || [] });
+            }
 
-    <div class="cta">
-      <a href="#projects" class="btn btn-red">VIEW ALL PROJECTS</a>
-      <a href="#contact" class="btn btn-ghost">SECURE CONTACT</a>
-    </div>
-  </div>
-</section>
+            const execBrain = async () => {
+                // Post to your Edge Function (Claude)
+                await fetch('YOUR_EDGE_FUNC_URL', { method: 'POST', body: JSON.stringify({ prompt: cmd }) });
+                setCmd("");
+            };
 
-<section id="projects">
-  <div class="section-label">LIVE &amp; DEPLOYED SYSTEMS</div>
-  <h2 class="section-title">CRITICAL <span>NODES</span></h2>
+            return (
+                <div className="p-4 max-w-xl mx-auto">
+                    <nav className="flex justify-between mb-8 border-b border-white/10 pb-2 text-xs">
+                        <span>T⁴_SYSTEM_v1.0</span>
+                        <div className="space-x-4">
+                            <button onClick={() => setView('main')}>[HOME]</button>
+                            <button onClick={() => setView('admin')}>[ADMIN]</button>
+                        </div>
+                    </nav>
 
-  <div class="projects-grid">
+                    {view === 'main' ? (
+                        <div className="space-y-8">
+                            <section>
+                                <h2 className="text-white mb-4">/CERTS</h2>
+                                {data.certs.map(c => (
+                                    <div key={c.id} className="glass p-3 mb-2 flex justify-between">
+                                        <span>{c.title}</span>
+                                        <span className="text-gray-600 text-xs">{c.date}</span>
+                                    </div>
+                                ))}
+                            </section>
 
-    <!-- NEW FLAGship PROJECTS -->
-    <a href="https://geeradebe.github.io/Certi-fika" target="_blank" class="project-card">
-      <div class="project-status">LIVE • CRYPTOGRAPHIC TRUST</div>
-      <div class="project-name">CERTI-FIKA</div>
-      <div class="project-desc">Verifiable Credentials wallet with HMAC-SHA256 fingerprinting, DID support, and ultra-compact QR codes for instant tamper-proof verification.</div>
-      <div class="tags">
-        <span class="tag crypto">Verifiable Credentials</span>
-        <span class="tag crypto">HMAC-SHA256</span>
-        <span class="tag">DID • QR</span>
-      </div>
-    </a>
+                            <section className="glass p-4 border-orange-900">
+                                <h2 className="text-orange-500 mb-2">⚡ LIGHTNING_TIP</h2>
+                                <code className="text-[10px] block mb-4">tediousguilty29@walletofsatoshi.com</code>
+                                <button className="w-full bg-orange-600 text-black py-2 font-bold">GENERATE INVOICE</button>
+                            </section>
+                        </div>
+                    ) : (
+                        <div className="space-y-4">
+                            <h2 className="text-white">/ADMIN_SHELL</h2>
+                            <textarea 
+                                className="w-full h-40 p-3 text-sm focus:border-green-500 outline-none"
+                                placeholder="Command: I got a new certificate from..."
+                                value={cmd}
+                                onChange={e => setCmd(e.target.value)}
+                            />
+                            <button onClick={execBrain} className="w-full py-3 bg-green-900 text-white border border-green-400">EXECUTE_CLAUDE_PARSE</button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
 
-    <a href="https://geeradebe.github.io/KasiGuard" target="_blank" class="project-card">
-      <div class="project-status">LIVE • DEFENSIVE RISK MATRIX</div>
-      <div class="project-name">KASIGUARD</div>
-      <div class="project-desc">Cybersecurity risk assessment engine for SMEs. Weighted scoring, exponential penalties, Power Automate reports, and external threat intelligence.</div>
-      <div class="tags">
-        <span class="tag cyber">Risk Scoring</span>
-        <span class="tag cyber">Power Platform</span>
-        <span class="tag">Threat Intel</span>
-      </div>
-    </a>
-
-    <!-- ALL YOUR EXISTING PROJECTS -->
-    <a href="https://geeradebe.github.io/portfolio" target="_blank" class="project-card">
-      <div class="project-status">LIVE • THIS SITE</div>
-      <div class="project-name">portfolio</div>
-      <div class="project-desc">My personal website — single-file, zero-dependencies, industrial minimal design.</div>
-      <div class="tags"><span class="tag">HTML/CSS</span><span class="tag">GitHub Pages</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/Vantage-Hawk" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">Vantage-Hawk</div>
-      <div class="project-desc">Tactical Security Command Center. High-performance security dashboard.</div>
-      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">Security</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/Invoice-builder" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">Invoice-builder</div>
-      <div class="project-desc">Invoice builder with AI integration. Automated Financial Document Engine.</div>
-      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">AI</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/T4Tech-OPS" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">T4Tech-OPS</div>
-      <div class="project-desc">Dark industrial PWA for field operations — site reports, personnel management, work logs.</div>
-      <div class="tags"><span class="tag">PWA</span><span class="tag">Service Worker</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/T4Tech-Pricing" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">T4Tech-Pricing</div>
-      <div class="project-desc">Dynamic pricing calculator with formula-based quoting, PDF export, and WhatsApp integration.</div>
-      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">jsPDF</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/LinkedOut" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">LinkedOut</div>
-      <div class="project-desc">Graduate intelligence platform with AI bots, job feed, and application tracker.</div>
-      <div class="tags"><span class="tag">React</span><span class="tag">AI</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/EmergencyZA" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">EmergencyZA</div>
-      <div class="project-desc">SA emergency services directory with one-tap calling and offline support.</div>
-      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">GPS</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/Scholar-Link" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">Scholar-Link</div>
-      <div class="project-desc">Scholar transport safety platform with SOS button and capacity guard.</div>
-      <div class="tags"><span class="tag">Tailwind</span><span class="tag">WhatsApp SOS</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/ChainTrack" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">ChainTrack</div>
-      <div class="project-desc">Driver delivery app for kasi logistics with live route map and PIN confirmation.</div>
-      <div class="tags"><span class="tag">Leaflet.js</span><span class="tag">Offline</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/FieldPro" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">FieldPro</div>
-      <div class="project-desc">Kasi rental marketplace for rooms with landlord dashboard and WhatsApp leads.</div>
-      <div class="tags"><span class="tag">Tailwind</span><span class="tag">WhatsApp</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/T4-ID-Hub" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">T4-ID-Hub</div>
-      <div class="project-desc">Single sign-on entry point for the entire T⁴Tech ecosystem with role-based access.</div>
-      <div class="tags"><span class="tag">SSO</span><span class="tag">LocalStorage</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/Tenderza" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">Tenderza</div>
-      <div class="project-desc">Government tender application generator for SMMEs with CSD compliance checker.</div>
-      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">B-BBEE</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/KasiLeague" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">KasiLeague</div>
-      <div class="project-desc">Township soccer tournament platform with live standings, fixtures, and WhatsApp sharing.</div>
-      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">Live Stats</span></div>
-    </a>
-
-    <a href="https://geeradebe.github.io/SatStockvel" target="_blank" class="project-card">
-      <div class="project-status">LIVE • PUBLIC</div>
-      <div class="project-name">SatStockvel</div>
-      <div class="project-desc">Bitcoin savings dashboard built on traditional stokvel model with live price ticker.</div>
-      <div class="tags"><span class="tag">HTML/JS</span><span class="tag">BTC API</span></div>
-    </a>
-
-  </div>
-</section>
-
-<section id="training">
-  <div class="section-label">PROFESSIONAL DEVELOPMENT</div>
-  <h2 class="section-title">CERTIFICATIONS <span>2026</span></h2>
-
-  <div class="hp-certs">
-    <div class="hp-card">
-      <h3>IT for Business Success</h3>
-      <p style="color:#aaa;">Technology selection and integration strategies for business growth.</p>
-      <div style="margin-top:20px; font-family:'DM Mono'; font-size:0.78rem; color:#666;">
-        HP Foundation • 21 April 2026<br>
-        Serial: 5b692f3b-b80d-4c09-86a3-c372d86153b3
-      </div>
-    </div>
-
-    <div class="hp-card">
-      <h3>Professional Networking for Career Growth</h3>
-      <p style="color:#aaa;">Practical networking strategies, personal branding, and digital tools.</p>
-      <div style="margin-top:20px; font-family:'DM Mono'; font-size:0.78rem; color:#666;">
-        HP Foundation • 18 April 2026<br>
-        Serial: 91115480-8c72-4fd9-896b-f1b26ceabc44
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div>T⁴Tech Solutions • Tefo Radebe • Johannesburg, South Africa</div>
-  <div style="margin-top:12px; font-size:0.8rem;">CIPC Registered • github.com/GeeRadebe • @GeeRadebe</div>
-</footer>
-
-<script>
-window.onload = () => {
-  let progress = 0;
-  const bar = document.getElementById('progress');
-  const percentEl = document.getElementById('boot-percent');
-
-  const interval = setInterval(() => {
-    progress += Math.random() * 22 + 8;
-    if (progress > 100) progress = 100;
-    bar.style.width = progress + '%';
-    percentEl.textContent = Math.floor(progress) + '%';
-
-    if (progress >= 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        document.getElementById('boot-screen').style.transition = 'opacity 0.8s';
-        document.getElementById('boot-screen').style.opacity = '0';
-        setTimeout(() => document.getElementById('boot-screen').remove(), 900);
-      }, 300);
-    }
-  }, 55);
-};
-</script>
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
 </body>
-                          </html>
+</html>
