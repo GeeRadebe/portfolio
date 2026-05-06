@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T⁴ // PORTFOLIO</title>
+    <title>T⁴ GR | Enterprise Portfolio</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
-        body { background: #050505; color: #00ff87; font-family: 'Courier New', monospace; }
-        .glass { background: rgba(10, 10, 10, 0.8); border: 1px solid #1a1a1a; }
-        input, textarea { background: #000 !important; border: 1px solid #333 !important; color: #00ff87 !important; }
+        body { background: #050505; color: #fff; font-family: 'Inter', sans-serif; }
+        .neon-border { border: 1px solid rgba(0, 255, 135, 0.1); transition: 0.3s; }
+        .neon-border:hover { border-color: #00ff87; box-shadow: 0 0 15px rgba(0, 255, 135, 0.1); }
+        .bot-glow { box-shadow: inset 0 0 20px rgba(0, 255, 135, 0.05); }
     </style>
 </head>
 <body>
@@ -20,75 +21,81 @@
 
     <script type="text/babel">
         const { useState, useEffect } = React;
-        const _S = supabase.createClient('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RjZ2lnY290bXR5YWdndGliIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NzgyOTcsImV4cCI6MjA5MzU1NDI5N30.o_6dy-CwhhtvoCRsjIIy2HQKV5d7vQZuNYKeAwO36e8', 'sb_publishable_VCTvAQ7VJJCqm-KTWdvi4g_Ca8Xq2fz');
+        const _S = supabase.createClient('https://wbodcgigcotmtyaggttib.supabase.co', 'Sb_publishable_VCTvAQ7VJJCqm-KTWdvi4g_Ca8Xq2fzeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RjZ2lnY290bXR5YWdndGliIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NzgyOTcsImV4cCI6MjA5MzU1NDI5N30.o_6dy-CwhhtvoCRsjIIy2HQKV5d7vQZuNYKeAwO36e8');
 
         const App = () => {
-            const [view, setView] = useState('main');
-            const [data, setData] = useState({ certs: [], posts: [], media: [] });
-            const [cmd, setCmd] = useState("");
+            const [projects, setProjects] = useState([]);
+            const [input, setInput] = useState("");
 
             useEffect(() => {
-                sync();
-                _S.channel('any').on('postgres_changes',{event:'*',schema:'public'},sync).subscribe();
+                const fetchProjects = async () => {
+                    const { data } = await _S.from('project_hub').select('*').order('created_at', {ascending: false});
+                    setProjects(data || []);
+                };
+                fetchProjects();
+                _S.channel('db-changes').on('postgres_changes', {event: '*', schema: 'public', table: 'project_hub'}, fetchProjects).subscribe();
             }, []);
 
-            async function sync() {
-                const { data: certs } = await _S.from('certs').select('*');
-                const { data: posts } = await _S.from('posts').select('*');
-                setData({ certs: certs || [], posts: posts || [] });
-            }
-
-            const execBrain = async () => {
-                // Post to your Edge Function (Claude)
-                await fetch('YOUR_EDGE_FUNC_URL', { method: 'POST', body: JSON.stringify({ prompt: cmd }) });
-                setCmd("");
-            };
-
             return (
-                <div className="p-4 max-w-xl mx-auto">
-                    <nav className="flex justify-between mb-8 border-b border-white/10 pb-2 text-xs">
-                        <span>T⁴_SYSTEM_v1.0</span>
-                        <div className="space-x-4">
-                            <button onClick={() => setView('main')}>[HOME]</button>
-                            <button onClick={() => setView('admin')}>[ADMIN]</button>
+                <div className="max-w-5xl mx-auto p-8 md:p-16">
+                    <header className="flex justify-between items-center mb-20">
+                        <div>
+                            <h1 className="text-4xl font-black tracking-tighter">T⁴ SYSTEM</h1>
+                            <p className="text-xs font-mono text-green-500 uppercase tracking-widest mt-1">Enterprise Architecture // South Africa</p>
                         </div>
-                    </nav>
+                        <div className="text-right hidden md:block text-[10px] text-gray-600 font-mono">
+                            LOC: JHB_GP<br/>SYS_VER: 4.0.1
+                        </div>
+                    </header>
 
-                    {view === 'main' ? (
-                        <div className="space-y-8">
-                            <section>
-                                <h2 className="text-white mb-4">/CERTS</h2>
-                                {data.certs.map(c => (
-                                    <div key={c.id} className="glass p-3 mb-2 flex justify-between">
-                                        <span>{c.title}</span>
-                                        <span className="text-gray-600 text-xs">{c.date}</span>
+                    {/* The Bot Admin Interface */}
+                    <section className="mb-24">
+                        <div className="bg-[#0f0f0f] border border-white/5 rounded-xl p-6 bot-glow">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                                <span className="text-[10px] font-bold uppercase text-gray-400">System Intelligence Hub</span>
+                            </div>
+                            <div className="flex gap-4">
+                                <input 
+                                    className="flex-1 bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-green-500 transition-all"
+                                    placeholder="Tell the bot to update projects, deploy assets, or modify registry..."
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                />
+                                <button className="bg-white text-black px-8 py-3 rounded-lg text-xs font-bold uppercase hover:bg-green-500 transition-colors">Invoke</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* The Project Grid */}
+                    <section>
+                        <h2 className="text-xs font-bold uppercase text-gray-500 mb-8 border-l-2 border-green-500 pl-4 tracking-widest">Active Project Registry</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {projects.map(p => (
+                                <div key={p.id} className="bg-[#0c0c0c] p-6 rounded-xl neon-border flex flex-col justify-between">
+                                    <div>
+                                        <div className="flex justify-between items-start mb-4">
+                                            <span className="text-[9px] font-mono text-green-500 bg-green-500/5 px-2 py-1 rounded tracking-tighter uppercase">{p.category}</span>
+                                            <span className="text-[8px] text-gray-700 font-mono">v1.0</span>
+                                        </div>
+                                        <h3 className="text-xl font-bold mb-2 tracking-tight">{p.title}</h3>
+                                        <p className="text-xs text-gray-500 leading-relaxed mb-6">{p.tagline}</p>
                                     </div>
-                                ))}
-                            </section>
+                                    <button className="text-[10px] font-bold uppercase tracking-widest text-white/30 hover:text-green-500 transition-colors mt-auto self-start">Inspect Details</button>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
 
-                            <section className="glass p-4 border-orange-900">
-                                <h2 className="text-orange-500 mb-2">⚡ LIGHTNING_TIP</h2>
-                                <code className="text-[10px] block mb-4">tediousguilty29@walletofsatoshi.com</code>
-                                <button className="w-full bg-orange-600 text-black py-2 font-bold">GENERATE INVOICE</button>
-                            </section>
-                        </div>
-                    ) : (
-                        <div className="space-y-4">
-                            <h2 className="text-white">/ADMIN_SHELL</h2>
-                            <textarea 
-                                className="w-full h-40 p-3 text-sm focus:border-green-500 outline-none"
-                                placeholder="Command: I got a new certificate from..."
-                                value={cmd}
-                                onChange={e => setCmd(e.target.value)}
-                            />
-                            <button onClick={execBrain} className="w-full py-3 bg-green-900 text-white border border-green-400">EXECUTE_CLAUDE_PARSE</button>
-                        </div>
-                    )}
+                    <footer className="mt-32 pt-12 border-t border-white/5 text-[10px] text-gray-700 font-mono uppercase flex justify-between">
+                        <span>Built for T⁴ GR // Registered Enterprise</span>
+                        <span>Terminal: Stable</span>
+                    </footer>
                 </div>
             );
         };
 
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+            ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
