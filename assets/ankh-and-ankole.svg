@@ -1,12 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 440" role="img" aria-labelledby="title description">
-  <title id="title">Ankh &amp; Ankole</title>
-  <desc id="description">A minimalist gold emblem combining an Ankh with the sweeping horns of Ankole cattle.</desc>
-  <g fill="none" stroke="#D4AF37" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M183 115 C155 112 131 100 111 78 C94 59 82 40 77 24 C99 48 119 56 142 58 C156 60 169 66 181 76"/>
-    <path d="M297 115 C325 112 349 100 369 78 C386 59 398 40 403 24 C381 48 361 56 338 58 C324 60 311 66 299 76"/>
-    <path d="M240 191 C208 165 164 129 164 91 C164 60 188 42 216 48 C226 50 234 56 240 64 C246 56 254 50 264 48 C292 42 316 60 316 91 C316 129 272 165 240 191Z"/>
-    <path d="M177 204H303"/>
-    <path d="M240 191V326"/>
-  </g>
-  <text x="240" y="382" text-anchor="middle" fill="#D4AF37" font-family="Georgia, 'Times New Roman', serif" font-size="29" letter-spacing="3.2">ANKH &amp; ANKOLE</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" role="img" aria-labelledby="title desc">
+  <title id="title">Reserved for business branding</title>
+  <desc id="desc">Placeholder graphic indicating that this file is reserved for separate business branding.</desc>
+  <rect width="600" height="220" fill="#070f22"/>
+  <rect x="40" y="45" width="520" height="130" rx="18" fill="none" stroke="#D4AF37" stroke-width="2.5"/>
+  <text x="300" y="103" text-anchor="middle" fill="#D4AF37" font-family="Georgia, 'Times New Roman', serif" font-size="28" letter-spacing="2">ANKHOLE HOLDINGS</text>
+  <text x="300" y="142" text-anchor="middle" fill="#b3c0d8" font-family="Segoe UI, Arial, sans-serif" font-size="16" letter-spacing="3">BUSINESS BRANDING RESERVED</text>
 </svg>
