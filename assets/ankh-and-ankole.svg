@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 440" role="img" aria-labelledby="title description">
+  <title id="title">Ankh &amp; Ankole</title>
+  <desc id="description">A minimalist gold emblem combining an Ankh with the sweeping horns of Ankole cattle.</desc>
+  <g fill="none" stroke="#D4AF37" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M183 115 C155 112 131 100 111 78 C94 59 82 40 77 24 C99 48 119 56 142 58 C156 60 169 66 181 76"/>
+    <path d="M297 115 C325 112 349 100 369 78 C386 59 398 40 403 24 C381 48 361 56 338 58 C324 60 311 66 299 76"/>
+    <path d="M240 191 C208 165 164 129 164 91 C164 60 188 42 216 48 C226 50 234 56 240 64 C246 56 254 50 264 48 C292 42 316 60 316 91 C316 129 272 165 240 191Z"/>
+    <path d="M177 204H303"/>
+    <path d="M240 191V326"/>
+  </g>
+  <text x="240" y="382" text-anchor="middle" fill="#D4AF37" font-family="Georgia, 'Times New Roman', serif" font-size="29" letter-spacing="3.2">ANKH &amp; ANKOLE</text>
+</svg>
